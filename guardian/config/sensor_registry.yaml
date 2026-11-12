@@ -1,0 +1,54 @@
+# Per sensor type: value fields (type + unit), expected reporting interval and which checks apply.
+# expected_interval_s: null means event-driven (no liveness heartbeat).
+sensor_types:
+  traffic_camera:
+    expected_interval_s: 10
+    fields:
+      vehicle_count: {type: int, unit: vehicles}
+      avg_speed_kmh: {type: float, unit: km/h}
+      congestion_score: {type: float, unit: ratio}
+    checks: [range, semantic, dynamics, corroboration, liveness]
+  water_level:
+    expected_interval_s: 5
+    fields:
+      level_m: {type: float, unit: m}
+    checks: [range, semantic, dynamics, corroboration, liveness]
+  power_meter:
+    expected_interval_s: 10
+    fields:
+      load_kw: {type: float, unit: kW}
+      capacity_kw: {type: float, unit: kW}
+    checks: [range, semantic, dynamics, corroboration, liveness]
+  air_quality:
+    expected_interval_s: 10
+    fields:
+      aqi: {type: float, unit: AQI}
+      smoke: {type: bool}
+    checks: [range, semantic, dynamics, corroboration, liveness]
+  emergency_call:
+    expected_interval_s: null
+    fields:
+      call_id: {type: str}
+      incident_type: {type: str, enum: [fire, flood, accident, medical, crime]}
+      caller_id: {type: str}
+    checks: [semantic, corroboration, call_rate]
+  rain_gauge:
+    expected_interval_s: 10
+    fields:
+      rainfall_mm_h: {type: float, unit: mm/h}
+    checks: [range, dynamics, corroboration, liveness]
+  flow_meter:
+    expected_interval_s: 5
+    fields:
+      flow_rate_m3s: {type: float, unit: m3/s}
+    checks: [range, dynamics, corroboration, liveness]
+  grid_meter:
+    expected_interval_s: 10
+    fields:
+      frequency_hz: {type: float, unit: Hz}
+      voltage_v: {type: float, unit: V}
+    checks: [range, dynamics, liveness]
+  # Event types sent by the real Twin (twin/): judged on authenticity, freshness and the city model.
+  cctv_anomaly: {expected_interval_s: null, fields: {anomaly_type: {type: str}, confidence: {type: float}}, checks: [semantic]}
+  building_fire: {expected_interval_s: null, fields: {building_id: {type: str}, smoke_detected: {type: bool}, temp_c: {type: float}, co2_ppm: {type: float}}, checks: [semantic]}
+  unit_status: {expected_interval_s: null, fields: {unit_id: {type: str}, incident_id: {type: str}, state: {type: str}}, checks: [semantic]}

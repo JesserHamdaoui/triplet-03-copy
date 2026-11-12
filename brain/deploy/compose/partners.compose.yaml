@@ -1,0 +1,37 @@
+# The Brain's partners in the triplet's root docker-compose.yml: the Twin team's real Twin and the Guardian team's real Guardian, by service name.
+# The Brain's own mock stack (brain/docker-compose.yml) reads partners.full.yaml. The port is published to 127.0.0.1 only (security.require: never).
+twin:
+  adapter: mcp
+  url: http://twin:8001/mcp
+  hmac_secret_env: TWIN_HMAC_SECRET
+  require_signature: true
+  poll_interval_ms: 200
+guardian:
+  adapter: v1
+  url: http://guardian:8003
+  api_key_env: BRAIN_API_KEY
+  hmac_secret_env: GUARDIAN_HMAC_KEY
+  dispatcher_id: dispatch-central
+  gateway: true
+  mode: sidecar
+  verdict_deadline_ms: 2000
+brain:
+  signing_secret_env: BRAIN_HMAC_SECRET
+  log_dir: logs
+  state_file: state/brain.sqlite
+  accepted_contract_versions: ["2026-09-17"]
+  reference_docs: ["INTERFACE.md"]
+  episodes_dir: state/episodes   # closed incidents are kept here; `make full-sleep` learns from them
+  learned_dir: state/learned
+graph:
+  backend: neo4j
+  uri: bolt://neo4j:7687
+  user: neo4j
+  password_env: NEO4J_PASSWORD
+  database: neo4j
+  qdrant_url: http://qdrant:6333    # the knowledge vectors; the City Graph stays in Neo4j
+  qdrant_fusion: server
+observability:
+  dashboard_url: http://grafana.localhost:8000/d/city-brain   # the screen's Observe button (the Compose obs profile; the port is TRAEFIK_PORT)
+security:
+  require: never

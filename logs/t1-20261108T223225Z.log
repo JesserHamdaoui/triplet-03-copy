@@ -1,0 +1,43 @@
+# t1 Pedestrian hit on a crosswalk
+# started 2026-11-08T22:30:43.802Z, ended: timeout, seed None, run 2
+# layer twin: reachable
+# layer guardian: NOT reachable, HTTPStatusError: Client error '404 Not Found' for url 'http://guardian:8003/events?limit=1000'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+# layer city_brain: NOT reachable, ReadTimeout: 
+2026-11-08T22:30:43.825Z  twin       brain_mode_unchanged       the City Brain decides for itself (HTTPStatusError)
+2026-11-08T22:30:43.825Z  twin       scenario_started           t1 Pedestrian hit on a crosswalk (brain: auto)
+2026-11-08T22:30:43.891Z  twin       live_reset                 live run 2: scenario ped-hit
+2026-11-08T22:30:56.070Z  twin       sim_incident               sim t=48.7: incident
+2026-11-08T22:30:56.070Z  twin       sim_witness_noticed        sim t=48.7: witness_noticed
+2026-11-08T22:30:56.070Z  twin       sim_witness_noticed        sim t=48.7: witness_noticed
+2026-11-08T22:30:56.070Z  twin       sim_witness_noticed        sim t=48.7: witness_noticed
+2026-11-08T22:30:56.443Z  twin       sim_call_started           sim t=50.2: call_started
+2026-11-08T22:30:56.567Z  twin       sim_camera_anomaly         sim t=50.7: camera_anomaly
+2026-11-08T22:30:56.593Z  twin       sim_call_started           sim t=50.8: call_started
+2026-11-08T22:30:56.694Z  twin       emergency_call_reading     emergency call call-0001 (other) -> inc-0001
+2026-11-08T22:30:57.268Z  twin       sim_call_started           sim t=53.5: call_started
+2026-11-08T22:31:01.618Z  twin       sim_call_ended             sim t=70.9: call_ended
+2026-11-08T22:31:01.818Z  twin       sim_call_ended             sim t=71.7: call_ended
+2026-11-08T22:31:02.393Z  twin       sim_call_ended             sim t=74.0: call_ended
+2026-11-08T22:31:16.919Z  twin       sim_camera_anomaly         sim t=132.1: camera_anomaly
+2026-11-08T22:31:27.918Z  twin       sim_camera_anomaly         sim t=176.1: camera_anomaly
+2026-11-08T22:31:38.918Z  twin       sim_camera_anomaly         sim t=220.1: camera_anomaly
+2026-11-08T22:31:49.918Z  twin       sim_camera_anomaly         sim t=264.1: camera_anomaly
+2026-11-08T22:31:59.744Z  twin       sim_witness_noticed        sim t=303.4: witness_noticed
+2026-11-08T22:32:00.894Z  twin       sim_camera_anomaly         sim t=308.0: camera_anomaly
+2026-11-08T22:32:00.993Z  twin       sim_call_started           sim t=308.4: call_started
+2026-11-08T22:32:01.200Z  twin       emergency_call_reading     emergency call call-0004 (medical) -> inc-0001
+2026-11-08T22:32:06.093Z  twin       sim_call_ended             sim t=328.8: call_ended
+2026-11-08T22:32:11.894Z  twin       sim_camera_anomaly         sim t=352.0: camera_anomaly
+2026-11-08T22:32:22.893Z  twin       sim_camera_anomaly         sim t=396.0: camera_anomaly
+# seen    twin:sim_incident (a car hits a pedestrian)
+# seen    twin:emergency_call_reading (a witness's call leaves the Twin as a signed reading)
+# MISSING guardian:verdict_issued (the Guardian judges the report)
+# MISSING city_brain:incident_reported (the Brain lists the incident from a trusted report)
+# MISSING city_brain:actuator_called (the Brain decides and calls an actuator)
+# MISSING twin:unit_dispatched (the Twin sends a unit out of its station)
+# MISSING twin:sim_unit_arrived (the unit reaches the scene)
+# MISSING twin:sim_casualty_loaded (the crew loads the casualty)
+# MISSING twin:sim_scene_cleared (the scene is cleared)
+# MISSING twin:sim_casualty_delivered (the casualty reaches the hospital)
+# result: FAIL

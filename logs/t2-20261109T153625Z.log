@@ -1,0 +1,302 @@
+# t2 Car crash at a junction
+# started 2026-11-09T15:34:20.659Z, ended: timeout, seed None, run 3
+# layer twin: reachable
+# layer guardian: NOT reachable, HTTPStatusError: Client error '404 Not Found' for url 'http://guardian:8003/events?limit=1000'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+# layer city_brain: reachable
+2026-11-09T15:34:20.669Z  twin       brain_mode_unchanged       the City Brain decides for itself (HTTPStatusError)
+2026-11-09T15:34:20.669Z  twin       scenario_started           t2 Car crash at a junction (brain: auto)
+2026-11-09T15:34:20.703Z  twin       live_reset                 live run 3: scenario car-crash
+2026-11-09T15:34:21.229Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:21.724Z  city_brain verdict.received           rain-dip-2-5#1
+2026-11-09T15:34:21.725Z  city_brain reading.received           wl-dip-2-5#1 water_level
+2026-11-09T15:34:22.231Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:23.291Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:23.703Z  city_brain verdict.received           wl-dip-2-5#1
+2026-11-09T15:34:23.703Z  city_brain reading.received           rain-dip-3-6#1 rainfall
+2026-11-09T15:34:24.292Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:25.298Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:25.666Z  city_brain verdict.received           rain-dip-3-6#1
+2026-11-09T15:34:25.666Z  city_brain reading.received           wl-dip-3-6#1 water_level
+2026-11-09T15:34:26.299Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:27.301Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:27.626Z  city_brain verdict.received           wl-dip-3-6#1
+2026-11-09T15:34:27.639Z  city_brain reading.received           cam-zone-01#1 traffic_camera
+2026-11-09T15:34:28.316Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:29.318Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:29.603Z  city_brain verdict.received           cam-zone-01#1
+2026-11-09T15:34:29.610Z  city_brain reading.received           cam-zone-02#1 traffic_camera
+2026-11-09T15:34:30.320Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:31.335Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:31.573Z  city_brain verdict.received           cam-zone-02#1
+2026-11-09T15:34:31.573Z  city_brain reading.received           aq-zone-01#1 air_quality
+2026-11-09T15:34:32.337Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:33.372Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:33.535Z  city_brain verdict.received           aq-zone-01#1
+2026-11-09T15:34:33.536Z  city_brain reading.received           aq-zone-02#1 air_quality
+2026-11-09T15:34:34.373Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:35.380Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:35.496Z  city_brain verdict.received           aq-zone-02#1
+2026-11-09T15:34:35.497Z  city_brain reading.received           aq-zone-03#1 air_quality
+2026-11-09T15:34:36.382Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:37.382Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:37.463Z  city_brain verdict.received           aq-zone-03#1
+2026-11-09T15:34:37.464Z  city_brain reading.received           wl-dip-2-3#2 water_level
+2026-11-09T15:34:38.401Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:39.403Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:39.433Z  city_brain verdict.received           wl-dip-2-3#2
+2026-11-09T15:34:39.434Z  city_brain reading.received           wl-dip-1-2#2 water_level
+2026-11-09T15:34:40.404Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:41.403Z  city_brain verdict.received           wl-dip-1-2#2
+2026-11-09T15:34:41.404Z  city_brain reading.received           wl-dip-4-5#2 water_level
+2026-11-09T15:34:41.411Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:42.412Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:43.364Z  city_brain verdict.received           wl-dip-4-5#2
+2026-11-09T15:34:43.373Z  city_brain reading.received           wl-dip-5-6#2 water_level
+2026-11-09T15:34:43.446Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:44.448Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:45.335Z  city_brain verdict.received           wl-dip-5-6#2
+2026-11-09T15:34:45.336Z  city_brain reading.received           wl-dip-1-4#2 water_level
+2026-11-09T15:34:45.454Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:46.455Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:47.297Z  city_brain verdict.received           wl-dip-1-4#2
+2026-11-09T15:34:47.298Z  city_brain reading.received           wl-dip-2-5#2 water_level
+2026-11-09T15:34:47.457Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:48.484Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:49.260Z  city_brain verdict.received           wl-dip-2-5#2
+2026-11-09T15:34:49.261Z  city_brain reading.received           wl-dip-3-6#2 water_level
+2026-11-09T15:34:49.486Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:50.487Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:51.222Z  city_brain verdict.received           wl-dip-3-6#2
+2026-11-09T15:34:51.223Z  city_brain reading.received           rain-dip-2-3#2 rainfall
+2026-11-09T15:34:51.494Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:52.497Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:53.185Z  city_brain verdict.received           rain-dip-2-3#2
+2026-11-09T15:34:53.186Z  city_brain reading.received           wl-dip-2-3#3 water_level
+2026-11-09T15:34:53.523Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:54.524Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:55.100Z  twin       sim_incident               sim t=137.8: incident
+2026-11-09T15:34:55.100Z  twin       sim_witness_noticed        sim t=137.8: witness_noticed
+2026-11-09T15:34:55.100Z  twin       sim_witness_noticed        sim t=137.8: witness_noticed
+2026-11-09T15:34:55.100Z  twin       sim_witness_noticed        sim t=137.8: witness_noticed
+2026-11-09T15:34:55.144Z  city_brain verdict.received           wl-dip-2-3#3
+2026-11-09T15:34:55.145Z  city_brain reading.received           rain-dip-1-2#2 rainfall
+2026-11-09T15:34:55.530Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:55.551Z  twin       sim_call_started           sim t=139.6: call_started
+2026-11-09T15:34:55.626Z  twin       sim_call_started           sim t=139.9: call_started
+2026-11-09T15:34:55.626Z  twin       sim_camera_anomaly         sim t=139.9: camera_anomaly
+2026-11-09T15:34:55.627Z  twin       sim_camera_anomaly         sim t=139.9: camera_anomaly
+2026-11-09T15:34:56.075Z  twin       sim_call_started           sim t=141.7: call_started
+2026-11-09T15:34:56.531Z  twin       emergency_call_reading     emergency call 308a10-r3-call-0001 (medical) -> inc-0001
+2026-11-09T15:34:56.531Z  twin       emergency_call_reading     emergency call 308a10-r3-call-0002 (medical) -> inc-0001
+2026-11-09T15:34:56.537Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:57.108Z  city_brain verdict.received           rain-dip-1-2#2
+2026-11-09T15:34:57.117Z  city_brain reading.received           wl-dip-1-2#3 water_level
+2026-11-09T15:34:57.540Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:58.569Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:59.085Z  city_brain verdict.received           wl-dip-1-2#3
+2026-11-09T15:34:59.091Z  city_brain reading.received           rain-dip-4-5#2 rainfall
+2026-11-09T15:34:59.570Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:34:59.751Z  twin       sim_call_ended             sim t=156.4: call_ended
+2026-11-09T15:35:00.572Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:01.054Z  city_brain verdict.received           rain-dip-4-5#2
+2026-11-09T15:35:01.054Z  city_brain reading.received           wl-dip-4-5#3 water_level
+2026-11-09T15:35:01.400Z  twin       sim_call_ended             sim t=163.0: call_ended
+2026-11-09T15:35:01.579Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:02.051Z  twin       sim_call_ended             sim t=165.6: call_ended
+2026-11-09T15:35:02.579Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:03.017Z  city_brain verdict.received           wl-dip-4-5#3
+2026-11-09T15:35:03.018Z  city_brain reading.received           rain-dip-5-6#2 rainfall
+2026-11-09T15:35:03.603Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:04.604Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:04.980Z  city_brain verdict.received           rain-dip-5-6#2
+2026-11-09T15:35:04.980Z  city_brain reading.received           wl-dip-5-6#3 water_level
+2026-11-09T15:35:05.609Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:06.615Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:06.941Z  city_brain verdict.received           wl-dip-5-6#3
+2026-11-09T15:35:06.942Z  city_brain reading.received           rain-dip-1-4#2 rainfall
+2026-11-09T15:35:07.615Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:08.633Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:08.905Z  city_brain verdict.received           rain-dip-1-4#2
+2026-11-09T15:35:08.906Z  city_brain reading.received           wl-dip-1-4#3 water_level
+2026-11-09T15:35:09.634Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:10.351Z  twin       sim_witness_noticed        sim t=198.8: witness_noticed
+2026-11-09T15:35:10.636Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:10.869Z  city_brain verdict.received           wl-dip-1-4#3
+2026-11-09T15:35:10.878Z  city_brain reading.received           rain-dip-2-5#2 rainfall
+2026-11-09T15:35:11.642Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:11.675Z  twin       sim_call_started           sim t=204.1: call_started
+2026-11-09T15:35:12.643Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:12.839Z  city_brain verdict.received           rain-dip-2-5#2
+2026-11-09T15:35:12.840Z  city_brain reading.received           wl-dip-2-5#3 water_level
+2026-11-09T15:35:13.671Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:14.673Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:14.802Z  city_brain verdict.received           wl-dip-2-5#3
+2026-11-09T15:35:14.803Z  city_brain reading.received           rain-dip-3-6#2 rainfall
+2026-11-09T15:35:15.679Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:16.683Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:16.765Z  city_brain verdict.received           rain-dip-3-6#2
+2026-11-09T15:35:16.766Z  city_brain reading.received           wl-dip-3-6#3 water_level
+2026-11-09T15:35:17.685Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:17.775Z  twin       sim_call_ended             sim t=228.5: call_ended
+2026-11-09T15:35:18.709Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:18.729Z  city_brain verdict.received           wl-dip-3-6#3
+2026-11-09T15:35:18.729Z  city_brain reading.received           cam-zone-01#2 traffic_camera
+2026-11-09T15:35:18.925Z  twin       sim_camera_anomaly         sim t=233.1: camera_anomaly
+2026-11-09T15:35:19.711Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:20.691Z  city_brain verdict.received           cam-zone-01#2
+2026-11-09T15:35:20.692Z  city_brain reading.received           cam-zone-02#2 traffic_camera
+2026-11-09T15:35:20.713Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:21.721Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:22.655Z  city_brain verdict.received           cam-zone-02#2
+2026-11-09T15:35:22.656Z  city_brain reading.received           aq-zone-01#2 air_quality
+2026-11-09T15:35:22.722Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:23.748Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:24.617Z  city_brain verdict.received           aq-zone-01#2
+2026-11-09T15:35:24.627Z  city_brain reading.received           aq-zone-02#2 air_quality
+2026-11-09T15:35:24.749Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:25.754Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:26.586Z  city_brain verdict.received           aq-zone-02#2
+2026-11-09T15:35:26.587Z  city_brain reading.received           aq-zone-03#2 air_quality
+2026-11-09T15:35:26.768Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:27.770Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:28.550Z  city_brain verdict.received           aq-zone-03#2
+2026-11-09T15:35:28.551Z  city_brain reading.received           wl-dip-2-3#4 water_level
+2026-11-09T15:35:28.794Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:29.796Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:29.925Z  twin       sim_camera_anomaly         sim t=277.1: camera_anomaly
+2026-11-09T15:35:29.925Z  twin       sim_camera_anomaly         sim t=277.1: camera_anomaly
+2026-11-09T15:35:30.514Z  city_brain verdict.received           wl-dip-2-3#4
+2026-11-09T15:35:30.515Z  city_brain reading.received           wl-dip-1-2#4 water_level
+2026-11-09T15:35:30.798Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:31.806Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:32.478Z  city_brain verdict.received           wl-dip-1-2#4
+2026-11-09T15:35:32.479Z  city_brain reading.received           wl-dip-4-5#4 water_level
+2026-11-09T15:35:32.807Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:33.840Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:34.458Z  city_brain verdict.received           wl-dip-4-5#4
+2026-11-09T15:35:34.459Z  city_brain reading.received           wl-dip-5-6#4 water_level
+2026-11-09T15:35:34.842Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:35.847Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:36.423Z  city_brain verdict.received           wl-dip-5-6#4
+2026-11-09T15:35:36.433Z  city_brain reading.received           wl-dip-1-4#4 water_level
+2026-11-09T15:35:36.852Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:37.853Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:38.394Z  city_brain verdict.received           wl-dip-1-4#4
+2026-11-09T15:35:38.395Z  city_brain reading.received           wl-dip-2-5#4 water_level
+2026-11-09T15:35:38.896Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:39.897Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:40.359Z  city_brain verdict.received           wl-dip-2-5#4
+2026-11-09T15:35:40.360Z  city_brain reading.received           wl-dip-3-6#4 water_level
+2026-11-09T15:35:40.898Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:40.900Z  twin       sim_camera_anomaly         sim t=321.0: camera_anomaly
+2026-11-09T15:35:40.900Z  twin       sim_camera_anomaly         sim t=321.0: camera_anomaly
+2026-11-09T15:35:41.906Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:42.322Z  city_brain verdict.received           wl-dip-3-6#4
+2026-11-09T15:35:42.322Z  city_brain reading.received           rain-dip-2-3#3 rainfall
+2026-11-09T15:35:42.907Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:43.938Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:44.281Z  city_brain verdict.received           rain-dip-2-3#3
+2026-11-09T15:35:44.282Z  city_brain reading.received           wl-dip-2-3#5 water_level
+2026-11-09T15:35:44.940Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:45.946Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:46.242Z  city_brain verdict.received           wl-dip-2-3#5
+2026-11-09T15:35:46.243Z  city_brain reading.received           rain-dip-1-2#3 rainfall
+2026-11-09T15:35:46.952Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:47.953Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:48.207Z  city_brain verdict.received           rain-dip-1-2#3
+2026-11-09T15:35:48.208Z  city_brain reading.received           wl-dip-1-2#5 water_level
+2026-11-09T15:35:48.979Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:49.980Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:50.183Z  city_brain verdict.received           wl-dip-1-2#5
+2026-11-09T15:35:50.192Z  city_brain reading.received           rain-dip-4-5#3 rainfall
+2026-11-09T15:35:50.982Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:51.900Z  twin       sim_camera_anomaly         sim t=365.0: camera_anomaly
+2026-11-09T15:35:51.900Z  twin       sim_camera_anomaly         sim t=365.0: camera_anomaly
+2026-11-09T15:35:51.989Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:52.155Z  city_brain verdict.received           rain-dip-4-5#3
+2026-11-09T15:35:52.156Z  city_brain reading.received           wl-dip-4-5#5 water_level
+2026-11-09T15:35:52.990Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:54.015Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:54.119Z  city_brain verdict.received           wl-dip-4-5#5
+2026-11-09T15:35:54.120Z  city_brain reading.received           rain-dip-5-6#3 rainfall
+2026-11-09T15:35:55.017Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:56.023Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:56.081Z  city_brain verdict.received           rain-dip-5-6#3
+2026-11-09T15:35:56.082Z  city_brain reading.received           wl-dip-5-6#5 water_level
+2026-11-09T15:35:57.044Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:58.046Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:35:58.046Z  city_brain verdict.received           wl-dip-5-6#5
+2026-11-09T15:35:58.047Z  city_brain reading.received           rain-dip-1-4#3 rainfall
+2026-11-09T15:35:59.064Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:00.009Z  city_brain verdict.received           rain-dip-1-4#3
+2026-11-09T15:36:00.017Z  city_brain reading.received           wl-dip-1-4#5 water_level
+2026-11-09T15:36:00.066Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:01.067Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:01.979Z  city_brain verdict.received           wl-dip-1-4#5
+2026-11-09T15:36:01.980Z  city_brain reading.received           rain-dip-2-5#3 rainfall
+2026-11-09T15:36:02.073Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:02.901Z  twin       sim_camera_anomaly         sim t=409.0: camera_anomaly
+2026-11-09T15:36:02.901Z  twin       sim_camera_anomaly         sim t=409.0: camera_anomaly
+2026-11-09T15:36:03.076Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:03.941Z  city_brain verdict.received           rain-dip-2-5#3
+2026-11-09T15:36:03.942Z  city_brain reading.received           wl-dip-2-5#5 water_level
+2026-11-09T15:36:04.101Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:05.102Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:05.905Z  city_brain verdict.received           wl-dip-2-5#5
+2026-11-09T15:36:05.906Z  city_brain reading.received           rain-dip-3-6#3 rainfall
+2026-11-09T15:36:06.106Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:07.112Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:07.871Z  city_brain verdict.received           rain-dip-3-6#3
+2026-11-09T15:36:07.872Z  city_brain reading.received           wl-dip-3-6#5 water_level
+2026-11-09T15:36:08.113Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:09.128Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:09.837Z  city_brain verdict.received           wl-dip-3-6#5
+2026-11-09T15:36:09.838Z  city_brain reading.received           cam-zone-01#3 traffic_camera
+2026-11-09T15:36:10.130Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:11.131Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:11.800Z  city_brain verdict.received           cam-zone-01#3
+2026-11-09T15:36:11.801Z  city_brain reading.received           cam-zone-02#3 traffic_camera
+2026-11-09T15:36:12.138Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:13.140Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:13.764Z  city_brain verdict.received           cam-zone-02#3
+2026-11-09T15:36:13.765Z  city_brain reading.received           aq-zone-01#3 air_quality
+2026-11-09T15:36:13.900Z  twin       sim_camera_anomaly         sim t=453.0: camera_anomaly
+2026-11-09T15:36:13.901Z  twin       sim_camera_anomaly         sim t=453.0: camera_anomaly
+2026-11-09T15:36:14.172Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:15.172Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:15.734Z  city_brain verdict.received           aq-zone-01#3
+2026-11-09T15:36:15.735Z  city_brain reading.received           aq-zone-02#3 air_quality
+2026-11-09T15:36:16.187Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:17.192Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:17.700Z  city_brain verdict.received           aq-zone-02#3
+2026-11-09T15:36:17.701Z  city_brain reading.received           aq-zone-03#3 air_quality
+2026-11-09T15:36:18.193Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:19.212Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:19.659Z  city_brain verdict.received           aq-zone-03#3
+2026-11-09T15:36:19.660Z  city_brain reading.received           cam-n2#2 traffic_camera
+2026-11-09T15:36:20.213Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:21.215Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:21.622Z  city_brain verdict.received           cam-n2#2
+2026-11-09T15:36:21.623Z  city_brain reading.received           cam-n5#2 traffic_camera
+2026-11-09T15:36:22.223Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:23.225Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:23.583Z  city_brain verdict.received           cam-n5#2
+2026-11-09T15:36:23.584Z  city_brain reading.received           wl-dip-2-3#6 water_level
+2026-11-09T15:36:24.252Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:24.900Z  twin       sim_camera_anomaly         sim t=497.0: camera_anomaly
+2026-11-09T15:36:24.900Z  twin       sim_camera_anomaly         sim t=497.0: camera_anomaly
+2026-11-09T15:36:25.253Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T15:36:25.543Z  city_brain verdict.received           wl-dip-2-3#6
+2026-11-09T15:36:25.544Z  city_brain reading.received           wl-dip-1-2#6 water_level
+# seen    twin:sim_incident (a red-light runner hits a crossing car)
+# seen    twin:emergency_call_reading (a witness's call leaves the Twin as a signed reading)
+# MISSING guardian:verdict_issued (the Guardian judges the report)
+# MISSING city_brain:incident_reported (the Brain lists the incident from a trusted report)
+# MISSING city_brain:actuator_called (the Brain decides and calls an actuator)
+# MISSING twin:unit_dispatched (the Twin sends a unit out of its station)
+# MISSING twin:sim_unit_arrived (the unit reaches the scene)
+# MISSING twin:sim_casualty_loaded (the crew loads the casualty)
+# MISSING twin:sim_scene_cleared (the scene is cleared)
+# MISSING twin:sim_casualty_delivered (the casualty reaches the hospital)
+# result: FAIL

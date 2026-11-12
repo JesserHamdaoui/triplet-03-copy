@@ -1,0 +1,10 @@
+# The LAST matching line wins, so the general rule comes first.
+
+# Root files and folders (README, INTEGRATION, TESTBOOK, docker-compose.yml, scenarios/, logs/, docs/)
+# are shared by the triplet.
+*           @tsypcschallenger @tsypanyonyme77-dotcom @anonyme2000111-1
+
+# Each team commits only inside its own folder.
+/twin/      @tsypcschallenger
+/brain/     @tsypanyonyme77-dotcom
+/guardian/  @anonyme2000111-1

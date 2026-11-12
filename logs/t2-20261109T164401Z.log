@@ -1,0 +1,512 @@
+# t2 Car crash at a junction
+# started 2026-11-09T16:42:56.602Z, ended: closed, seed None, run 3
+# layer twin: reachable
+# layer guardian: reachable
+# layer city_brain: reachable
+2026-11-09T16:42:56.613Z  twin       brain_mode_unchanged       the City Brain decides for itself (HTTPStatusError)
+2026-11-09T16:42:56.613Z  twin       scenario_started           t2 Car crash at a junction (brain: auto)
+2026-11-09T16:42:56.644Z  twin       live_reset                 live run 3: scenario car-crash
+2026-11-09T16:42:57.386Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:42:58.387Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:42:59.389Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:00.390Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:01.420Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:01.456Z  city_brain reading.received           cam-n2#10 traffic_camera
+2026-11-09T16:43:01.459Z  city_brain verdict.received           cam-n2#10
+2026-11-09T16:43:01.460Z  city_brain reading.received           cam-n5#10 traffic_camera
+2026-11-09T16:43:01.464Z  city_brain verdict.received           cam-n5#10
+2026-11-09T16:43:01.465Z  city_brain reading.received           rain-dip-2-3#10 rainfall
+2026-11-09T16:43:01.467Z  city_brain verdict.received           rain-dip-2-3#10
+2026-11-09T16:43:01.468Z  city_brain reading.received           wl-dip-2-3#19 water_level
+2026-11-09T16:43:01.470Z  city_brain verdict.received           wl-dip-2-3#19
+2026-11-09T16:43:01.471Z  city_brain reading.received           rain-dip-1-2#10 rainfall
+2026-11-09T16:43:01.473Z  city_brain verdict.received           rain-dip-1-2#10
+2026-11-09T16:43:01.474Z  city_brain reading.received           wl-dip-1-2#19 water_level
+2026-11-09T16:43:01.477Z  city_brain verdict.received           wl-dip-1-2#19
+2026-11-09T16:43:01.478Z  city_brain reading.received           rain-dip-4-5#10 rainfall
+2026-11-09T16:43:01.481Z  city_brain verdict.received           rain-dip-4-5#10
+2026-11-09T16:43:01.482Z  city_brain reading.received           wl-dip-4-5#19 water_level
+2026-11-09T16:43:01.485Z  city_brain verdict.received           wl-dip-4-5#19
+2026-11-09T16:43:01.486Z  city_brain reading.received           rain-dip-5-6#10 rainfall
+2026-11-09T16:43:01.489Z  city_brain verdict.received           rain-dip-5-6#10
+2026-11-09T16:43:01.490Z  city_brain reading.received           wl-dip-5-6#19 water_level
+2026-11-09T16:43:01.492Z  city_brain verdict.received           wl-dip-5-6#19
+2026-11-09T16:43:01.493Z  city_brain reading.received           rain-dip-1-4#10 rainfall
+2026-11-09T16:43:01.496Z  city_brain verdict.received           rain-dip-1-4#10
+2026-11-09T16:43:01.497Z  city_brain reading.received           wl-dip-1-4#19 water_level
+2026-11-09T16:43:01.500Z  city_brain verdict.received           wl-dip-1-4#19
+2026-11-09T16:43:01.501Z  city_brain reading.received           rain-dip-2-5#10 rainfall
+2026-11-09T16:43:01.503Z  city_brain verdict.received           rain-dip-2-5#10
+2026-11-09T16:43:01.504Z  city_brain reading.received           wl-dip-2-5#19 water_level
+2026-11-09T16:43:01.506Z  city_brain verdict.received           wl-dip-2-5#19
+2026-11-09T16:43:01.508Z  city_brain reading.received           rain-dip-3-6#10 rainfall
+2026-11-09T16:43:01.511Z  city_brain verdict.received           rain-dip-3-6#10
+2026-11-09T16:43:01.512Z  city_brain reading.received           wl-dip-3-6#19 water_level
+2026-11-09T16:43:01.514Z  city_brain verdict.received           wl-dip-3-6#19
+2026-11-09T16:43:01.515Z  city_brain reading.received           cam-zone-01#10 traffic_camera
+2026-11-09T16:43:01.518Z  city_brain verdict.received           cam-zone-01#10
+2026-11-09T16:43:01.519Z  city_brain reading.received           cam-zone-02#10 traffic_camera
+2026-11-09T16:43:01.521Z  city_brain verdict.received           cam-zone-02#10
+2026-11-09T16:43:01.522Z  city_brain reading.received           aq-zone-01#10 air_quality
+2026-11-09T16:43:01.525Z  city_brain verdict.received           aq-zone-01#10
+2026-11-09T16:43:01.526Z  city_brain reading.received           aq-zone-02#10 air_quality
+2026-11-09T16:43:01.528Z  city_brain verdict.received           aq-zone-02#10
+2026-11-09T16:43:01.529Z  city_brain reading.received           aq-zone-03#10 air_quality
+2026-11-09T16:43:01.532Z  city_brain verdict.received           aq-zone-03#10
+2026-11-09T16:43:02.422Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:03.423Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:04.424Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:05.425Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:06.451Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:06.465Z  city_brain reading.received           wl-dip-2-3#20 water_level
+2026-11-09T16:43:06.468Z  city_brain verdict.received           wl-dip-2-3#20
+2026-11-09T16:43:06.469Z  city_brain reading.received           wl-dip-1-2#20 water_level
+2026-11-09T16:43:06.472Z  city_brain verdict.received           wl-dip-1-2#20
+2026-11-09T16:43:06.474Z  city_brain reading.received           wl-dip-4-5#20 water_level
+2026-11-09T16:43:06.477Z  city_brain verdict.received           wl-dip-4-5#20
+2026-11-09T16:43:06.479Z  city_brain reading.received           wl-dip-5-6#20 water_level
+2026-11-09T16:43:06.482Z  city_brain verdict.received           wl-dip-5-6#20
+2026-11-09T16:43:06.483Z  city_brain reading.received           wl-dip-1-4#20 water_level
+2026-11-09T16:43:06.486Z  city_brain verdict.received           wl-dip-1-4#20
+2026-11-09T16:43:06.487Z  city_brain reading.received           wl-dip-2-5#20 water_level
+2026-11-09T16:43:06.490Z  city_brain verdict.received           wl-dip-2-5#20
+2026-11-09T16:43:06.491Z  city_brain reading.received           wl-dip-3-6#20 water_level
+2026-11-09T16:43:06.494Z  city_brain verdict.received           wl-dip-3-6#20
+2026-11-09T16:43:07.452Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:08.454Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:09.455Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:10.457Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:11.496Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:11.632Z  city_brain reading.received           cam-n2#11 traffic_camera
+2026-11-09T16:43:11.636Z  city_brain verdict.received           cam-n2#11
+2026-11-09T16:43:11.637Z  city_brain reading.received           cam-n5#11 traffic_camera
+2026-11-09T16:43:11.641Z  city_brain verdict.received           cam-n5#11
+2026-11-09T16:43:11.642Z  city_brain reading.received           rain-dip-2-3#11 rainfall
+2026-11-09T16:43:11.644Z  city_brain verdict.received           rain-dip-2-3#11
+2026-11-09T16:43:11.645Z  city_brain reading.received           wl-dip-2-3#21 water_level
+2026-11-09T16:43:11.647Z  city_brain verdict.received           wl-dip-2-3#21
+2026-11-09T16:43:11.648Z  city_brain reading.received           rain-dip-1-2#11 rainfall
+2026-11-09T16:43:11.649Z  city_brain verdict.received           rain-dip-1-2#11
+2026-11-09T16:43:11.650Z  city_brain reading.received           wl-dip-1-2#21 water_level
+2026-11-09T16:43:11.653Z  city_brain verdict.received           wl-dip-1-2#21
+2026-11-09T16:43:11.654Z  city_brain reading.received           rain-dip-4-5#11 rainfall
+2026-11-09T16:43:11.656Z  city_brain verdict.received           rain-dip-4-5#11
+2026-11-09T16:43:11.657Z  city_brain reading.received           wl-dip-4-5#21 water_level
+2026-11-09T16:43:11.660Z  city_brain verdict.received           wl-dip-4-5#21
+2026-11-09T16:43:11.660Z  city_brain reading.received           rain-dip-5-6#11 rainfall
+2026-11-09T16:43:11.662Z  city_brain verdict.received           rain-dip-5-6#11
+2026-11-09T16:43:11.663Z  city_brain reading.received           wl-dip-5-6#21 water_level
+2026-11-09T16:43:11.665Z  city_brain verdict.received           wl-dip-5-6#21
+2026-11-09T16:43:11.666Z  city_brain reading.received           rain-dip-1-4#11 rainfall
+2026-11-09T16:43:11.669Z  city_brain verdict.received           rain-dip-1-4#11
+2026-11-09T16:43:11.670Z  city_brain reading.received           wl-dip-1-4#21 water_level
+2026-11-09T16:43:11.672Z  city_brain verdict.received           wl-dip-1-4#21
+2026-11-09T16:43:11.673Z  city_brain reading.received           rain-dip-2-5#11 rainfall
+2026-11-09T16:43:11.675Z  city_brain verdict.received           rain-dip-2-5#11
+2026-11-09T16:43:11.676Z  city_brain reading.received           wl-dip-2-5#21 water_level
+2026-11-09T16:43:11.678Z  city_brain verdict.received           wl-dip-2-5#21
+2026-11-09T16:43:11.679Z  city_brain reading.received           rain-dip-3-6#11 rainfall
+2026-11-09T16:43:11.681Z  city_brain verdict.received           rain-dip-3-6#11
+2026-11-09T16:43:11.682Z  city_brain reading.received           wl-dip-3-6#21 water_level
+2026-11-09T16:43:11.685Z  city_brain verdict.received           wl-dip-3-6#21
+2026-11-09T16:43:11.686Z  city_brain reading.received           cam-zone-01#11 traffic_camera
+2026-11-09T16:43:11.688Z  city_brain verdict.received           cam-zone-01#11
+2026-11-09T16:43:11.689Z  city_brain reading.received           cam-zone-02#11 traffic_camera
+2026-11-09T16:43:11.692Z  city_brain verdict.received           cam-zone-02#11
+2026-11-09T16:43:11.693Z  city_brain reading.received           aq-zone-01#11 air_quality
+2026-11-09T16:43:11.696Z  city_brain verdict.received           aq-zone-01#11
+2026-11-09T16:43:11.697Z  city_brain reading.received           aq-zone-02#11 air_quality
+2026-11-09T16:43:11.700Z  city_brain verdict.received           aq-zone-02#11
+2026-11-09T16:43:11.701Z  city_brain reading.received           aq-zone-03#11 air_quality
+2026-11-09T16:43:11.705Z  city_brain verdict.received           aq-zone-03#11
+2026-11-09T16:43:12.498Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:13.499Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:14.500Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:15.502Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:16.519Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:16.636Z  city_brain reading.received           wl-dip-2-3#22 water_level
+2026-11-09T16:43:16.638Z  city_brain verdict.received           wl-dip-2-3#22
+2026-11-09T16:43:16.639Z  city_brain reading.received           wl-dip-1-2#22 water_level
+2026-11-09T16:43:16.643Z  city_brain verdict.received           wl-dip-1-2#22
+2026-11-09T16:43:16.644Z  city_brain reading.received           wl-dip-4-5#22 water_level
+2026-11-09T16:43:16.646Z  city_brain verdict.received           wl-dip-4-5#22
+2026-11-09T16:43:16.647Z  city_brain reading.received           wl-dip-5-6#22 water_level
+2026-11-09T16:43:16.649Z  city_brain verdict.received           wl-dip-5-6#22
+2026-11-09T16:43:16.650Z  city_brain reading.received           wl-dip-1-4#22 water_level
+2026-11-09T16:43:16.652Z  city_brain verdict.received           wl-dip-1-4#22
+2026-11-09T16:43:16.653Z  city_brain reading.received           wl-dip-2-5#22 water_level
+2026-11-09T16:43:16.655Z  city_brain verdict.received           wl-dip-2-5#22
+2026-11-09T16:43:16.656Z  city_brain reading.received           wl-dip-3-6#22 water_level
+2026-11-09T16:43:16.658Z  city_brain verdict.received           wl-dip-3-6#22
+2026-11-09T16:43:17.520Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:18.521Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:19.523Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:20.524Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:21.550Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:21.615Z  city_brain reading.received           cam-n2#12 traffic_camera
+2026-11-09T16:43:21.618Z  city_brain verdict.received           cam-n2#12
+2026-11-09T16:43:21.619Z  city_brain reading.received           cam-n5#12 traffic_camera
+2026-11-09T16:43:21.623Z  city_brain verdict.received           cam-n5#12
+2026-11-09T16:43:21.624Z  city_brain reading.received           rain-dip-2-3#12 rainfall
+2026-11-09T16:43:21.626Z  city_brain verdict.received           rain-dip-2-3#12
+2026-11-09T16:43:21.627Z  city_brain reading.received           wl-dip-2-3#23 water_level
+2026-11-09T16:43:21.629Z  city_brain verdict.received           wl-dip-2-3#23
+2026-11-09T16:43:21.630Z  city_brain reading.received           rain-dip-1-2#12 rainfall
+2026-11-09T16:43:21.633Z  city_brain verdict.received           rain-dip-1-2#12
+2026-11-09T16:43:21.634Z  city_brain reading.received           wl-dip-1-2#23 water_level
+2026-11-09T16:43:21.637Z  city_brain verdict.received           wl-dip-1-2#23
+2026-11-09T16:43:21.638Z  city_brain reading.received           rain-dip-4-5#12 rainfall
+2026-11-09T16:43:21.641Z  city_brain verdict.received           rain-dip-4-5#12
+2026-11-09T16:43:21.642Z  city_brain reading.received           wl-dip-4-5#23 water_level
+2026-11-09T16:43:21.644Z  city_brain verdict.received           wl-dip-4-5#23
+2026-11-09T16:43:21.645Z  city_brain reading.received           rain-dip-5-6#12 rainfall
+2026-11-09T16:43:21.647Z  city_brain verdict.received           rain-dip-5-6#12
+2026-11-09T16:43:21.648Z  city_brain reading.received           wl-dip-5-6#23 water_level
+2026-11-09T16:43:21.651Z  city_brain verdict.received           wl-dip-5-6#23
+2026-11-09T16:43:21.652Z  city_brain reading.received           rain-dip-1-4#12 rainfall
+2026-11-09T16:43:21.655Z  city_brain verdict.received           rain-dip-1-4#12
+2026-11-09T16:43:21.656Z  city_brain reading.received           wl-dip-1-4#23 water_level
+2026-11-09T16:43:21.659Z  city_brain verdict.received           wl-dip-1-4#23
+2026-11-09T16:43:21.660Z  city_brain reading.received           rain-dip-2-5#12 rainfall
+2026-11-09T16:43:21.663Z  city_brain verdict.received           rain-dip-2-5#12
+2026-11-09T16:43:21.664Z  city_brain reading.received           wl-dip-2-5#23 water_level
+2026-11-09T16:43:21.666Z  city_brain verdict.received           wl-dip-2-5#23
+2026-11-09T16:43:21.667Z  city_brain reading.received           rain-dip-3-6#12 rainfall
+2026-11-09T16:43:21.669Z  city_brain verdict.received           rain-dip-3-6#12
+2026-11-09T16:43:21.670Z  city_brain reading.received           wl-dip-3-6#23 water_level
+2026-11-09T16:43:21.673Z  city_brain verdict.received           wl-dip-3-6#23
+2026-11-09T16:43:21.674Z  city_brain reading.received           cam-zone-01#12 traffic_camera
+2026-11-09T16:43:21.676Z  city_brain verdict.received           cam-zone-01#12
+2026-11-09T16:43:21.677Z  city_brain reading.received           cam-zone-02#12 traffic_camera
+2026-11-09T16:43:21.680Z  city_brain verdict.received           cam-zone-02#12
+2026-11-09T16:43:21.681Z  city_brain reading.received           aq-zone-01#12 air_quality
+2026-11-09T16:43:21.684Z  city_brain verdict.received           aq-zone-01#12
+2026-11-09T16:43:21.686Z  city_brain reading.received           aq-zone-02#12 air_quality
+2026-11-09T16:43:21.689Z  city_brain verdict.received           aq-zone-02#12
+2026-11-09T16:43:21.690Z  city_brain reading.received           aq-zone-03#12 air_quality
+2026-11-09T16:43:21.693Z  city_brain verdict.received           aq-zone-03#12
+2026-11-09T16:43:22.552Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:23.555Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:24.556Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:25.557Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:26.573Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:26.619Z  city_brain reading.received           wl-dip-2-3#24 water_level
+2026-11-09T16:43:26.621Z  city_brain verdict.received           wl-dip-2-3#24
+2026-11-09T16:43:26.623Z  city_brain reading.received           wl-dip-1-2#24 water_level
+2026-11-09T16:43:26.626Z  city_brain verdict.received           wl-dip-1-2#24
+2026-11-09T16:43:26.628Z  city_brain reading.received           wl-dip-4-5#24 water_level
+2026-11-09T16:43:26.630Z  city_brain verdict.received           wl-dip-4-5#24
+2026-11-09T16:43:26.631Z  city_brain reading.received           wl-dip-5-6#24 water_level
+2026-11-09T16:43:26.633Z  city_brain verdict.received           wl-dip-5-6#24
+2026-11-09T16:43:26.634Z  city_brain reading.received           wl-dip-1-4#24 water_level
+2026-11-09T16:43:26.636Z  city_brain verdict.received           wl-dip-1-4#24
+2026-11-09T16:43:26.637Z  city_brain reading.received           wl-dip-2-5#24 water_level
+2026-11-09T16:43:26.638Z  city_brain verdict.received           wl-dip-2-5#24
+2026-11-09T16:43:26.639Z  city_brain reading.received           wl-dip-3-6#24 water_level
+2026-11-09T16:43:26.641Z  city_brain verdict.received           wl-dip-3-6#24
+2026-11-09T16:43:27.574Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:28.575Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:29.576Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:30.578Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:31.059Z  twin       sim_incident               sim t=137.8: incident
+2026-11-09T16:43:31.059Z  twin       sim_witness_noticed        sim t=137.8: witness_noticed
+2026-11-09T16:43:31.059Z  twin       sim_witness_noticed        sim t=137.8: witness_noticed
+2026-11-09T16:43:31.060Z  twin       sim_witness_noticed        sim t=137.8: witness_noticed
+2026-11-09T16:43:31.508Z  twin       sim_call_started           sim t=139.6: call_started
+2026-11-09T16:43:31.580Z  twin       emergency_call_reading     emergency call acc809-r3-call-0001 (medical) -> inc-0001
+2026-11-09T16:43:31.582Z  twin       sim_call_started           sim t=139.9: call_started
+2026-11-09T16:43:31.583Z  twin       sim_camera_anomaly         sim t=139.9: camera_anomaly
+2026-11-09T16:43:31.583Z  twin       sim_camera_anomaly         sim t=139.9: camera_anomaly
+2026-11-09T16:43:31.584Z  guardian   guardian_system            sequence reset accepted for caller-ped0
+2026-11-09T16:43:31.585Z  guardian   verdict_issued             trusted caller-ped0#1 score=1.0
+2026-11-09T16:43:31.623Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:31.776Z  city_brain reading.received           caller-ped0#1 emergency_call
+2026-11-09T16:43:31.780Z  city_brain verdict.received           caller-ped0#1
+2026-11-09T16:43:31.781Z  city_brain incident_reported          inc-0003 accident
+2026-11-09T16:43:31.781Z  city_brain workspace.ignited          inc-0003 accident
+2026-11-09T16:43:31.781Z  city_brain pack.bid                   inc-0003
+2026-11-09T16:43:31.791Z  city_brain deliberation.started       inc-0003 desk
+2026-11-09T16:43:31.795Z  city_brain desk.assessed              inc-0003
+2026-11-09T16:43:31.804Z  city_brain desk.decided               inc-0003
+2026-11-09T16:43:31.804Z  city_brain deliberation.finished      inc-0003 desk
+2026-11-09T16:43:31.807Z  city_brain action.blocked             inc-0003 medium-impact action needs 2 independent trusted sources, found 1 (caller-ped0)
+2026-11-09T16:43:31.809Z  city_brain reading.received           cam-n2#13 traffic_camera
+2026-11-09T16:43:31.811Z  city_brain verdict.received           cam-n2#13
+2026-11-09T16:43:31.813Z  city_brain reading.received           cam-n5#13 traffic_camera
+2026-11-09T16:43:31.815Z  city_brain verdict.received           cam-n5#13
+2026-11-09T16:43:31.816Z  city_brain reading.received           rain-dip-2-3#13 rainfall
+2026-11-09T16:43:31.818Z  city_brain verdict.received           rain-dip-2-3#13
+2026-11-09T16:43:31.819Z  city_brain reading.received           wl-dip-2-3#25 water_level
+2026-11-09T16:43:31.823Z  city_brain verdict.received           wl-dip-2-3#25
+2026-11-09T16:43:31.824Z  city_brain reading.received           rain-dip-1-2#13 rainfall
+2026-11-09T16:43:31.827Z  city_brain verdict.received           rain-dip-1-2#13
+2026-11-09T16:43:31.828Z  city_brain reading.received           wl-dip-1-2#25 water_level
+2026-11-09T16:43:31.831Z  city_brain verdict.received           wl-dip-1-2#25
+2026-11-09T16:43:31.832Z  city_brain reading.received           rain-dip-4-5#13 rainfall
+2026-11-09T16:43:31.834Z  city_brain verdict.received           rain-dip-4-5#13
+2026-11-09T16:43:31.834Z  city_brain reading.received           wl-dip-4-5#25 water_level
+2026-11-09T16:43:31.836Z  city_brain verdict.received           wl-dip-4-5#25
+2026-11-09T16:43:31.837Z  city_brain reading.received           rain-dip-5-6#13 rainfall
+2026-11-09T16:43:31.840Z  city_brain verdict.received           rain-dip-5-6#13
+2026-11-09T16:43:31.841Z  city_brain reading.received           wl-dip-5-6#25 water_level
+2026-11-09T16:43:31.844Z  city_brain verdict.received           wl-dip-5-6#25
+2026-11-09T16:43:31.845Z  city_brain reading.received           rain-dip-1-4#13 rainfall
+2026-11-09T16:43:31.848Z  city_brain verdict.received           rain-dip-1-4#13
+2026-11-09T16:43:31.850Z  city_brain reading.received           wl-dip-1-4#25 water_level
+2026-11-09T16:43:31.852Z  city_brain verdict.received           wl-dip-1-4#25
+2026-11-09T16:43:31.853Z  city_brain reading.received           rain-dip-2-5#13 rainfall
+2026-11-09T16:43:31.857Z  city_brain verdict.received           rain-dip-2-5#13
+2026-11-09T16:43:31.858Z  city_brain reading.received           wl-dip-2-5#25 water_level
+2026-11-09T16:43:31.861Z  city_brain verdict.received           wl-dip-2-5#25
+2026-11-09T16:43:31.863Z  city_brain reading.received           rain-dip-3-6#13 rainfall
+2026-11-09T16:43:31.866Z  city_brain verdict.received           rain-dip-3-6#13
+2026-11-09T16:43:31.867Z  city_brain reading.received           wl-dip-3-6#25 water_level
+2026-11-09T16:43:31.870Z  city_brain verdict.received           wl-dip-3-6#25
+2026-11-09T16:43:31.871Z  city_brain reading.received           cam-zone-01#13 traffic_camera
+2026-11-09T16:43:31.874Z  city_brain verdict.received           cam-zone-01#13
+2026-11-09T16:43:31.876Z  city_brain reading.received           cam-zone-02#13 traffic_camera
+2026-11-09T16:43:31.878Z  city_brain verdict.received           cam-zone-02#13
+2026-11-09T16:43:31.886Z  city_brain reading.received           aq-zone-01#13 air_quality
+2026-11-09T16:43:31.889Z  city_brain verdict.received           aq-zone-01#13
+2026-11-09T16:43:31.892Z  city_brain reading.received           aq-zone-02#13 air_quality
+2026-11-09T16:43:31.896Z  city_brain verdict.received           aq-zone-02#13
+2026-11-09T16:43:31.897Z  city_brain reading.received           aq-zone-03#13 air_quality
+2026-11-09T16:43:31.901Z  city_brain verdict.received           aq-zone-03#13
+2026-11-09T16:43:32.034Z  twin       sim_call_started           sim t=141.7: call_started
+2026-11-09T16:43:32.625Z  twin       emergency_call_reading     emergency call acc809-r3-call-0002 (medical) -> inc-0001
+2026-11-09T16:43:32.627Z  guardian   guardian_system            sequence reset accepted for caller-crossing_car
+2026-11-09T16:43:32.628Z  guardian   verdict_issued             trusted caller-crossing_car#1 score=1.0
+2026-11-09T16:43:32.629Z  guardian   verdict_issued             trusted cam-n2-cctv#5 score=1.0
+2026-11-09T16:43:32.631Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:32.726Z  city_brain reading.received           caller-crossing_car#1 emergency_call
+2026-11-09T16:43:32.728Z  city_brain verdict.received           caller-crossing_car#1
+2026-11-09T16:43:32.730Z  city_brain deliberation.started       inc-0003 desk
+2026-11-09T16:43:32.734Z  city_brain deliberation.finished      inc-0003 desk
+2026-11-09T16:43:32.738Z  city_brain decision.made              inc-0003 dispatch_unit
+2026-11-09T16:43:32.739Z  city_brain actuator_called            inc-0003 dispatch_unit
+2026-11-09T16:43:32.741Z  twin       actuator_call_received     city_brain called dispatch_unit: Accident reported in zone-03 (caller-ped0#1, caller-crossing_car#1). Rule FIR-002.
+2026-11-09T16:43:32.742Z  twin       unit_dispatched            dispatch_unit -> dispatched (amb1)
+2026-11-09T16:43:32.744Z  city_brain action.result              inc-0003
+2026-11-09T16:43:32.753Z  city_brain corridor.opened            inc-0003
+2026-11-09T16:43:32.754Z  city_brain plan.reconciled            inc-0003
+2026-11-09T16:43:32.758Z  twin       sim_unit_dispatched        sim t=144.5: unit_dispatched
+2026-11-09T16:43:32.758Z  twin       sim_unit_pulled_out        sim t=144.6: unit_pulled_out
+2026-11-09T16:43:32.764Z  city_brain reading.received           cam-n2-cctv#5 cctv_anomaly
+2026-11-09T16:43:32.766Z  city_brain verdict.received           cam-n2-cctv#5
+2026-11-09T16:43:32.767Z  city_brain deliberation.started       inc-0003 desk
+2026-11-09T16:43:32.772Z  city_brain deliberation.finished      inc-0003 desk
+2026-11-09T16:43:32.773Z  city_brain action.blocked             inc-0003 no station has a unit available
+2026-11-09T16:43:33.637Z  guardian   verdict_issued             trusted unit-amb1#4 score=1.0
+2026-11-09T16:43:33.639Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:33.805Z  city_brain reading.received           unit-amb1#4 unit_status
+2026-11-09T16:43:33.807Z  city_brain verdict.received           unit-amb1#4
+2026-11-09T16:43:33.807Z  city_brain unit.status                inc-0003
+2026-11-09T16:43:34.640Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:35.642Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:35.708Z  twin       sim_call_ended             sim t=156.4: call_ended
+2026-11-09T16:43:36.663Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:36.687Z  city_brain reading.received           wl-dip-2-3#26 water_level
+2026-11-09T16:43:36.689Z  city_brain verdict.received           wl-dip-2-3#26
+2026-11-09T16:43:36.690Z  city_brain reading.received           wl-dip-1-2#26 water_level
+2026-11-09T16:43:36.693Z  city_brain verdict.received           wl-dip-1-2#26
+2026-11-09T16:43:36.695Z  city_brain reading.received           wl-dip-4-5#26 water_level
+2026-11-09T16:43:36.697Z  city_brain verdict.received           wl-dip-4-5#26
+2026-11-09T16:43:36.699Z  city_brain reading.received           wl-dip-5-6#26 water_level
+2026-11-09T16:43:36.703Z  city_brain verdict.received           wl-dip-5-6#26
+2026-11-09T16:43:36.704Z  city_brain reading.received           wl-dip-1-4#26 water_level
+2026-11-09T16:43:36.707Z  city_brain verdict.received           wl-dip-1-4#26
+2026-11-09T16:43:36.709Z  city_brain reading.received           wl-dip-2-5#26 water_level
+2026-11-09T16:43:36.712Z  city_brain verdict.received           wl-dip-2-5#26
+2026-11-09T16:43:36.713Z  city_brain reading.received           wl-dip-3-6#26 water_level
+2026-11-09T16:43:36.716Z  city_brain verdict.received           wl-dip-3-6#26
+2026-11-09T16:43:37.359Z  twin       sim_call_ended             sim t=163.0: call_ended
+2026-11-09T16:43:37.667Z  guardian   verdict_issued             trusted cam-n2-cctv#6 score=1.0
+2026-11-09T16:43:37.668Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:37.749Z  city_brain reading.received           cam-n2-cctv#6 cctv_anomaly
+2026-11-09T16:43:37.752Z  city_brain verdict.received           cam-n2-cctv#6
+2026-11-09T16:43:38.008Z  twin       sim_call_ended             sim t=165.6: call_ended
+2026-11-09T16:43:38.670Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:39.671Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:40.673Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:41.108Z  twin       sim_unit_arrived           sim t=178.0: unit_arrived
+2026-11-09T16:43:41.109Z  twin       sim_incident_phase         sim t=178.0: incident_phase
+2026-11-09T16:43:41.109Z  twin       sim_driver_out             sim t=178.0: driver_out
+2026-11-09T16:43:41.109Z  twin       sim_incident_phase         sim t=178.0: incident_phase
+2026-11-09T16:43:41.109Z  twin       sim_crew_out               sim t=178.0: crew_out
+2026-11-09T16:43:41.701Z  guardian   verdict_issued             trusted unit-amb1#5 score=1.0
+2026-11-09T16:43:41.704Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:41.870Z  city_brain reading.received           cam-n2#14 traffic_camera
+2026-11-09T16:43:41.872Z  city_brain verdict.received           cam-n2#14
+2026-11-09T16:43:41.873Z  city_brain reading.received           cam-n5#14 traffic_camera
+2026-11-09T16:43:41.876Z  city_brain verdict.received           cam-n5#14
+2026-11-09T16:43:41.878Z  city_brain reading.received           rain-dip-2-3#14 rainfall
+2026-11-09T16:43:41.881Z  city_brain verdict.received           rain-dip-2-3#14
+2026-11-09T16:43:41.882Z  city_brain reading.received           wl-dip-2-3#27 water_level
+2026-11-09T16:43:41.884Z  city_brain verdict.received           wl-dip-2-3#27
+2026-11-09T16:43:41.886Z  city_brain reading.received           rain-dip-1-2#14 rainfall
+2026-11-09T16:43:41.888Z  city_brain verdict.received           rain-dip-1-2#14
+2026-11-09T16:43:41.890Z  city_brain reading.received           wl-dip-1-2#27 water_level
+2026-11-09T16:43:41.893Z  city_brain verdict.received           wl-dip-1-2#27
+2026-11-09T16:43:41.895Z  city_brain reading.received           rain-dip-4-5#14 rainfall
+2026-11-09T16:43:41.899Z  city_brain verdict.received           rain-dip-4-5#14
+2026-11-09T16:43:41.900Z  city_brain reading.received           wl-dip-4-5#27 water_level
+2026-11-09T16:43:41.903Z  city_brain verdict.received           wl-dip-4-5#27
+2026-11-09T16:43:41.904Z  city_brain reading.received           rain-dip-5-6#14 rainfall
+2026-11-09T16:43:41.906Z  city_brain verdict.received           rain-dip-5-6#14
+2026-11-09T16:43:41.908Z  city_brain reading.received           wl-dip-5-6#27 water_level
+2026-11-09T16:43:41.911Z  city_brain verdict.received           wl-dip-5-6#27
+2026-11-09T16:43:41.912Z  city_brain reading.received           rain-dip-1-4#14 rainfall
+2026-11-09T16:43:41.916Z  city_brain verdict.received           rain-dip-1-4#14
+2026-11-09T16:43:41.917Z  city_brain reading.received           wl-dip-1-4#27 water_level
+2026-11-09T16:43:41.921Z  city_brain verdict.received           wl-dip-1-4#27
+2026-11-09T16:43:41.922Z  city_brain reading.received           rain-dip-2-5#14 rainfall
+2026-11-09T16:43:41.925Z  city_brain verdict.received           rain-dip-2-5#14
+2026-11-09T16:43:41.926Z  city_brain reading.received           wl-dip-2-5#27 water_level
+2026-11-09T16:43:41.928Z  city_brain verdict.received           wl-dip-2-5#27
+2026-11-09T16:43:41.930Z  city_brain reading.received           rain-dip-3-6#14 rainfall
+2026-11-09T16:43:41.932Z  city_brain verdict.received           rain-dip-3-6#14
+2026-11-09T16:43:41.933Z  city_brain reading.received           wl-dip-3-6#27 water_level
+2026-11-09T16:43:41.936Z  city_brain verdict.received           wl-dip-3-6#27
+2026-11-09T16:43:41.938Z  city_brain reading.received           cam-zone-01#14 traffic_camera
+2026-11-09T16:43:41.941Z  city_brain verdict.received           cam-zone-01#14
+2026-11-09T16:43:41.942Z  city_brain reading.received           cam-zone-02#14 traffic_camera
+2026-11-09T16:43:41.944Z  city_brain verdict.received           cam-zone-02#14
+2026-11-09T16:43:41.945Z  city_brain reading.received           aq-zone-01#14 air_quality
+2026-11-09T16:43:41.948Z  city_brain verdict.received           aq-zone-01#14
+2026-11-09T16:43:41.949Z  city_brain reading.received           aq-zone-02#14 air_quality
+2026-11-09T16:43:41.952Z  city_brain verdict.received           aq-zone-02#14
+2026-11-09T16:43:41.953Z  city_brain reading.received           aq-zone-03#14 air_quality
+2026-11-09T16:43:41.956Z  city_brain verdict.received           aq-zone-03#14
+2026-11-09T16:43:41.957Z  city_brain reading.received           unit-amb1#5 unit_status
+2026-11-09T16:43:41.960Z  city_brain verdict.received           unit-amb1#5
+2026-11-09T16:43:41.961Z  city_brain unit.status                inc-0003
+2026-11-09T16:43:42.708Z  guardian   verdict_issued             trusted cam-n2-cctv#7 score=1.0
+2026-11-09T16:43:42.710Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:42.733Z  twin       sim_treatment_started      sim t=184.5: treatment_started
+2026-11-09T16:43:42.786Z  city_brain reading.received           cam-n2-cctv#7 cctv_anomaly
+2026-11-09T16:43:42.788Z  city_brain verdict.received           cam-n2-cctv#7
+2026-11-09T16:43:43.711Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:44.712Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:44.758Z  twin       sim_incident_phase         sim t=192.6: incident_phase
+2026-11-09T16:43:44.759Z  twin       sim_casualty_lifted        sim t=192.6: casualty_lifted
+2026-11-09T16:43:45.483Z  twin       sim_witness_noticed        sim t=195.5: witness_noticed
+2026-11-09T16:43:45.714Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:46.732Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:46.808Z  twin       sim_call_started           sim t=200.8: call_started
+2026-11-09T16:43:46.910Z  city_brain reading.received           wl-dip-2-3#28 water_level
+2026-11-09T16:43:46.912Z  city_brain verdict.received           wl-dip-2-3#28
+2026-11-09T16:43:46.915Z  city_brain reading.received           wl-dip-1-2#28 water_level
+2026-11-09T16:43:46.918Z  city_brain verdict.received           wl-dip-1-2#28
+2026-11-09T16:43:46.919Z  city_brain reading.received           wl-dip-4-5#28 water_level
+2026-11-09T16:43:46.922Z  city_brain verdict.received           wl-dip-4-5#28
+2026-11-09T16:43:46.923Z  city_brain reading.received           wl-dip-5-6#28 water_level
+2026-11-09T16:43:46.926Z  city_brain verdict.received           wl-dip-5-6#28
+2026-11-09T16:43:46.927Z  city_brain reading.received           wl-dip-1-4#28 water_level
+2026-11-09T16:43:46.929Z  city_brain verdict.received           wl-dip-1-4#28
+2026-11-09T16:43:46.930Z  city_brain reading.received           wl-dip-2-5#28 water_level
+2026-11-09T16:43:46.932Z  city_brain verdict.received           wl-dip-2-5#28
+2026-11-09T16:43:46.933Z  city_brain reading.received           wl-dip-3-6#28 water_level
+2026-11-09T16:43:46.936Z  city_brain verdict.received           wl-dip-3-6#28
+2026-11-09T16:43:47.108Z  twin       sim_casualty_loaded        sim t=202.0: casualty_loaded
+2026-11-09T16:43:47.433Z  twin       sim_crew_aboard            sim t=203.3: crew_aboard
+2026-11-09T16:43:47.736Z  guardian   verdict_issued             trusted cam-n2-cctv#8 score=1.0
+2026-11-09T16:43:47.738Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:47.785Z  city_brain reading.received           cam-n2-cctv#8 cctv_anomaly
+2026-11-09T16:43:47.788Z  city_brain verdict.received           cam-n2-cctv#8
+2026-11-09T16:43:48.739Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:49.458Z  twin       sim_incident_phase         sim t=211.4: incident_phase
+2026-11-09T16:43:49.458Z  twin       sim_scene_cleared          sim t=211.4: scene_cleared
+2026-11-09T16:43:49.483Z  twin       sim_incident_phase         sim t=211.5: incident_phase
+2026-11-09T16:43:49.483Z  twin       sim_unit_left_scene        sim t=211.5: unit_left_scene
+2026-11-09T16:43:49.745Z  guardian   verdict_issued             trusted unit-amb1#6 score=1.0
+2026-11-09T16:43:49.746Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:49.852Z  city_brain reading.received           unit-amb1#6 unit_status
+2026-11-09T16:43:49.854Z  city_brain verdict.received           unit-amb1#6
+2026-11-09T16:43:49.854Z  city_brain unit.status                inc-0003
+2026-11-09T16:43:49.855Z  city_brain units.released             inc-0003
+2026-11-09T16:43:49.855Z  city_brain incident.closed            inc-0003
+2026-11-09T16:43:49.864Z  city_brain workspace.released         inc-0003 closed
+2026-11-09T16:43:50.748Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:50.783Z  twin       sim_call_ended             sim t=216.7: call_ended
+2026-11-09T16:43:51.802Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:51.920Z  city_brain reading.received           cam-n2#15 traffic_camera
+2026-11-09T16:43:51.922Z  city_brain verdict.received           cam-n2#15
+2026-11-09T16:43:51.928Z  city_brain reading.received           cam-n5#15 traffic_camera
+2026-11-09T16:43:51.930Z  city_brain verdict.received           cam-n5#15
+2026-11-09T16:43:51.930Z  city_brain incident.closed            inc-0002
+2026-11-09T16:43:51.942Z  city_brain reading.received           rain-dip-2-3#15 rainfall
+2026-11-09T16:43:51.946Z  city_brain verdict.received           rain-dip-2-3#15
+2026-11-09T16:43:51.947Z  city_brain reading.received           wl-dip-2-3#29 water_level
+2026-11-09T16:43:51.950Z  city_brain verdict.received           wl-dip-2-3#29
+2026-11-09T16:43:51.952Z  city_brain reading.received           rain-dip-1-2#15 rainfall
+2026-11-09T16:43:51.955Z  city_brain verdict.received           rain-dip-1-2#15
+2026-11-09T16:43:51.955Z  city_brain reading.received           wl-dip-1-2#29 water_level
+2026-11-09T16:43:51.958Z  city_brain verdict.received           wl-dip-1-2#29
+2026-11-09T16:43:51.959Z  city_brain reading.received           rain-dip-4-5#15 rainfall
+2026-11-09T16:43:51.964Z  city_brain verdict.received           rain-dip-4-5#15
+2026-11-09T16:43:51.965Z  city_brain reading.received           wl-dip-4-5#29 water_level
+2026-11-09T16:43:51.968Z  city_brain verdict.received           wl-dip-4-5#29
+2026-11-09T16:43:51.969Z  city_brain reading.received           rain-dip-5-6#15 rainfall
+2026-11-09T16:43:51.973Z  city_brain verdict.received           rain-dip-5-6#15
+2026-11-09T16:43:51.974Z  city_brain reading.received           wl-dip-5-6#29 water_level
+2026-11-09T16:43:51.977Z  city_brain verdict.received           wl-dip-5-6#29
+2026-11-09T16:43:51.977Z  city_brain reading.received           rain-dip-1-4#15 rainfall
+2026-11-09T16:43:51.980Z  city_brain verdict.received           rain-dip-1-4#15
+2026-11-09T16:43:51.981Z  city_brain reading.received           wl-dip-1-4#29 water_level
+2026-11-09T16:43:51.985Z  city_brain verdict.received           wl-dip-1-4#29
+2026-11-09T16:43:51.986Z  city_brain reading.received           rain-dip-2-5#15 rainfall
+2026-11-09T16:43:51.991Z  city_brain verdict.received           rain-dip-2-5#15
+2026-11-09T16:43:51.991Z  city_brain reading.received           wl-dip-2-5#29 water_level
+2026-11-09T16:43:51.995Z  city_brain verdict.received           wl-dip-2-5#29
+2026-11-09T16:43:51.996Z  city_brain reading.received           rain-dip-3-6#15 rainfall
+2026-11-09T16:43:52.000Z  city_brain verdict.received           rain-dip-3-6#15
+2026-11-09T16:43:52.001Z  city_brain reading.received           wl-dip-3-6#29 water_level
+2026-11-09T16:43:52.005Z  city_brain verdict.received           wl-dip-3-6#29
+2026-11-09T16:43:52.005Z  city_brain reading.received           cam-zone-01#15 traffic_camera
+2026-11-09T16:43:52.009Z  city_brain verdict.received           cam-zone-01#15
+2026-11-09T16:43:52.010Z  city_brain reading.received           cam-zone-02#15 traffic_camera
+2026-11-09T16:43:52.013Z  city_brain verdict.received           cam-zone-02#15
+2026-11-09T16:43:52.014Z  city_brain reading.received           aq-zone-01#15 air_quality
+2026-11-09T16:43:52.017Z  city_brain verdict.received           aq-zone-01#15
+2026-11-09T16:43:52.018Z  city_brain reading.received           aq-zone-02#15 air_quality
+2026-11-09T16:43:52.022Z  city_brain verdict.received           aq-zone-02#15
+2026-11-09T16:43:52.023Z  city_brain reading.received           aq-zone-03#15 air_quality
+2026-11-09T16:43:52.026Z  city_brain verdict.received           aq-zone-03#15
+2026-11-09T16:43:52.803Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:53.805Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:54.807Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:55.809Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:56.831Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:56.975Z  city_brain reading.received           wl-dip-2-3#30 water_level
+2026-11-09T16:43:56.979Z  city_brain verdict.received           wl-dip-2-3#30
+2026-11-09T16:43:56.981Z  city_brain reading.received           wl-dip-1-2#30 water_level
+2026-11-09T16:43:56.986Z  city_brain verdict.received           wl-dip-1-2#30
+2026-11-09T16:43:56.987Z  city_brain reading.received           wl-dip-4-5#30 water_level
+2026-11-09T16:43:56.993Z  city_brain verdict.received           wl-dip-4-5#30
+2026-11-09T16:43:56.994Z  city_brain reading.received           wl-dip-5-6#30 water_level
+2026-11-09T16:43:56.998Z  city_brain verdict.received           wl-dip-5-6#30
+2026-11-09T16:43:57.000Z  city_brain reading.received           wl-dip-1-4#30 water_level
+2026-11-09T16:43:57.005Z  city_brain verdict.received           wl-dip-1-4#30
+2026-11-09T16:43:57.007Z  city_brain reading.received           wl-dip-2-5#30 water_level
+2026-11-09T16:43:57.012Z  city_brain verdict.received           wl-dip-2-5#30
+2026-11-09T16:43:57.014Z  city_brain reading.received           wl-dip-3-6#30 water_level
+2026-11-09T16:43:57.019Z  city_brain verdict.received           wl-dip-3-6#30
+2026-11-09T16:43:57.832Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:58.834Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:43:59.835Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:44:00.837Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+2026-11-09T16:44:01.709Z  twin       sim_casualty_delivered     sim t=260.4: casualty_delivered
+2026-11-09T16:44:01.709Z  twin       sim_unit_back_at_station   sim t=260.4: unit_back_at_station
+2026-11-09T16:44:01.709Z  twin       sim_incident_phase         sim t=260.4: incident_phase
+2026-11-09T16:44:01.872Z  twin       tick_error                 emitter tick failed: 'str' object has no attribute 'get'
+# seen    twin:sim_incident (a red-light runner hits a crossing car)
+# seen    twin:emergency_call_reading (a witness's call leaves the Twin as a signed reading)
+# seen    guardian:verdict_issued (the Guardian judges the report)
+# seen    city_brain:incident_reported (the Brain lists the incident from a trusted report)
+# seen    city_brain:actuator_called (the Brain decides and calls an actuator)
+# seen    twin:unit_dispatched (the Twin sends a unit out of its station)
+# seen    twin:sim_unit_arrived (the unit reaches the scene)
+# seen    twin:sim_casualty_loaded (the crew loads the casualty)
+# seen    twin:sim_scene_cleared (the scene is cleared)
+# seen    twin:sim_casualty_delivered (the casualty reaches the hospital)
+# result: PASS

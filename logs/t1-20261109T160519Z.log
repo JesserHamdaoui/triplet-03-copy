@@ -1,0 +1,332 @@
+# t1 Pedestrian hit on a crosswalk
+# started 2026-11-09T16:04:36.211Z, ended: closed, seed None, run 2
+# layer twin: reachable
+# layer guardian: NOT reachable, HTTPStatusError: Client error '404 Not Found' for url 'http://guardian:8003/events?limit=1000'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+# layer city_brain: reachable
+2026-11-09T16:04:36.224Z  twin       brain_mode_unchanged       the City Brain decides for itself (HTTPStatusError)
+2026-11-09T16:04:36.224Z  twin       scenario_started           t1 Pedestrian hit on a crosswalk (brain: auto)
+2026-11-09T16:04:36.272Z  twin       live_reset                 live run 2: scenario ped-hit
+2026-11-09T16:04:39.764Z  city_brain reading.received           wl-dip-2-3#10 water_level
+2026-11-09T16:04:39.766Z  city_brain verdict.received           wl-dip-2-3#10
+2026-11-09T16:04:39.767Z  city_brain reading.received           wl-dip-1-2#10 water_level
+2026-11-09T16:04:39.770Z  city_brain verdict.received           wl-dip-1-2#10
+2026-11-09T16:04:39.771Z  city_brain reading.received           wl-dip-4-5#10 water_level
+2026-11-09T16:04:39.774Z  city_brain verdict.received           wl-dip-4-5#10
+2026-11-09T16:04:39.775Z  city_brain reading.received           wl-dip-5-6#10 water_level
+2026-11-09T16:04:39.777Z  city_brain verdict.received           wl-dip-5-6#10
+2026-11-09T16:04:39.778Z  city_brain reading.received           wl-dip-1-4#10 water_level
+2026-11-09T16:04:39.780Z  city_brain verdict.received           wl-dip-1-4#10
+2026-11-09T16:04:39.781Z  city_brain reading.received           wl-dip-2-5#10 water_level
+2026-11-09T16:04:39.784Z  city_brain verdict.received           wl-dip-2-5#10
+2026-11-09T16:04:39.785Z  city_brain reading.received           wl-dip-3-6#10 water_level
+2026-11-09T16:04:39.787Z  city_brain verdict.received           wl-dip-3-6#10
+2026-11-09T16:04:44.918Z  city_brain reading.received           cam-n2#6 traffic_camera
+2026-11-09T16:04:44.922Z  city_brain verdict.received           cam-n2#6
+2026-11-09T16:04:44.923Z  city_brain reading.received           cam-n5#6 traffic_camera
+2026-11-09T16:04:44.925Z  city_brain verdict.received           cam-n5#6
+2026-11-09T16:04:44.926Z  city_brain reading.received           rain-dip-2-3#6 rainfall
+2026-11-09T16:04:44.928Z  city_brain verdict.received           rain-dip-2-3#6
+2026-11-09T16:04:44.929Z  city_brain reading.received           wl-dip-2-3#11 water_level
+2026-11-09T16:04:44.931Z  city_brain verdict.received           wl-dip-2-3#11
+2026-11-09T16:04:44.932Z  city_brain reading.received           rain-dip-1-2#6 rainfall
+2026-11-09T16:04:44.934Z  city_brain verdict.received           rain-dip-1-2#6
+2026-11-09T16:04:44.934Z  city_brain reading.received           wl-dip-1-2#11 water_level
+2026-11-09T16:04:44.938Z  city_brain verdict.received           wl-dip-1-2#11
+2026-11-09T16:04:44.938Z  city_brain reading.received           rain-dip-4-5#6 rainfall
+2026-11-09T16:04:44.941Z  city_brain verdict.received           rain-dip-4-5#6
+2026-11-09T16:04:44.941Z  city_brain reading.received           wl-dip-4-5#11 water_level
+2026-11-09T16:04:44.944Z  city_brain verdict.received           wl-dip-4-5#11
+2026-11-09T16:04:44.945Z  city_brain reading.received           rain-dip-5-6#6 rainfall
+2026-11-09T16:04:44.947Z  city_brain verdict.received           rain-dip-5-6#6
+2026-11-09T16:04:44.948Z  city_brain reading.received           wl-dip-5-6#11 water_level
+2026-11-09T16:04:44.950Z  city_brain verdict.received           wl-dip-5-6#11
+2026-11-09T16:04:44.950Z  city_brain reading.received           rain-dip-1-4#6 rainfall
+2026-11-09T16:04:44.953Z  city_brain verdict.received           rain-dip-1-4#6
+2026-11-09T16:04:44.954Z  city_brain reading.received           wl-dip-1-4#11 water_level
+2026-11-09T16:04:44.956Z  city_brain verdict.received           wl-dip-1-4#11
+2026-11-09T16:04:44.956Z  city_brain reading.received           rain-dip-2-5#6 rainfall
+2026-11-09T16:04:44.958Z  city_brain verdict.received           rain-dip-2-5#6
+2026-11-09T16:04:44.959Z  city_brain reading.received           wl-dip-2-5#11 water_level
+2026-11-09T16:04:44.962Z  city_brain verdict.received           wl-dip-2-5#11
+2026-11-09T16:04:44.963Z  city_brain reading.received           rain-dip-3-6#6 rainfall
+2026-11-09T16:04:44.964Z  city_brain verdict.received           rain-dip-3-6#6
+2026-11-09T16:04:44.965Z  city_brain reading.received           wl-dip-3-6#11 water_level
+2026-11-09T16:04:44.968Z  city_brain verdict.received           wl-dip-3-6#11
+2026-11-09T16:04:44.968Z  city_brain reading.received           cam-zone-01#6 traffic_camera
+2026-11-09T16:04:44.971Z  city_brain verdict.received           cam-zone-01#6
+2026-11-09T16:04:44.972Z  city_brain reading.received           cam-zone-02#6 traffic_camera
+2026-11-09T16:04:44.974Z  city_brain verdict.received           cam-zone-02#6
+2026-11-09T16:04:44.975Z  city_brain reading.received           aq-zone-01#6 air_quality
+2026-11-09T16:04:44.977Z  city_brain verdict.received           aq-zone-01#6
+2026-11-09T16:04:44.977Z  city_brain reading.received           aq-zone-02#6 air_quality
+2026-11-09T16:04:44.980Z  city_brain verdict.received           aq-zone-02#6
+2026-11-09T16:04:44.981Z  city_brain reading.received           aq-zone-03#6 air_quality
+2026-11-09T16:04:44.983Z  city_brain verdict.received           aq-zone-03#6
+2026-11-09T16:04:48.469Z  twin       sim_incident               sim t=48.7: incident
+2026-11-09T16:04:48.469Z  twin       sim_witness_noticed        sim t=48.7: witness_noticed
+2026-11-09T16:04:48.469Z  twin       sim_witness_noticed        sim t=48.7: witness_noticed
+2026-11-09T16:04:48.470Z  twin       sim_witness_noticed        sim t=48.7: witness_noticed
+2026-11-09T16:04:48.844Z  twin       sim_call_started           sim t=50.2: call_started
+2026-11-09T16:04:48.969Z  twin       sim_camera_anomaly         sim t=50.7: camera_anomaly
+2026-11-09T16:04:48.994Z  twin       sim_call_started           sim t=50.8: call_started
+2026-11-09T16:04:49.669Z  twin       sim_call_started           sim t=53.5: call_started
+2026-11-09T16:04:49.792Z  twin       emergency_call_reading     emergency call cf9ad2-r2-call-0001 (other) -> inc-0001
+2026-11-09T16:04:49.792Z  twin       emergency_call_reading     emergency call cf9ad2-r2-call-0002 (medical) -> inc-0001
+2026-11-09T16:04:49.792Z  twin       emergency_call_reading     emergency call cf9ad2-r2-call-0003 (medical) -> inc-0001
+2026-11-09T16:04:49.910Z  city_brain reading.received           caller-ped1#1 emergency_call
+2026-11-09T16:04:49.912Z  city_brain verdict.received           caller-ped1#1
+2026-11-09T16:04:49.913Z  city_brain incident_reported          inc-0001 accident
+2026-11-09T16:04:49.913Z  city_brain workspace.ignited          inc-0001 accident
+2026-11-09T16:04:49.913Z  city_brain pack.bid                   inc-0001
+2026-11-09T16:04:49.918Z  city_brain deliberation.started       inc-0001 desk
+2026-11-09T16:04:49.922Z  city_brain desk.assessed              inc-0001
+2026-11-09T16:04:49.977Z  city_brain desk.decided               inc-0001
+2026-11-09T16:04:49.977Z  city_brain deliberation.finished      inc-0001 desk
+2026-11-09T16:04:49.980Z  city_brain action.blocked             inc-0001 medium-impact action needs 2 independent trusted sources, found 1 (caller-ped1)
+2026-11-09T16:04:49.983Z  city_brain reading.received           caller-ped3#1 emergency_call
+2026-11-09T16:04:49.986Z  city_brain verdict.received           caller-ped3#1
+2026-11-09T16:04:49.988Z  city_brain deliberation.started       inc-0001 desk
+2026-11-09T16:04:49.992Z  city_brain deliberation.finished      inc-0001 desk
+2026-11-09T16:04:49.996Z  city_brain decision.made              inc-0001 dispatch_unit
+2026-11-09T16:04:49.997Z  city_brain actuator_called            inc-0001 dispatch_unit
+2026-11-09T16:04:50.003Z  twin       actuator_call_received     city_brain called dispatch_unit: Accident reported in zone-03 (caller-ped1#1, caller-ped3#1). Rule FIR-002.
+2026-11-09T16:04:50.004Z  twin       unit_dispatched            dispatch_unit -> dispatched (amb1)
+2026-11-09T16:04:50.011Z  city_brain action.result              inc-0001
+2026-11-09T16:04:50.020Z  twin       sim_unit_dispatched        sim t=54.8: unit_dispatched
+2026-11-09T16:04:50.020Z  twin       sim_unit_pulled_out        sim t=54.9: unit_pulled_out
+2026-11-09T16:04:50.020Z  twin       sim_car_yielding           sim t=54.9: car_yielding
+2026-11-09T16:04:50.022Z  city_brain corridor.opened            inc-0001
+2026-11-09T16:04:50.022Z  city_brain plan.reconciled            inc-0001
+2026-11-09T16:04:50.029Z  city_brain reading.received           cam-n2-cctv#1 cctv_anomaly
+2026-11-09T16:04:50.031Z  city_brain verdict.received           cam-n2-cctv#1
+2026-11-09T16:04:50.033Z  city_brain deliberation.started       inc-0001 desk
+2026-11-09T16:04:50.038Z  city_brain deliberation.finished      inc-0001 desk
+2026-11-09T16:04:50.039Z  city_brain action.blocked             inc-0001 no station has a unit available
+2026-11-09T16:04:50.040Z  city_brain reading.received           wl-dip-2-3#12 water_level
+2026-11-09T16:04:50.043Z  city_brain verdict.received           wl-dip-2-3#12
+2026-11-09T16:04:50.044Z  city_brain reading.received           wl-dip-1-2#12 water_level
+2026-11-09T16:04:50.046Z  city_brain verdict.received           wl-dip-1-2#12
+2026-11-09T16:04:50.047Z  city_brain reading.received           wl-dip-4-5#12 water_level
+2026-11-09T16:04:50.049Z  city_brain verdict.received           wl-dip-4-5#12
+2026-11-09T16:04:50.050Z  city_brain reading.received           wl-dip-5-6#12 water_level
+2026-11-09T16:04:50.052Z  city_brain verdict.received           wl-dip-5-6#12
+2026-11-09T16:04:50.053Z  city_brain reading.received           wl-dip-1-4#12 water_level
+2026-11-09T16:04:50.055Z  city_brain verdict.received           wl-dip-1-4#12
+2026-11-09T16:04:50.056Z  city_brain reading.received           wl-dip-2-5#12 water_level
+2026-11-09T16:04:50.058Z  city_brain verdict.received           wl-dip-2-5#12
+2026-11-09T16:04:50.059Z  city_brain reading.received           wl-dip-3-6#12 water_level
+2026-11-09T16:04:50.061Z  city_brain verdict.received           wl-dip-3-6#12
+2026-11-09T16:04:50.888Z  city_brain reading.received           unit-amb1#1 unit_status
+2026-11-09T16:04:50.891Z  city_brain verdict.received           unit-amb1#1
+2026-11-09T16:04:50.891Z  city_brain unit.status                inc-0001
+2026-11-09T16:04:53.794Z  twin       sim_car_yielding           sim t=70.0: car_yielding
+2026-11-09T16:04:54.019Z  twin       sim_call_ended             sim t=70.9: call_ended
+2026-11-09T16:04:54.220Z  twin       sim_call_ended             sim t=71.7: call_ended
+2026-11-09T16:04:54.795Z  twin       sim_call_ended             sim t=74.0: call_ended
+2026-11-09T16:04:54.999Z  city_brain reading.received           cam-n2#7 traffic_camera
+2026-11-09T16:04:55.002Z  city_brain verdict.received           cam-n2#7
+2026-11-09T16:04:55.003Z  city_brain incident_reported          inc-0002 jam
+2026-11-09T16:04:55.005Z  city_brain deliberation.started       inc-0002 desk
+2026-11-09T16:04:55.009Z  city_brain desk.assessed              inc-0002
+2026-11-09T16:04:55.033Z  city_brain desk.decided               inc-0002
+2026-11-09T16:04:55.034Z  city_brain deliberation.finished      inc-0002 desk
+2026-11-09T16:04:55.035Z  city_brain action.blocked             inc-0002 no signal controller in reach
+2026-11-09T16:04:55.038Z  city_brain reading.received           cam-n2-cctv#2 cctv_anomaly
+2026-11-09T16:04:55.041Z  city_brain verdict.received           cam-n2-cctv#2
+2026-11-09T16:04:55.045Z  city_brain reading.received           cam-n5#7 traffic_camera
+2026-11-09T16:04:55.048Z  city_brain verdict.received           cam-n5#7
+2026-11-09T16:04:55.050Z  city_brain deliberation.started       inc-0002 desk
+2026-11-09T16:04:55.054Z  city_brain desk.assessed              inc-0002
+2026-11-09T16:04:55.064Z  city_brain desk.decided               inc-0002
+2026-11-09T16:04:55.064Z  city_brain deliberation.finished      inc-0002 desk
+2026-11-09T16:04:55.067Z  city_brain reading.received           rain-dip-2-3#7 rainfall
+2026-11-09T16:04:55.069Z  city_brain verdict.received           rain-dip-2-3#7
+2026-11-09T16:04:55.070Z  city_brain reading.received           wl-dip-2-3#13 water_level
+2026-11-09T16:04:55.073Z  city_brain verdict.received           wl-dip-2-3#13
+2026-11-09T16:04:55.074Z  city_brain reading.received           rain-dip-1-2#7 rainfall
+2026-11-09T16:04:55.076Z  city_brain verdict.received           rain-dip-1-2#7
+2026-11-09T16:04:55.077Z  city_brain reading.received           wl-dip-1-2#13 water_level
+2026-11-09T16:04:55.079Z  city_brain verdict.received           wl-dip-1-2#13
+2026-11-09T16:04:55.080Z  city_brain reading.received           rain-dip-4-5#7 rainfall
+2026-11-09T16:04:55.082Z  city_brain verdict.received           rain-dip-4-5#7
+2026-11-09T16:04:55.084Z  city_brain reading.received           wl-dip-4-5#13 water_level
+2026-11-09T16:04:55.086Z  city_brain verdict.received           wl-dip-4-5#13
+2026-11-09T16:04:55.087Z  city_brain reading.received           rain-dip-5-6#7 rainfall
+2026-11-09T16:04:55.089Z  city_brain verdict.received           rain-dip-5-6#7
+2026-11-09T16:04:55.090Z  city_brain reading.received           wl-dip-5-6#13 water_level
+2026-11-09T16:04:55.093Z  city_brain verdict.received           wl-dip-5-6#13
+2026-11-09T16:04:55.094Z  city_brain reading.received           rain-dip-1-4#7 rainfall
+2026-11-09T16:04:55.096Z  city_brain verdict.received           rain-dip-1-4#7
+2026-11-09T16:04:55.097Z  city_brain reading.received           wl-dip-1-4#13 water_level
+2026-11-09T16:04:55.099Z  city_brain verdict.received           wl-dip-1-4#13
+2026-11-09T16:04:55.100Z  city_brain reading.received           rain-dip-2-5#7 rainfall
+2026-11-09T16:04:55.102Z  city_brain verdict.received           rain-dip-2-5#7
+2026-11-09T16:04:55.103Z  city_brain reading.received           wl-dip-2-5#13 water_level
+2026-11-09T16:04:55.105Z  city_brain verdict.received           wl-dip-2-5#13
+2026-11-09T16:04:55.106Z  city_brain reading.received           rain-dip-3-6#7 rainfall
+2026-11-09T16:04:55.108Z  city_brain verdict.received           rain-dip-3-6#7
+2026-11-09T16:04:55.110Z  city_brain reading.received           wl-dip-3-6#13 water_level
+2026-11-09T16:04:55.112Z  city_brain verdict.received           wl-dip-3-6#13
+2026-11-09T16:04:55.113Z  city_brain reading.received           cam-zone-01#7 traffic_camera
+2026-11-09T16:04:55.116Z  city_brain verdict.received           cam-zone-01#7
+2026-11-09T16:04:55.117Z  city_brain reading.received           cam-zone-02#7 traffic_camera
+2026-11-09T16:04:55.119Z  city_brain verdict.received           cam-zone-02#7
+2026-11-09T16:04:55.121Z  city_brain reading.received           aq-zone-01#7 air_quality
+2026-11-09T16:04:55.123Z  city_brain verdict.received           aq-zone-01#7
+2026-11-09T16:04:55.124Z  city_brain reading.received           aq-zone-02#7 air_quality
+2026-11-09T16:04:55.125Z  city_brain verdict.received           aq-zone-02#7
+2026-11-09T16:04:55.126Z  city_brain reading.received           aq-zone-03#7 air_quality
+2026-11-09T16:04:55.128Z  city_brain verdict.received           aq-zone-03#7
+2026-11-09T16:04:55.720Z  twin       sim_unit_arrived           sim t=77.7: unit_arrived
+2026-11-09T16:04:55.720Z  twin       sim_incident_phase         sim t=77.7: incident_phase
+2026-11-09T16:04:55.720Z  twin       sim_incident_phase         sim t=77.7: incident_phase
+2026-11-09T16:04:55.720Z  twin       sim_crew_out               sim t=77.7: crew_out
+2026-11-09T16:04:55.953Z  city_brain reading.received           unit-amb1#2 unit_status
+2026-11-09T16:04:55.956Z  city_brain verdict.received           unit-amb1#2
+2026-11-09T16:04:55.956Z  city_brain unit.status                inc-0001
+2026-11-09T16:04:58.219Z  twin       sim_treatment_started      sim t=87.7: treatment_started
+2026-11-09T16:05:00.063Z  city_brain reading.received           cam-n2-cctv#3 cctv_anomaly
+2026-11-09T16:05:00.065Z  city_brain verdict.received           cam-n2-cctv#3
+2026-11-09T16:05:00.071Z  city_brain reading.received           wl-dip-2-3#14 water_level
+2026-11-09T16:05:00.073Z  city_brain verdict.received           wl-dip-2-3#14
+2026-11-09T16:05:00.075Z  city_brain reading.received           wl-dip-1-2#14 water_level
+2026-11-09T16:05:00.077Z  city_brain verdict.received           wl-dip-1-2#14
+2026-11-09T16:05:00.079Z  city_brain reading.received           wl-dip-4-5#14 water_level
+2026-11-09T16:05:00.081Z  city_brain verdict.received           wl-dip-4-5#14
+2026-11-09T16:05:00.082Z  city_brain reading.received           wl-dip-5-6#14 water_level
+2026-11-09T16:05:00.085Z  city_brain verdict.received           wl-dip-5-6#14
+2026-11-09T16:05:00.091Z  city_brain reading.received           wl-dip-1-4#14 water_level
+2026-11-09T16:05:00.094Z  city_brain verdict.received           wl-dip-1-4#14
+2026-11-09T16:05:00.096Z  city_brain reading.received           wl-dip-2-5#14 water_level
+2026-11-09T16:05:00.099Z  city_brain verdict.received           wl-dip-2-5#14
+2026-11-09T16:05:00.100Z  city_brain reading.received           wl-dip-3-6#14 water_level
+2026-11-09T16:05:00.102Z  city_brain verdict.received           wl-dip-3-6#14
+2026-11-09T16:05:00.244Z  twin       sim_incident_phase         sim t=95.8: incident_phase
+2026-11-09T16:05:00.245Z  twin       sim_casualty_lifted        sim t=95.8: casualty_lifted
+2026-11-09T16:05:03.944Z  twin       sim_casualty_loaded        sim t=110.6: casualty_loaded
+2026-11-09T16:05:04.218Z  twin       sim_crew_aboard            sim t=111.7: crew_aboard
+2026-11-09T16:05:05.029Z  city_brain reading.received           cam-n2#8 traffic_camera
+2026-11-09T16:05:05.031Z  city_brain verdict.received           cam-n2#8
+2026-11-09T16:05:05.038Z  city_brain reading.received           cam-n2-cctv#4 cctv_anomaly
+2026-11-09T16:05:05.041Z  city_brain verdict.received           cam-n2-cctv#4
+2026-11-09T16:05:05.046Z  city_brain reading.received           cam-n5#8 traffic_camera
+2026-11-09T16:05:05.049Z  city_brain verdict.received           cam-n5#8
+2026-11-09T16:05:05.053Z  city_brain reading.received           rain-dip-2-3#8 rainfall
+2026-11-09T16:05:05.056Z  city_brain verdict.received           rain-dip-2-3#8
+2026-11-09T16:05:05.057Z  city_brain reading.received           wl-dip-2-3#15 water_level
+2026-11-09T16:05:05.060Z  city_brain verdict.received           wl-dip-2-3#15
+2026-11-09T16:05:05.061Z  city_brain reading.received           rain-dip-1-2#8 rainfall
+2026-11-09T16:05:05.063Z  city_brain verdict.received           rain-dip-1-2#8
+2026-11-09T16:05:05.064Z  city_brain reading.received           wl-dip-1-2#15 water_level
+2026-11-09T16:05:05.066Z  city_brain verdict.received           wl-dip-1-2#15
+2026-11-09T16:05:05.067Z  city_brain reading.received           rain-dip-4-5#8 rainfall
+2026-11-09T16:05:05.070Z  city_brain verdict.received           rain-dip-4-5#8
+2026-11-09T16:05:05.071Z  city_brain reading.received           wl-dip-4-5#15 water_level
+2026-11-09T16:05:05.074Z  city_brain verdict.received           wl-dip-4-5#15
+2026-11-09T16:05:05.075Z  city_brain reading.received           rain-dip-5-6#8 rainfall
+2026-11-09T16:05:05.078Z  city_brain verdict.received           rain-dip-5-6#8
+2026-11-09T16:05:05.079Z  city_brain reading.received           wl-dip-5-6#15 water_level
+2026-11-09T16:05:05.081Z  city_brain verdict.received           wl-dip-5-6#15
+2026-11-09T16:05:05.083Z  city_brain reading.received           rain-dip-1-4#8 rainfall
+2026-11-09T16:05:05.085Z  city_brain verdict.received           rain-dip-1-4#8
+2026-11-09T16:05:05.086Z  city_brain reading.received           wl-dip-1-4#15 water_level
+2026-11-09T16:05:05.088Z  city_brain verdict.received           wl-dip-1-4#15
+2026-11-09T16:05:05.089Z  city_brain reading.received           rain-dip-2-5#8 rainfall
+2026-11-09T16:05:05.092Z  city_brain verdict.received           rain-dip-2-5#8
+2026-11-09T16:05:05.093Z  city_brain reading.received           wl-dip-2-5#15 water_level
+2026-11-09T16:05:05.096Z  city_brain verdict.received           wl-dip-2-5#15
+2026-11-09T16:05:05.098Z  city_brain reading.received           rain-dip-3-6#8 rainfall
+2026-11-09T16:05:05.101Z  city_brain verdict.received           rain-dip-3-6#8
+2026-11-09T16:05:05.102Z  city_brain reading.received           wl-dip-3-6#15 water_level
+2026-11-09T16:05:05.105Z  city_brain verdict.received           wl-dip-3-6#15
+2026-11-09T16:05:05.106Z  city_brain reading.received           cam-zone-01#8 traffic_camera
+2026-11-09T16:05:05.109Z  city_brain verdict.received           cam-zone-01#8
+2026-11-09T16:05:05.110Z  city_brain reading.received           cam-zone-02#8 traffic_camera
+2026-11-09T16:05:05.112Z  city_brain verdict.received           cam-zone-02#8
+2026-11-09T16:05:05.114Z  city_brain reading.received           aq-zone-01#8 air_quality
+2026-11-09T16:05:05.116Z  city_brain verdict.received           aq-zone-01#8
+2026-11-09T16:05:05.117Z  city_brain reading.received           aq-zone-02#8 air_quality
+2026-11-09T16:05:05.120Z  city_brain verdict.received           aq-zone-02#8
+2026-11-09T16:05:05.121Z  city_brain reading.received           aq-zone-03#8 air_quality
+2026-11-09T16:05:05.124Z  city_brain verdict.received           aq-zone-03#8
+2026-11-09T16:05:06.245Z  twin       sim_incident_phase         sim t=119.8: incident_phase
+2026-11-09T16:05:06.246Z  twin       sim_scene_cleared          sim t=119.8: scene_cleared
+2026-11-09T16:05:06.269Z  twin       sim_incident_phase         sim t=119.9: incident_phase
+2026-11-09T16:05:06.269Z  twin       sim_unit_left_scene        sim t=119.9: unit_left_scene
+2026-11-09T16:05:06.976Z  city_brain reading.received           unit-amb1#3 unit_status
+2026-11-09T16:05:06.978Z  city_brain verdict.received           unit-amb1#3
+2026-11-09T16:05:06.978Z  city_brain unit.status                inc-0001
+2026-11-09T16:05:06.978Z  city_brain units.released             inc-0001
+2026-11-09T16:05:06.978Z  city_brain incident.closed            inc-0001
+2026-11-09T16:05:06.985Z  city_brain workspace.released         inc-0001 closed
+2026-11-09T16:05:10.070Z  city_brain reading.received           wl-dip-2-3#16 water_level
+2026-11-09T16:05:10.072Z  city_brain verdict.received           wl-dip-2-3#16
+2026-11-09T16:05:10.073Z  city_brain reading.received           wl-dip-1-2#16 water_level
+2026-11-09T16:05:10.076Z  city_brain verdict.received           wl-dip-1-2#16
+2026-11-09T16:05:10.077Z  city_brain reading.received           wl-dip-4-5#16 water_level
+2026-11-09T16:05:10.079Z  city_brain verdict.received           wl-dip-4-5#16
+2026-11-09T16:05:10.080Z  city_brain reading.received           wl-dip-5-6#16 water_level
+2026-11-09T16:05:10.083Z  city_brain verdict.received           wl-dip-5-6#16
+2026-11-09T16:05:10.084Z  city_brain reading.received           wl-dip-1-4#16 water_level
+2026-11-09T16:05:10.088Z  city_brain verdict.received           wl-dip-1-4#16
+2026-11-09T16:05:10.089Z  city_brain reading.received           wl-dip-2-5#16 water_level
+2026-11-09T16:05:10.092Z  city_brain verdict.received           wl-dip-2-5#16
+2026-11-09T16:05:10.093Z  city_brain reading.received           wl-dip-3-6#16 water_level
+2026-11-09T16:05:10.096Z  city_brain verdict.received           wl-dip-3-6#16
+2026-11-09T16:05:15.053Z  city_brain reading.received           cam-n2#9 traffic_camera
+2026-11-09T16:05:15.056Z  city_brain verdict.received           cam-n2#9
+2026-11-09T16:05:15.066Z  city_brain reading.received           cam-n5#9 traffic_camera
+2026-11-09T16:05:15.069Z  city_brain verdict.received           cam-n5#9
+2026-11-09T16:05:15.074Z  city_brain reading.received           rain-dip-2-3#9 rainfall
+2026-11-09T16:05:15.077Z  city_brain verdict.received           rain-dip-2-3#9
+2026-11-09T16:05:15.078Z  city_brain reading.received           wl-dip-2-3#17 water_level
+2026-11-09T16:05:15.081Z  city_brain verdict.received           wl-dip-2-3#17
+2026-11-09T16:05:15.083Z  city_brain reading.received           rain-dip-1-2#9 rainfall
+2026-11-09T16:05:15.086Z  city_brain verdict.received           rain-dip-1-2#9
+2026-11-09T16:05:15.087Z  city_brain reading.received           wl-dip-1-2#17 water_level
+2026-11-09T16:05:15.090Z  city_brain verdict.received           wl-dip-1-2#17
+2026-11-09T16:05:15.091Z  city_brain reading.received           rain-dip-4-5#9 rainfall
+2026-11-09T16:05:15.094Z  city_brain verdict.received           rain-dip-4-5#9
+2026-11-09T16:05:15.095Z  city_brain reading.received           wl-dip-4-5#17 water_level
+2026-11-09T16:05:15.099Z  city_brain verdict.received           wl-dip-4-5#17
+2026-11-09T16:05:15.100Z  city_brain reading.received           rain-dip-5-6#9 rainfall
+2026-11-09T16:05:15.104Z  city_brain verdict.received           rain-dip-5-6#9
+2026-11-09T16:05:15.105Z  city_brain reading.received           wl-dip-5-6#17 water_level
+2026-11-09T16:05:15.109Z  city_brain verdict.received           wl-dip-5-6#17
+2026-11-09T16:05:15.110Z  city_brain reading.received           rain-dip-1-4#9 rainfall
+2026-11-09T16:05:15.113Z  city_brain verdict.received           rain-dip-1-4#9
+2026-11-09T16:05:15.114Z  city_brain reading.received           wl-dip-1-4#17 water_level
+2026-11-09T16:05:15.118Z  city_brain verdict.received           wl-dip-1-4#17
+2026-11-09T16:05:15.119Z  city_brain reading.received           rain-dip-2-5#9 rainfall
+2026-11-09T16:05:15.122Z  city_brain verdict.received           rain-dip-2-5#9
+2026-11-09T16:05:15.123Z  city_brain reading.received           wl-dip-2-5#17 water_level
+2026-11-09T16:05:15.127Z  city_brain verdict.received           wl-dip-2-5#17
+2026-11-09T16:05:15.128Z  city_brain reading.received           rain-dip-3-6#9 rainfall
+2026-11-09T16:05:15.132Z  city_brain verdict.received           rain-dip-3-6#9
+2026-11-09T16:05:15.133Z  city_brain reading.received           wl-dip-3-6#17 water_level
+2026-11-09T16:05:15.136Z  city_brain verdict.received           wl-dip-3-6#17
+2026-11-09T16:05:15.137Z  city_brain reading.received           cam-zone-01#9 traffic_camera
+2026-11-09T16:05:15.140Z  city_brain verdict.received           cam-zone-01#9
+2026-11-09T16:05:15.141Z  city_brain reading.received           cam-zone-02#9 traffic_camera
+2026-11-09T16:05:15.144Z  city_brain verdict.received           cam-zone-02#9
+2026-11-09T16:05:15.145Z  city_brain reading.received           aq-zone-01#9 air_quality
+2026-11-09T16:05:15.148Z  city_brain verdict.received           aq-zone-01#9
+2026-11-09T16:05:15.150Z  city_brain reading.received           aq-zone-02#9 air_quality
+2026-11-09T16:05:15.152Z  city_brain verdict.received           aq-zone-02#9
+2026-11-09T16:05:15.153Z  city_brain reading.received           aq-zone-03#9 air_quality
+2026-11-09T16:05:15.155Z  city_brain verdict.received           aq-zone-03#9
+2026-11-09T16:05:19.844Z  twin       sim_casualty_delivered     sim t=174.2: casualty_delivered
+2026-11-09T16:05:19.844Z  twin       sim_unit_back_at_station   sim t=174.2: unit_back_at_station
+2026-11-09T16:05:19.844Z  twin       sim_incident_phase         sim t=174.2: incident_phase
+# seen    twin:sim_incident (a car hits a pedestrian)
+# seen    twin:emergency_call_reading (a witness's call leaves the Twin as a signed reading)
+# MISSING guardian:verdict_issued (the Guardian judges the report)
+# seen    city_brain:incident_reported (the Brain lists the incident from a trusted report)
+# seen    city_brain:actuator_called (the Brain decides and calls an actuator)
+# seen    twin:unit_dispatched (the Twin sends a unit out of its station)
+# seen    twin:sim_unit_arrived (the unit reaches the scene)
+# seen    twin:sim_casualty_loaded (the crew loads the casualty)
+# seen    twin:sim_scene_cleared (the scene is cleared)
+# seen    twin:sim_casualty_delivered (the casualty reaches the hospital)
+# result: FAIL

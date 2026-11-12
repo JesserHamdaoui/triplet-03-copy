@@ -1,0 +1,54 @@
+# t2 Car crash at a junction
+# started 2026-11-09T15:30:42.763Z, ended: timeout, seed None, run 2
+# layer twin: reachable
+# layer guardian: NOT reachable, HTTPStatusError: Client error '404 Not Found' for url 'http://guardian:8003/events?limit=1000'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+# layer city_brain: reachable
+2026-11-09T15:30:42.771Z  twin       brain_mode_unchanged       the City Brain decides for itself (HTTPStatusError)
+2026-11-09T15:30:42.772Z  twin       scenario_started           t2 Car crash at a junction (brain: auto)
+2026-11-09T15:30:42.804Z  twin       live_reset                 live run 2: scenario car-crash
+2026-11-09T15:31:17.250Z  twin       sim_incident               sim t=137.8: incident
+2026-11-09T15:31:17.251Z  twin       sim_witness_noticed        sim t=137.8: witness_noticed
+2026-11-09T15:31:17.251Z  twin       sim_witness_noticed        sim t=137.8: witness_noticed
+2026-11-09T15:31:17.251Z  twin       sim_witness_noticed        sim t=137.8: witness_noticed
+2026-11-09T15:31:17.700Z  twin       sim_call_started           sim t=139.6: call_started
+2026-11-09T15:31:17.777Z  twin       sim_call_started           sim t=139.9: call_started
+2026-11-09T15:31:17.777Z  twin       sim_camera_anomaly         sim t=139.9: camera_anomaly
+2026-11-09T15:31:17.777Z  twin       sim_camera_anomaly         sim t=139.9: camera_anomaly
+2026-11-09T15:31:18.225Z  twin       sim_call_started           sim t=141.7: call_started
+2026-11-09T15:31:18.648Z  twin       emergency_call_reading     emergency call 308a10-r2-call-0001 (medical) -> inc-0001
+2026-11-09T15:31:18.648Z  twin       emergency_call_reading     emergency call 308a10-r2-call-0002 (medical) -> inc-0001
+2026-11-09T15:31:21.900Z  twin       sim_call_ended             sim t=156.4: call_ended
+2026-11-09T15:31:23.550Z  twin       sim_call_ended             sim t=163.0: call_ended
+2026-11-09T15:31:24.200Z  twin       sim_call_ended             sim t=165.6: call_ended
+2026-11-09T15:31:32.501Z  twin       sim_witness_noticed        sim t=198.8: witness_noticed
+2026-11-09T15:31:33.825Z  twin       sim_call_started           sim t=204.1: call_started
+2026-11-09T15:31:39.925Z  twin       sim_call_ended             sim t=228.5: call_ended
+2026-11-09T15:31:41.075Z  twin       sim_camera_anomaly         sim t=233.1: camera_anomaly
+2026-11-09T15:31:52.075Z  twin       sim_camera_anomaly         sim t=277.1: camera_anomaly
+2026-11-09T15:31:52.075Z  twin       sim_camera_anomaly         sim t=277.1: camera_anomaly
+2026-11-09T15:32:03.050Z  twin       sim_camera_anomaly         sim t=321.0: camera_anomaly
+2026-11-09T15:32:03.051Z  twin       sim_camera_anomaly         sim t=321.0: camera_anomaly
+2026-11-09T15:32:14.050Z  twin       sim_camera_anomaly         sim t=365.0: camera_anomaly
+2026-11-09T15:32:14.051Z  twin       sim_camera_anomaly         sim t=365.0: camera_anomaly
+2026-11-09T15:32:14.084Z  twin       actuator_call_received     guardian called clear_quarantine: guardian: 10 consecutive clean readings
+2026-11-09T15:32:14.084Z  twin       actuator_duplicate         clear_quarantine -> duplicate ()
+2026-11-09T15:32:24.183Z  twin       actuator_call_received     guardian called isolate_sensor: guardian: spoofing
+2026-11-09T15:32:24.183Z  twin       device_isolated            isolate_sensor -> isolated ()
+2026-11-09T15:32:25.050Z  twin       sim_camera_anomaly         sim t=409.0: camera_anomaly
+2026-11-09T15:32:25.051Z  twin       sim_camera_anomaly         sim t=409.0: camera_anomaly
+2026-11-09T15:32:36.050Z  twin       sim_camera_anomaly         sim t=453.0: camera_anomaly
+2026-11-09T15:32:36.050Z  twin       sim_camera_anomaly         sim t=453.0: camera_anomaly
+2026-11-09T15:32:47.051Z  twin       sim_camera_anomaly         sim t=497.0: camera_anomaly
+2026-11-09T15:32:47.051Z  twin       sim_camera_anomaly         sim t=497.0: camera_anomaly
+# seen    twin:sim_incident (a red-light runner hits a crossing car)
+# seen    twin:emergency_call_reading (a witness's call leaves the Twin as a signed reading)
+# MISSING guardian:verdict_issued (the Guardian judges the report)
+# MISSING city_brain:incident_reported (the Brain lists the incident from a trusted report)
+# MISSING city_brain:actuator_called (the Brain decides and calls an actuator)
+# MISSING twin:unit_dispatched (the Twin sends a unit out of its station)
+# MISSING twin:sim_unit_arrived (the unit reaches the scene)
+# MISSING twin:sim_casualty_loaded (the crew loads the casualty)
+# MISSING twin:sim_scene_cleared (the scene is cleared)
+# MISSING twin:sim_casualty_delivered (the casualty reaches the hospital)
+# result: FAIL
