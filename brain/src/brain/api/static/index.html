@@ -210,6 +210,8 @@ button.cell.picked { background: var(--wash); box-shadow: inset 0 0 0 3px var(--
 .read li.flip b { white-space: normal; }
 .read .go { margin-top: .65rem; padding: .45rem .8rem; background: transparent; color: var(--action); border: 0; box-shadow: inset 0 0 0 2px var(--action); border-radius: 3px; font: inherit; font-weight: 700; font-size: .92rem; cursor: pointer; }
 .read .go:hover { background: var(--wash); }
+.read .incs { display: flex; flex-wrap: wrap; gap: .4rem; padding-bottom: .5rem; }
+.read .incs:empty { display: none; }
 .read .go:focus-visible { outline: 3px solid var(--action); outline-offset: 2px; }
 .meter { position: relative; height: 1rem; background: var(--board-2); border-radius: 0 4px 4px 0; margin: .45rem 0 1.4rem; }
 .meter .fill { position: absolute; inset: 0 auto 0 0; background: var(--ink); border-radius: 0 4px 4px 0; transition: width .25s var(--ease); }
@@ -658,6 +660,7 @@ function apply(s, e, i) {
     case "brain.started":
       s.topology = d.topology; s.crew = (d.team || {}).crew; s.tuned = d.tuned || {}; s.tunedProblem = d.tuned_problem || null;
       for (const z of (d.topology || {}).zones || []) s.zones.set(z.id, z);
+      s.incidents.clear();  /* a restarted Brain has forgotten its earlier incidents and numbers the new ones from inc-0001 again */
       return;
     case "brain.guardian.unavailable": s.guardianDown = true; return;
     case "brain.guardian.recovered": s.guardianDown = false; return;
@@ -914,9 +917,10 @@ function renderCity(s) {
 /* ---- the explanation of one decision or held action, from the Brain's own endpoint (built by code from the log) */
 const why = { cache: new Map(), pending: new Set() };
 const LAYER_WORD = { twin: "Twin", guardian: "Guardian", brain: "Brain" };
-const whyUrl = (key, s) => s.decisions.has(key) ? `/api/decisions/${encodeURIComponent(key)}/explanation` : `/api/held/${encodeURIComponent(key)}/explanation`;
+const whyUrl = (key, s) => s.incidents.has(key) ? `/api/incidents/${encodeURIComponent(key)}/explanation` : s.decisions.has(key) ? `/api/decisions/${encodeURIComponent(key)}/explanation` : `/api/held/${encodeURIComponent(key)}/explanation`;
 /* A decision is explained fully once the Twin has answered; until then a later fetch replaces it. */
-const stale = hit => hit.at < events.length && !hit.body.steps.some(st => st.event_type === "brain.action.result") && hit.body.outcome === "acted";
+/* An open incident's story grows: it is read again every 25 events, not on every reading. */
+const stale = hit => hit.body.outcome === "open" ? events.length - hit.at >= 25 : hit.at < events.length && !hit.body.steps.some(st => st.event_type === "brain.action.result") && hit.body.outcome === "acted";
 function fetchWhy(key, s) {
   const hit = why.cache.get(key);
   if (hit && !stale(hit)) return Promise.resolve(hit.body);
@@ -935,7 +939,7 @@ function whySection(s, key, w) {
   const held = w.subject === "held", at = ms => `+${(ms / 1000).toFixed(2)} s`;
   const heading = text => el("h3", {}, text);
   return el("section", { class: "why" },
-    el("h2", {}, held ? "Why it was held" : `Why ${w.id} was done`),
+    el("h2", {}, held ? "Why it was held" : w.subject === "incident" ? `How ${w.id} went` : `Why ${w.id} was done`),
     el("p", { class: "lead" }, names(s, w.headline)),
     w.checks.length ? [heading("At the gate"), el("ul", {}, w.checks.map(c => el("li", {}, mark(c.passed ? "good" : "critical", c.passed ? "check" : "hold"),
       el("span", {}, el("b", {}, (c.passed ? "Passed " : "Held ") + (CHECK[c.check] && !c.passed ? CHECK[c.check] : c.check.replace(/_/g, " ")) + ": "), names(s, c.reason)))))] : null,
@@ -1003,12 +1007,17 @@ const RACK = { senses: "senses", forward: "forward", triage: "attention", worksp
 window.addEventListener("thoughtstep", e => { $("mind").dataset.focus = RACK[e.detail] || ""; });
 $("guide").addEventListener("click", toggleGuide);
 
+const incNav = el("nav", { class: "incs", "aria-label": "Incidents", on: { click: ev => { const b = ev.target.closest("[data-inc]"); if (b) { picked = picked === b.dataset.inc ? null : b.dataset.inc; render(); } } } });
 function renderRead(s) {
   const out = [];
   /* What a picked decision rests on comes first: it is what the presenter just asked for. */
-  const row = picked && s.decisions.get(picked), heldRow = picked && s.heldById.get(picked);
-  const explained = row || heldRow ? whyOf(picked, s) : null;
+  const row = picked && s.decisions.get(picked), heldRow = picked && s.heldById.get(picked), incRow = picked && s.incidents.get(picked);
+  const explained = row || heldRow || incRow ? whyOf(picked, s) : null;
+  /* Every incident of the run: pick one to read how it went, from its first reading to its close. */
+  reconcile(incNav, [...s.incidents.values()].map(i => ({ key: i.id, sig: [i.type, i.status, picked === i.id].join("|"),
+    make: () => el("button", { class: "ghost", type: "button", "data-inc": i.id, "aria-pressed": String(picked === i.id), title: "How this incident went, in order" }, `${i.id} · ${INCIDENT[i.type] || i.type} · ${i.status}`) })));
   if (explained && !explained.error) out.push(whySection(s, picked, explained));
+  else if (incRow) out.push(el("section", {}, el("h2", {}, `How ${incRow.id} went`), el("p", {}, explained ? "The Brain has no story for it in this run." : "Reading the log…")));
   else if (heldRow && !row) out.push(el("section", {}, el("h2", {}, "Why it was held"), el("p", {}, explained ? names(s, heldRow.reason) : "Reading the log…"), el("p", { class: "dim" }, CHECK[heldRow.check] || heldRow.check)));
   else if (row) {
     const readings = row.citations.filter(c => c.includes("#")), playbook = row.citations.filter(c => /^[A-Z]+-(PB-)?\d+$/.test(c));
@@ -1019,7 +1028,7 @@ function renderRead(s) {
         playbook.map(p => el("li", { class: "cite" }, el("b", {}, p), el("span", {}, titles[p] || (p.includes("-PB-") ? "playbook item" : "reflex rule"))))),
       el("p", { class: "dim" }, "Sent from ", el("span", { class: "mono" }, row.actuator), " under config ", el("span", { class: "mono" }, row.config || ""))));
   }
-  const inc = [...s.incidents.values()].pop();
+  const inc = incRow || [...s.incidents.values()].pop();
   if (s.guardianDown) out.push(el("section", {}, state("critical", "wait", "Guardian silent"), el("p", {}, "Degraded mode: incidents are tracked, nothing above low impact is sent until verdicts return.")));
   if (!inc) {
     out.push(el("section", {}, el("h2", {}, "Case"), el("p", { class: "empty" }, s.strips.length ? "No incident. The Brain is watching and has found nothing to act on." : "No run yet.")));
@@ -1081,8 +1090,11 @@ function renderRead(s) {
     }
   }
   const read = $("read");
-  read.replaceChildren(...out);
-  if (row && read._picked !== picked) read.scrollTop = 0;
+  /* The incident buttons stay in the page between renders, so a click is never lost to a redraw. */
+  if (read.firstChild !== incNav) read.prepend(incNav);
+  while (incNav.nextSibling) incNav.nextSibling.remove();
+  read.append(...out);
+  if ((row || incRow) && read._picked !== picked) read.scrollTop = 0;
   read._picked = picked;
 }
 

@@ -17,12 +17,19 @@ if TYPE_CHECKING:
     from brain.api import Hub
 
 
+def current_run(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """The events since the Brain last started. A restarted Brain gives the screen back its earlier log, and numbers its
+    incidents and decisions from 0001 again, so an id is only one thing inside one run."""
+    start = max((i for i, e in enumerate(events) if e["type"] == "brain.started"), default=0)
+    return events[start:]
+
+
 def register(app: FastAPI, hub: Hub, service: Callable[[], BrainService]) -> None:
     async def explanation(build: Any, key: str, format: str) -> Any:
         """Explain from the events of the current run. The same log always gives the same text; nothing here asks a model unless
         `explain.narrate` is `llm`, and then only for the one-line version."""
         kb = service().kb
-        events = list(hub.broadcaster.buffer)
+        events = current_run(list(hub.broadcaster.buffer))
         try:
             built: Explanation = build(events, key, policy=hub.policy, kb=kb)
         except KeyError:
@@ -44,7 +51,7 @@ def register(app: FastAPI, hub: Hub, service: Callable[[], BrainService]) -> Non
         """The decision's explanation as W3C PROV-JSON."""
         from brain.explain.prov import to_prov
 
-        events = list(hub.broadcaster.buffer)
+        events = current_run(list(hub.broadcaster.buffer))
         try:
             return to_prov(explain_decision(events, decision_id, policy=hub.policy, kb=service().kb))
         except KeyError:

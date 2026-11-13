@@ -121,3 +121,21 @@ async def test_the_cli_explains_a_saved_log(tmp_path, capsys, monkeypatch):
     assert "apprehended" in one_line and len(one_line.split()) <= 25
     code, _ = command("--decision", "dec-9999")
     assert code == 1
+
+
+def test_an_explanation_reads_only_the_events_since_the_brain_last_started():
+    from brain.api.routes.explain import current_run
+
+    old, new = {"type": "brain.incident.opened", "subject": "inc-0001"}, {"type": "brain.incident.opened", "subject": "inc-0001"}
+    events = [{"type": "brain.started"}, old, {"type": "brain.started"}, new]
+    assert current_run(events) == events[2:] and current_run(events)[1] is new
+    assert current_run([old]) == [old]  # a log with no start is read whole
+
+
+def test_the_screen_reads_a_picked_incidents_story_from_the_incident_route():
+    from pathlib import Path
+
+    html = (Path(__file__).parents[1] / "src/brain/api/static/index.html").read_text()
+
+    assert "s.incidents.has(key) ? `/api/incidents/${encodeURIComponent(key)}/explanation`" in html
+    assert '"data-inc": i.id' in html and 'ev.target.closest("[data-inc]")' in html
