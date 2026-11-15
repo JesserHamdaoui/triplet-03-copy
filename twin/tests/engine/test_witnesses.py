@@ -80,3 +80,10 @@ def test_a_camera_flags_the_crash_a_few_seconds_after_it_and_clean_traffic_never
     # a car queuing over 30 s is a true stopped_vehicle alert, but it must not become an incident
     assert not [e for e in clean.timeline if e["kind"] == "camera_anomaly" and e["anomaly_type"] == "collision"]
     assert not clean.call_centre.incidents
+
+
+def test_both_cars_in_a_crash_place_an_automatic_call_so_the_first_reports_do_not_wait_for_a_bystander():
+    for seed in (2, 8):
+        sc = scenarios.run("car-crash", 150.0, seed=seed)
+        callers = {e["reporter_id"] for e in sc.sim.timeline if e["kind"] == "call_started"}
+        assert {sc.actors["striking"], sc.actors["struck"]} <= callers, (seed, callers)

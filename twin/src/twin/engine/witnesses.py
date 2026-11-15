@@ -23,7 +23,7 @@ from twin.engine.street_profile import SIDEWALK_WIDTH_M, kerb_offset
 WITNESS_RANGE_M = 40.0
 PEDESTRIAN_REPORT_PROB = 0.5     # share of pedestrian witnesses who call
 DRIVER_REPORT_PROB = 0.3         # share of drivers stuck near it who call
-INVOLVED_DRIVER_REPORT_PROB = 0.7  # a driver in the crash itself (not hurt) calls
+INVOLVED_DRIVER_REPORT_PROB = 1.0  # a car in a crash places an automatic call (eCall): the first reports do not wait for a bystander
 STRANDED_DRIVER_REPORT_PROB = 0.95  # a driver stuck in a stalled car in rising water calls
 REACTION_S = (1.0, 8.0)          # from first seeing it to dialling
 CALL_DURATION_S = (15.0, 25.0)   # standing still on the phone
