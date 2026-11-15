@@ -102,3 +102,16 @@ def test_flood_rain_gauge_and_water_level_are_signed_consistent_readings():
     calls = [r for r in readings if r["type"] == "emergency_call"]
     assert calls and {r["department"] for r in calls} <= {"fire", "medical", "police"}
     assert {"wl-dip-2-3", "rain-dip-2-3", "wl-dip-1-2", "rain-dip-1-2"} <= city.device_ids()
+
+
+def test_a_flood_call_from_the_wet_street_is_filed_under_its_drain_so_it_meets_the_water_level():
+    city = TwoBlocksCity("flood")
+    dry_call = city.call_zone("flood", *city.sim.flood_zones[0].centre_xy)
+    assert dry_call == "zone-03"                              # no water yet: the streets, as before
+    city.step(90.0)
+    wet = next(z for z in city.sim.flood_zones if z.depth_m > city.WET_DEPTH_M)
+    assert city.call_zone("flood", *wet.centre_xy) == f"zone-{wet.id}"
+    dry = next(z for z in city.sim.flood_zones if z.depth_m == 0.0)
+    far = (dry.centre_xy[0], dry.centre_xy[1])
+    assert city.call_zone("flood", *far) != f"zone-{wet.id}"  # a call about a dry street stays a call about the streets
+    assert city.call_zone("medical", *wet.centre_xy) == city.zone_of(*wet.centre_xy)   # only flood calls follow the water

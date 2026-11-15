@@ -28,6 +28,8 @@ a check at once (as gauges cross its line one by one in a batch) for a compromis
 """
 from __future__ import annotations
 
+import math
+
 import secrets
 from typing import Any
 
@@ -394,12 +396,29 @@ class TwoBlocksCity:
         metres off the kerb in the reported place, is talking about the street (the Guardian doubts a flood call from a
         block, which has no water). Anything else is filed where it was said."""
         zone = self.zone_of(x, y)
+        if category == "flood":
+            wet = self._wet_drain_zone(x, y)
+            if wet is not None:      # a caller by the water is talking about that street's drain, where its water level reports
+                return wet
         if category != "flood" or zone == STREETS_ZONE:
             return zone
         near = self._kerb + self.FLOOD_CALL_STREET_M
         if min(abs(y), abs(y - 80.0), abs(x), abs(x - 80.0), abs(x - 160.0)) <= near:
             return STREETS_ZONE
         return zone
+
+    WET_DEPTH_M = 0.05   # a street's water counts as standing from this depth
+
+    def _wet_drain_zone(self, x: float, y: float) -> str | None:
+        """The drain zone of the wet street nearest to (x, y), when the place is within reach of its water."""
+        best, best_d = None, math.inf
+        for z in self.sim.flood_zones:
+            if z.depth_m < self.WET_DEPTH_M:
+                continue
+            d = math.hypot(z.centre_xy[0] - x, z.centre_xy[1] - y)
+            if d <= z.wet_half_length_m + self.FLOOD_CALL_STREET_M and d < best_d:
+                best, best_d = z, d
+        return drain_zone(best.id) if best is not None else None
 
     def zone_of(self, x: float, y: float) -> str:
         on_asphalt = (abs(y) <= self._kerb or abs(y - 80.0) <= self._kerb or abs(x) <= self._kerb
