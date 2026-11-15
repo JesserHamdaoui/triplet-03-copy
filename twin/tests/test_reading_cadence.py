@@ -51,10 +51,10 @@ def _call(incident, zone="zone-01"):
     return {"sensor_id": f"ecall-{zone}", "type": "emergency_call", "zone_id": zone, "value": {"incident_id": incident}}
 
 
-def test_the_call_centre_forwards_two_calls_per_incident_a_minute():
+def test_the_call_centre_forwards_four_calls_per_incident_a_minute():
     cadence = ReadingCadence({}, tick_s=1.0, call_limits=True)
     cadence.next_tick()
-    assert [cadence.due(_call("inc-1")) for _ in range(3)] == [True, True, False]
+    assert [cadence.due(_call("inc-1")) for _ in range(5)] == [True, True, True, True, False]
     assert cadence.due(_call("inc-2"))                 # another incident is news
     for _ in range(60):
         cadence.next_tick()
@@ -74,7 +74,7 @@ def test_without_call_limits_every_call_goes_out():
 
 
 def test_a_call_the_guardian_cannot_judge_does_not_use_up_the_forwarding_limit():
-    # a driver who calls a crash in as "other" (no match in the Guardian's kinds) must not take one of the two places
+    # a driver who calls a crash in as "other" (no match in the Guardian's kinds) must not take one of the four places
     # per incident from the callers it can judge
     from twin.config import Settings
     from twin.emitter import Emitter
@@ -92,8 +92,8 @@ def test_a_call_the_guardian_cannot_judge_does_not_use_up_the_forwarding_limit()
 
     class City:
         def sensor_readings(self):
-            return [call("a", "other"), call("b", "medical"), call("c", "medical"), call("d", "medical")]
+            return [call("a", "other")] + [call(who, "medical") for who in "bcdef"]
 
     emitter = Emitter(Settings(hmac_key="k", emit_interval_s=1.0, realistic_sensors=True), City(), EventLog("twin"), guardian=Judge())
     forwarded = [r["sensor_id"] for r in emitter.build_readings() if r["value"]["category"] != "other"]
-    assert forwarded == ["caller-b", "caller-c"]
+    assert forwarded == ["caller-b", "caller-c", "caller-d", "caller-e"]

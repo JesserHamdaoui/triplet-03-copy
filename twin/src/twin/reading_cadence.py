@@ -17,7 +17,7 @@ from typing import Any
 # seconds; the Guardian's sensor registry where it has the type, the same as a water level for the alarms
 DEFAULT_INTERVALS: dict[str, float] = {"traffic_camera": 10.0, "air_quality": 10.0, "rainfall": 10.0, "water_level": 5.0,
                                        "cctv_anomaly": 5.0, "building_fire": 5.0}
-CALLS_PER_INCIDENT, CALLS_PER_ZONE, CALL_WINDOW_S = 2, 5, 60.0
+CALLS_PER_INCIDENT, CALLS_PER_ZONE, CALL_WINDOW_S = 4, 5, 60.0
 
 
 def parse_intervals(text: str) -> dict[str, float]:
