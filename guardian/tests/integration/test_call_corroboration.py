@@ -98,3 +98,19 @@ async def test_a_flood_call_is_corroborated_by_the_water_a_flooded_street_reads(
     await harness.push(envelope("wl-dip-2-3", "water_level", "zone-07", value={"level_m": 1.05}))
     call = (await harness.push(_call(envelope, "a", "flood")))[0]
     assert call["status"] == "trusted", call["reasons"]
+
+
+async def test_a_flood_call_after_the_rain_stopped_is_not_denied_by_dry_gauges(harness: Harness, envelope: Callable[..., dict[str, Any]]) -> None:
+    _elevate(harness)
+    for sensor in ("rg-a", "rg-b", "rg-c"):
+        await harness.push(envelope(sensor, "rain_gauge", "zone-07", value={"rainfall_mm_h": 0.0}))
+    await harness.push(envelope("wl-dip-2-3", "water_level", "zone-07", value={"level_m": 1.05}))
+    call = (await harness.push(_call(envelope, "a", "flood")))[0]
+    assert call["status"] == "trusted", call["reasons"]
+
+
+async def test_a_flood_call_over_a_dry_water_level_is_still_doubted(harness: Harness, envelope: Callable[..., dict[str, Any]]) -> None:
+    _elevate(harness)
+    await harness.push(envelope("wl-dip-2-3", "water_level", "zone-07", value={"level_m": 0.0}))
+    call = (await harness.push(_call(envelope, "a", "flood")))[0]
+    assert call["status"] != "trusted"

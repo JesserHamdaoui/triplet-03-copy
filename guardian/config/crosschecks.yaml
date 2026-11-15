@@ -46,7 +46,7 @@ rules:
     - {key: second_caller, sensor_type: emergency_call, presence_only: true}
   "emergency_call:flood":
     - {key: water_level, sensor_type: water_level}
-    - {key: rainfall, sensor_type: rain_gauge}
+    - {key: rainfall, sensor_type: rain_gauge, presence_only: true}   # a street stays flooded after the rain stops: dry gauges are not a denial
     - {key: second_caller, sensor_type: emergency_call, presence_only: true}
   # a hurt person: the callers, and a camera flagging an accident (the Twin's crosswalk and junction cameras)
   "emergency_call:medical":
