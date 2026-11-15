@@ -23,7 +23,8 @@ TARGET = "brain_timeline"
 
 def to_cloud_event(event: dict[str, Any]) -> dict[str, Any]:
     data = {"message": event["message"], **event["data"]}
-    subject = data.get("incident_id") or (data.get("result") or {}).get("incident_id")
+    result = data.get("result")   # an actuator's answer is a dict; a scenario's is a word (PASS, FAIL)
+    subject = data.get("incident_id") or (result.get("incident_id") if isinstance(result, dict) else None)
     return {"specversion": "1.0", "id": f"twin-{uuid.uuid4().hex[:16]}", "source": "twin", "type": f"twin.{event['kind']}",
             "time": event["ts"], **({"subject": str(subject)} if subject else {}), "datacontenttype": "application/json", "data": data}
 
@@ -45,7 +46,13 @@ class BrainTimeline:
         headers = {"Authorization": f"Bearer {self.token}"} if self.token else {}
         for _ in range(min(PER_TICK, len(self._waiting))):
             try:
-                resp = await client.post(self.url, json=to_cloud_event(self._waiting[0]), headers=headers)
+                body = to_cloud_event(self._waiting[0])
+            except Exception as exc:    # an event that cannot be written is dropped: it must not hold up every event behind it
+                self._waiting.popleft()
+                self._failed(f"an event was dropped, {type(exc).__name__}: {exc}")
+                continue
+            try:
+                resp = await client.post(self.url, json=body, headers=headers)
             except httpx.HTTPError as exc:
                 return self._failed(f"{type(exc).__name__}: {exc}")
             if resp.status_code >= 500:
