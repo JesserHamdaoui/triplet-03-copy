@@ -120,7 +120,7 @@ def _run_city(fire: bool, seed: int = 7, seconds: float = 120.0, ignite_at: floa
 def test_pedestrians_keep_away_from_the_fire_and_nobody_freezes():
     _, near_without, arrivals_without, longest_without = _run_city(fire=False)
     sim, near_with, arrivals_with, longest_with = _run_city(fire=True)
-    assert near_with < 0.5 * near_without                          # measured 2013 -> 373 ticks (seed 7)
+    assert near_with < 0.65 * near_without                         # measured 892 -> 501 ticks (seed 7; 2013 -> 373 before the second fire truck and ambulance changed the parking)
     assert arrivals_with > 0.3 * arrivals_without                  # detours cost trips, but they go on
     assert longest_with < 40.0 and longest_without < 40.0          # waiting at a crossing, never frozen
     assert sum(c.status == "driving" for c in sim.cars.values()) > 0

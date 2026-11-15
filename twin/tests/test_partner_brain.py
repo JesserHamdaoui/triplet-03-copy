@@ -92,7 +92,8 @@ def test_topology_names_zones_exits_stations_and_sensors():
     stations = {f["type"]: f for f in topo["facilities"] if f["type"] != "drainage_pump"}
     assert {t: f["actuator_id"] for t, f in stations.items()} == {
         "hospital": "dispatch-hospital", "police_station": "dispatch-police-station", "fire_station": "dispatch-fire-station"}
-    assert all(f["units"] == 1 and f["zone_id"] == "zone-03" for f in stations.values())
+    assert {t: f["units"] for t, f in stations.items()} == {"hospital": 2, "police_station": 1, "fire_station": 2}
+    assert all(f["zone_id"] == "zone-03" for f in stations.values())
     assert {"id": "unit-amb1", "type": "unit_status", "zone_id": "zone-03"} in topo["sensors"]
 
 

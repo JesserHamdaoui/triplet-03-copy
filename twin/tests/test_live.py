@@ -53,7 +53,7 @@ def test_live_endpoints_answer_and_are_off_without_live_mode():
     assert m["dt"] == 0.1 and {"roads", "parking", "stations"} <= set(m["map"]) and m["scenario"] == "ped-hit"
     assert client.get("/live/status").json()["run_id"] == 1
     units = {u["unit_id"]: u for u in client.get("/units").json()["units"]}
-    assert set(units) == {"amb1", "police1", "fire1"} and all(u["status"] == "idle" for u in units.values())
+    assert set(units) == {"amb1", "amb2", "police1", "fire1", "fire2"} and all(u["status"] == "idle" for u in units.values())
     assert client.get("/responses").json()["responses"] == []
     assert client.post("/live/control", json={"action": "fly"}).status_code == 422
     off = TestClient(create_app(Settings(live=False, emit_enabled=False), TwoBlocksCity("ped-hit")))

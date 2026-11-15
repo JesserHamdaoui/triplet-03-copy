@@ -15,8 +15,8 @@ Street 2-3 has a dip, the low point of the map: rain on the 8 ha that drain into
 and the slope above them) collects there (FLOOD_DIP, flood_zones; the water model is engine/flood.py).
 Its low point is 38 m east of node 2 (x = 118), and it is 48 m long, clear of node 2's crosswalk.
 
-Three stations stand on the outer side of the map, each with one bay in front of it
-for its vehicle (STATIONS): a hospital and a fire station on the west street, a
+Three stations stand on the outer side of the map, with bays in front of it for its vehicles (STATIONS): two ambulances and two fire trucks, so two incidents at once get a unit each, and one police car. A third bay
+starves the full city of parking (`test_a_full_city_keeps_moving`): a hospital and a fire station on the west street, a
 police station on the north street. Their bays are on streets the staged scenarios
 do not park on, and are none of the bays tests/test_parking.py parks in.
 """
@@ -63,9 +63,9 @@ def build_two_blocks_graph() -> nx.MultiDiGraph:
 
 # bays are parking spot ids "<u>_<v>_<index>" (app/parking.py): the right-hand kerb of u -> v
 STATIONS = [
-    Station(id="hospital", kind="hospital", label="Hospital", spot_ids=("4_1_1",)),            # west of x = 0, y = 51
-    Station(id="fire_station", kind="fire_station", label="Fire station", spot_ids=("4_1_3",)),  # west of x = 0, y = 27
-    Station(id="police_station", kind="police_station", label="Police station", spot_ids=("6_5_2",)),  # north of y = 80, x = 119
+    Station(id="hospital", kind="hospital", label="Hospital", spot_ids=("4_1_1", "1_4_2")),                    # west of x = 0, y = 51; the second across the street
+    Station(id="fire_station", kind="fire_station", label="Fire station", spot_ids=("4_1_3", "4_1_0")),        # west of x = 0, y = 27 and y = 63
+    Station(id="police_station", kind="police_station", label="Police station", spot_ids=("6_5_2",)),  # north of y = 80, x = 119 and x = 143
 ]
 
 

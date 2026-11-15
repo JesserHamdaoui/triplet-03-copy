@@ -74,8 +74,10 @@ def test_a_unit_drives_past_a_queue_on_the_centre_line():
     sim = sc.sim
     sim.call_centre.receive(sim._sim_time, "test", "pedestrian", {"x": 160.0, "y": 40.0, "category": "medical", "confidence": 0.9}, None)
     incident = sim.call_centre.incidents[0]["id"]
-    assert sim.dispatch_unit("ambulance", incident)["status"] == "dispatched"
-    unit = next(u for u in sim.units.values() if u.kind == "ambulance")
+    sim.units["amb2"].status = "out_of_service"       # the queue is on amb1's way: the second ambulance, across the street, would not meet it
+    sent = sim.dispatch_unit("ambulance", incident)
+    assert sent["status"] == "dispatched" and sent["unit_id"] == "amb1"
+    unit = sim.units["amb1"]
     shifted = 0
     for _ in range(1200):
         sc.step()
@@ -136,3 +138,12 @@ def test_a_dispatch_to_an_accident_without_a_civilian_car_still_sends_the_unit()
     accident = sim._open_accident(response["accident_id"])
     accident["car_id"] = "amb1"  # what a unit in an accident looks like: not in sim.cars
     assert sim.dispatch_unit("ambulance", response["incident_id"])["status"] == "dispatched"
+
+
+def test_two_incidents_at_once_each_get_a_fire_truck_and_an_ambulance():
+    sim = scenarios.build("city", seed=3, params=CityParams(0, 0, 0.0, 0.0)).sim
+    first = sim.call_centre.receive(sim._sim_time, "a", "pedestrian", {"x": 80.0, "y": 30.0, "category": "medical", "confidence": 0.9}, None)["incident_id"]
+    second = sim.call_centre.receive(sim._sim_time, "b", "pedestrian", {"x": 120.0, "y": 80.0, "category": "medical", "confidence": 0.9}, None)["incident_id"]
+    for kind in ("ambulance", "fire"):
+        a, b = sim.dispatch_unit(kind, first), sim.dispatch_unit(kind, second)
+        assert a["status"] == b["status"] == "dispatched" and a["unit_id"] != b["unit_id"], kind

@@ -11,8 +11,8 @@ def test_stations_sensors_and_pumps_are_listed():
     city = TwoBlocksCity("city", 1)
     stations = {s["station_id"]: s for s in city.stations()}
     assert {s: (v["kind"], v["unit_kind"], v["units"]) for s, v in stations.items()} == {
-        "hospital": ("hospital", "ambulance", 1), "police_station": ("police_station", "police", 1),
-        "fire_station": ("fire_station", "fire", 1)}
+        "hospital": ("hospital", "ambulance", 2), "police_station": ("police_station", "police", 1),
+        "fire_station": ("fire_station", "fire", 2)}
     sensors = {s["sensor_id"]: s["type"] for s in city.sensors()}
     assert sensors["unit-amb1"] == "unit_status" and sensors["cam-n2"] == "traffic_camera" and sensors["wl-dip-2-3"] == "water_level"
     assert {p["pump_id"] for p in city.pumps()} >= {"pump-2-3"}
