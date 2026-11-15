@@ -81,6 +81,35 @@ What is left is on the other teams' side.
 - After a restart of the Guardian alone, the Brain answered `guardian_unavailable` on every reading for more than ten minutes. It seems to re-read the Twin's retained log and wait out the verdict deadline on readings the new Guardian never saw. Starting all three layers together, Guardian first, avoided it.
 - Fire callers that the Guardian trusts are not joined to the incident the Brain opened from the cameras' smoke, so a fire is dispatched on one camera plus a broadcast and not on its callers.
 
+## Changes made in the partners' folders (2026-11-15)
+
+The user asked for every scenario to work on all three layers and chose to commit the partner changes too.
+Each is a small commit in the owning team's folder, on a local branch, for that team to review.
+Each comes from a failure found in a three-layer run (logs of 2026-11-15), where an incident with several reports from different people at different times never reached a dispatch.
+
+### Guardian (`guardian/`)
+
+- Calls are separate reports. A call counts as one voice of its own besides the callers and sensors that agree with it (`own_voice_types` in `config/crosschecks.yaml`), so ten callers are ten reports. Before, the first two callers about one event could never reach the two sources the check needs.
+- Medical, accident and crime calls have corroboration rules (`emergency_call:medical` and the others in `crosschecks.yaml`). Before, they had none, so in a zone under raised threat no call about a hurt person could be corroborated by anything.
+- A camera `cctv_anomaly` of type `accident` or `collision` corroborates a medical call. A `cctv_anomaly` is judged on authenticity and context only (`self_attested_types`): no neighbour is expected to agree, and a zone under raised threat no longer holds its verdict back for want of one.
+- A call judged while it was alone is judged again when the Brain asks for its verdict (`Pipeline._rejudge`), and issued as a new verdict once others have corroborated it, within the same 120 s window. The old verdict stays in the audit trail.
+- A rain gauge neighbour agrees that a storm is on from 60% of the 5 mm/h line (`neighbour_margin`). Gauges under one cloud do not cross a line in the same instant, and whichever crossed first was doubted for being first.
+
+### City Brain (`brain/`)
+
+- The gate asks the Guardian again for the evidence of a call that is not in force: suspicious when it was made, or past its expiry (`ActuationGate.refresh`, called before the gate checks). A verdict that is untrusted is not asked about again. What comes back replaces the reading's verdict in the graph (`replace_verdict`), so a report judged alone counts once it is corroborated.
+- A flood sends the nearest fire unit and the nearest police unit (rules `UTL-004` and `UTL-005` in `rules/disaster_units.yaml`, the `dispatch_unit:fire` and `dispatch_unit:police` actuators of the disaster department), besides the alert and the pump. It is the setting `tactics.flood_units` in `config/policy.yaml`, `off` there so the frozen Test Book (ADR 0008) decides as it did, and `on` for the live stack through `BRAIN_FLOOD_UNITS` in the root `docker-compose.yml`. Each unit is a medium-impact call, so the gate still needs two independent trusted sources.
+
+### Not changed
+
+- `DeskReport` fails with "advise_zones List should have at most 6 items, not 9" when the city has nine zones. It does not stop a dispatch, but it fails the desk's deliberation each time. It is the Brain team's schema.
+
+## Changes made in the Twin for the same runs (2026-11-15)
+
+- A crosswalk camera over every crosswalk (`engine/crosswalk_watch.py`, sensor `xwalk-<crosswalk>-cctv`, type `cctv_anomaly`). A pedestrian is hit only on a crosswalk and the junction cameras see about half of the street, so a hit often had no second source besides its callers. The camera flags an `accident` two seconds after a person lies within 15 m of the crosswalk, and the call centre joins it to the incident of the callers.
+- A rain gauge follows the rain through a slew limit (`sensor_model.py`): a slow start, then a climb in proportion to its reading, at most 1.5 mm/h per second. A step of about 2 mm/h after a dry spell is a z-score outlier to the Guardian (limit 4 over a floor of 0.5). The worst score over a dry spell and a 120 mm/h downpour is now 2.9.
+- The call centre forwards four calls per incident a minute, not two. The Guardian still reads more than five calls from one zone in a minute as a flood, so five a zone stays the ceiling.
+
 ## Root files (the whole triplet)
 
 - `.env.example`: add `TWIN_API_KEY`, `BRAIN_API_KEY`, `OPS_API_KEY` and `GUARDIAN_HMAC_KEY`. The Guardian refuses to start without an API key, and the Twin and the City Brain must share these.
