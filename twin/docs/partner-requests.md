@@ -108,7 +108,15 @@ Each comes from a failure found in a three-layer run (logs of 2026-11-15), where
 - City Brain: a desk report cuts `advise_zones` to six instead of failing (`DeskReport`). Zone-03 touches nine zones, so every incident there failed its deliberation.
 - A reading that joins an open incident already runs the reflex rules and the gate again, so a dispatch blocked for want of evidence is retried when the next trusted report arrives. Nothing to change there.
 
+### Third round (2026-11-15, after the scenario runs t1, t2 and t4)
+
+- Guardian: a unit's own `unit_status` report is judged on authenticity and context (`self_attested_types`), like a camera's. In a zone under raised threat every unit report was `suspicious: threat_level_tightened`, and the Brain closes an incident on a unit's return only on a trusted report: the incident of one scenario stayed open and absorbed the next scenario's crash, which then got no dispatch.
+- Guardian: flood callers are judged against the gauge of their own street (`same_zone_only` on the flood call's water-level source). Dry gauges of the streets next to it voted "no flood" six to one against two callers who agreed.
+
 ## Changes made in the Twin for the same runs (2026-11-15)
+
+- The Brain timeline no longer stalls on a scenario's end event, whose `result` is a word (PASS, FAIL) and not an actuator's answer. `to_cloud_event` raised on it every tick and the event stayed at the head of the queue, so the Brain never heard that the city had been reset, for as long as it took 500 other events to push it out. An event that cannot be written is now dropped.
+- A flow meter follows the drain's flow through a slew limit, like the rain gauge. A drain that starts to run is a step of 0.2 m3/s from dry, which the Guardian flags as a spoof, isolating the meter and putting the street on raised threat.
 
 - A crosswalk camera over every crosswalk (`engine/crosswalk_watch.py`, sensor `xwalk-<crosswalk>-cctv`, type `cctv_anomaly`). A pedestrian is hit only on a crosswalk and the junction cameras see about half of the street, so a hit often had no second source besides its callers. The camera flags an `accident` two seconds after a person lies within 15 m of the crosswalk, and the call centre joins it to the incident of the callers.
 - A rain gauge follows the rain through a slew limit (`sensor_model.py`): a slow start, then a climb in proportion to its reading, at most 1.5 mm/h per second. A step of about 2 mm/h after a dry spell is a z-score outlier to the Guardian (limit 4 over a floor of 0.5). The worst score over a dry spell and a 120 mm/h downpour is now 2.9.
