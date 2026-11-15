@@ -19,10 +19,12 @@ CMP: dict[str, Callable[[Any, Any], bool]] = {
 }
 
 
-def condition_holds(c: Condition, value: dict[str, Any], prev: dict[str, Any] | None) -> bool:
+def condition_holds(c: Condition, value: dict[str, Any], prev: dict[str, Any] | None, margin: float = 1.0) -> bool:
     x = value.get(c.field)
     if x is None:
         return False
+    if margin != 1.0 and c.op in (">", ">=") and isinstance(x, int | float) and isinstance(c.value, int | float) and not isinstance(x, bool):
+        return CMP[c.op](x, c.value * margin)
     if c.op == "in":
         return x in c.value
     if c.op == "dev":
@@ -40,8 +42,8 @@ class CrosscheckDetector:
                  is_contained: Callable[[str], bool]) -> None:
         self.state, self.t, self.cc, self.is_contained = state, t, cc, is_contained
 
-    def in_event(self, sensor_type: str, value: dict[str, Any], prev: dict[str, Any] | None) -> bool:
-        return any(condition_holds(c, value, prev) for c in self.t.events.get(sensor_type, []))
+    def in_event(self, sensor_type: str, value: dict[str, Any], prev: dict[str, Any] | None, margin: float = 1.0) -> bool:
+        return any(condition_holds(c, value, prev, margin) for c in self.t.events.get(sensor_type, []))
 
     def is_notable(self, r: Reading) -> bool:
         s = self.state.get(r.sensor_id)
@@ -83,10 +85,12 @@ class CrosscheckDetector:
                     continue
                 assert s.latest_reading is not None
                 prev = s.history[-2].value if len(s.history) >= 2 else None
-                event = self.in_event(s.sensor_type, s.latest_reading.value, prev)
+                event = self.in_event(s.sensor_type, s.latest_reading.value, prev, self.cc.neighbour_margin.get(s.sensor_type, 1.0))
                 if src.presence_only and not event:
                     continue
                 votes.append((src.key, s.sensor_id, event == claim_event))
+        if r.sensor_type in self.cc.own_voice_types:   # the report itself is one voice: each caller is a report of their own
+            votes.append(("own", f"{r.sensor_type}:{r.value.get('caller_id') or r.sensor_id}", True))
         # one voice per independent voter (a sensor may serve several keys): majority of its own votes
         voters: dict[str, list[bool]] = {}
         for _, who, agrees in votes:

@@ -214,6 +214,18 @@ class Crosschecks(_M):
     min_sources: int = 2
     adjacency: dict[str, list[str]] = Field(default_factory=dict)
     rules: dict[str, list[CrossSource]] = Field(default_factory=dict)
+    # A report is a source of its own: a call counts as one independent voice besides the others that agree with it,
+    # so ten people calling are ten reports. Their verdict is looked at again on request (see Pipeline._request),
+    # because a call judged when it was the only one is not suspect for good.
+    # A neighbour agrees that an event is on when it is within this share of the event's threshold (numeric `>` and `>=`
+    # conditions). Several gauges under one cloud do not cross a line in the same instant: whichever crosses first would
+    # otherwise find every neighbour "not in the event" and be doubted for being first. 1.0 (or no entry) is exact.
+    neighbour_margin: dict[str, float] = Field(default_factory=dict)
+    own_voice_types: list[str] = Field(default_factory=lambda: ["emergency_call"])
+    rejudge_types: list[str] = Field(default_factory=lambda: ["emergency_call"])
+    # Hardware that reports an event it sees itself (a camera flagging an accident) is judged on authenticity and
+    # context only: no neighbour is expected to agree, so a tightened zone does not hold its verdict back for want of one.
+    self_attested_types: list[str] = Field(default_factory=lambda: ["cctv_anomaly"])
 
 
 # ---------- city_model.yaml ----------

@@ -58,6 +58,7 @@ events:
   power_meter: [{field: load_kw, op: jump_pct, value: 30}]
   grid_meter: [{field: frequency_hz, op: dev, center: 50, value: 0.5}]
   emergency_call: [{field: incident_type, op: in, value: [fire, flood]}]
+  cctv_anomaly: [{field: anomaly_type, op: in, value: [accident, collision]}]
 
 scoring:
   cutoffs: {trusted: 0.8, suspect: 0.4}

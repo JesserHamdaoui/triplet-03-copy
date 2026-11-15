@@ -118,7 +118,7 @@ def test_l5_second_caller(harness: Harness) -> None:
     _seed(harness, "aq-port-01", "air_quality", "zone-07", {"aqi": 260.0, "smoke": True}, n=2)
     call = reading("ec-gw-07", "emergency_call", value={"call_id": "c3", "incident_type": "fire", "caller_id": "carol"})
     res, agree = l5.check(call, claim_event=True)
-    assert res[0].reason_code == "corroborated" and agree == 3
+    assert res[0].reason_code == "corroborated" and agree == 4   # the smoke sensor, alice, bob and carol herself
     assert l5.rule_key(call) == "emergency_call:fire"
 
 

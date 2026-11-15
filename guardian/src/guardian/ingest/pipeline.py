@@ -12,7 +12,7 @@ from guardian.clock import Clock
 from guardian.config import GuardianConfig
 from guardian.containment.manager import ContainmentManager
 from guardian.detectors.authenticity import AuthenticityDetector
-from guardian.detectors.base import L4, ok
+from guardian.detectors.base import L4, L5, ok
 from guardian.detectors.crosscheck import CrosscheckDetector
 from guardian.detectors.dynamics import DynamicsDetector
 from guardian.detectors.freshness import FreshnessDetector
@@ -20,7 +20,7 @@ from guardian.detectors.liveness_rate import LivenessDetector
 from guardian.detectors.plausibility import PlausibilityDetector
 from guardian.detectors.semantic_plausibility import SemanticDetector
 from guardian.ingest.normalizer import normalize
-from guardian.ingest.state_store import StateStore
+from guardian.ingest.state_store import SensorState, StateStore
 from guardian.ingest.validator import IngestError
 from guardian.models import LayerResult, Reading, Status, ThreatLevel, Verdict
 from guardian.threat.correlator import Correlator
@@ -108,6 +108,7 @@ class Pipeline:
         notable = self.l5.is_notable(reading)
         dyn_flag = any(not r.passed for r in dyn)
         claim = notable or any(not r.passed and r.reason_code in EVENT_CLAIMS for r in dyn)
+        claim = claim or reading.sensor_type in self.cfg.crosschecks.own_voice_types   # a report says something happened
         agree = 0
         tight = threat.rank >= ThreatLevel.elevated.rank
         # an in-flight actuator order explains the change: weather-type corroboration would contradict it
@@ -115,6 +116,8 @@ class Pipeline:
             r5, agree = self.l5.check(reading, claim)
             results += r5
         results += r6
+        if reading.sensor_type in self.cfg.crosschecks.self_attested_types:
+            agree = max(agree, self.cfg.crosschecks.min_sources)   # it reports what it sees: no neighbour is expected to agree
         return await self._finish(reading, results, threat, accepted=True, prev=prev, agree=agree, notable=notable)
 
     async def _finish(self, reading: Reading, results: list[LayerResult], threat: ThreatLevel, *,
@@ -152,6 +155,33 @@ class Pipeline:
                             data={"kind": "verdict_request_error"})
             return self.engine.unknown(sensor_id, "internal_error", sequence_no)
 
+    CORROBORATION_REASONS = ("insufficient_corroboration", "corroboration_inconclusive")
+
+    def _rejudge(self, s: SensorState, v: Verdict, threat: ThreatLevel) -> Verdict:
+        """A call judged while it was the only report is not suspect for good: others who report the same thing
+        afterwards corroborate it, within the same window as before. Looked at again here, when the Brain asks, and
+        issued as a new verdict (the old one stays in the audit trail) once the call is corroborated."""
+        r = s.latest_reading
+        if (v.status == Status.trusted or r is None or r.sequence_no != v.sequence_no
+                or r.sensor_type not in self.cfg.crosschecks.rejudge_types
+                or not any(x in v.reasons for x in self.CORROBORATION_REASONS)):
+            return v
+        r5, agree = self.l5.check(r, True)
+        if not all(x.passed for x in r5):
+            return v
+        results = [x for x in v.layer_results if x.layer != L5] + r5
+        sc = self.scorer.score(results, threat, agree)
+        if sc.status != Status.trusted:
+            return v
+        revised = self.engine.build(
+            sensor_id=v.sensor_id, sequence_no=v.sequence_no, status=sc.status, score=sc.score, reasons=list(sc.reasons),
+            results=results, threat=threat, sensor_type=v.sensor_type, zone_id=v.zone_id, raw_status=sc.status,
+            self_consistent=sc.self_consistent, corroborated=sc.corroborated, corroborating_sources=agree,
+            notable=v.notable, value=v.value)
+        if s.latest_verdict is not None and s.latest_verdict.verdict_id == v.verdict_id:
+            s.latest_verdict = revised     # later requests for this reading find the new verdict, not the old one
+        return self.engine.publish(revised)
+
     def _request(self, sensor_id: str, sequence_no: int | None) -> Verdict:
         s = self.state.get(sensor_id)
         if s is None:
@@ -169,6 +199,7 @@ class Pipeline:
             return self.engine.unknown(sensor_id, "stale", sequence_no, s.zone_id, s.sensor_type, threat)
         if v is None:
             return self.engine.unknown(sensor_id, "no_verdict", sequence_no, s.zone_id, s.sensor_type, threat)
+        v = self._rejudge(s, v, threat)
         is_latest = s.latest_verdict is not None and v.verdict_id == s.latest_verdict.verdict_id
         if v.expires_at <= self.clock.now() and is_latest:
             tight = self.cfg.thresholds.scoring.tightened
