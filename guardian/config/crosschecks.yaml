@@ -1,8 +1,10 @@
 # L5 corroboration: which independent sensors corroborate which, and zone adjacency.
 corroboration_window_s: 120
 min_sources: 2          # distinct trusted independent sensors needed for a verdict
-neighbour_margin:      # a neighbour agrees an event is on from this share of its threshold: gauges under one cloud do not cross a line together
-  rain_gauge: 0.6
+neighbour_tolerance:   # same-type neighbours agree by value: gauges under one cloud read alike, whichever side of the event line they wobble to
+  rain_gauge: {field: rainfall_mm_h, abs: 2.0, rel: 0.35}
+neighbour_margin:      # a neighbour agrees an event is on from this share of its threshold (the water in a flooded street's shaft reads under the 1.2 m line)
+  water_level: 0.8
 adjacency:
   # real Twin
   zone-01: [zone-02, zone-03]

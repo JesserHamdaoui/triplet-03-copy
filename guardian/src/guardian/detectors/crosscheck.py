@@ -84,6 +84,12 @@ class CrosscheckDetector:
                 if s.sensor_id == r.sensor_id or not self._source_ok(s, r.ts):
                     continue
                 assert s.latest_reading is not None
+                tol = self.cc.neighbour_tolerance.get(s.sensor_type) if s.sensor_type == r.sensor_type else None
+                if tol is not None:
+                    a, b = r.value.get(str(tol["field"])), s.latest_reading.value.get(str(tol["field"]))
+                    if isinstance(a, int | float) and isinstance(b, int | float):
+                        votes.append((src.key, s.sensor_id, abs(a - b) <= max(float(tol["abs"]), float(tol["rel"]) * max(abs(a), abs(b)))))
+                        continue
                 prev = s.history[-2].value if len(s.history) >= 2 else None
                 event = self.in_event(s.sensor_type, s.latest_reading.value, prev, self.cc.neighbour_margin.get(s.sensor_type, 1.0))
                 if src.presence_only and not event:

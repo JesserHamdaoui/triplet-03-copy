@@ -63,13 +63,22 @@ async def test_a_camera_that_sees_an_accident_is_a_second_report_for_one_caller(
     assert caller["status"] == "trusted"
 
 
-async def test_the_first_rain_gauge_over_the_line_is_not_doubted_for_being_first(harness: Harness, envelope: Callable[..., dict[str, Any]]) -> None:
-    """Gauges under one cloud climb together: the first to read over 5 mm/h finds its neighbours a little under it, still rising."""
-    zone = "zone-07"
-    for i, sensor in enumerate(("rg-a", "rg-b", "rg-c")):
-        await harness.push(envelope(sensor, "rain_gauge", zone, value={"rainfall_mm_h": 3.8 + i * 0.01}))
-    first = (await harness.push(envelope("rg-a", "rain_gauge", zone, value={"rainfall_mm_h": 5.2}, seq=2)))[0]
-    assert first["status"] == "trusted" and "no_neighbour_rainfall_corroboration" not in first["reasons"]
+async def test_gauges_that_read_alike_agree_whichever_side_of_the_event_line_they_are(harness: Harness, envelope: Callable[..., dict[str, Any]]) -> None:
+    """Under one cloud the gauges read alike. Near 5 mm/h they wobble either side of the line, and none may doubt the others for it."""
+    _elevate(harness)                                   # a zone under raised threat judges every reading, not only those over the line
+    for seq, level in enumerate((2.8, 3.1, 3.0, 3.2, 2.9, 3.1), start=1):
+        harness.clock.advance(10)                       # a gauge reports every ten seconds
+        for sensor, wobble in (("rg-a", 0.0), ("rg-b", 0.2), ("rg-c", -0.2), ("rg-d", 0.1)):
+            verdict = (await harness.push(envelope(sensor, "rain_gauge", "zone-07", value={"rainfall_mm_h": level + wobble}, seq=seq, ts=harness.clock.now())))[0]
+            if seq > 1:                                 # the first round has no neighbours to compare with yet
+                assert verdict["status"] == "trusted", (sensor, seq, verdict["reasons"])
+
+
+async def test_a_gauge_that_reads_a_storm_its_neighbours_do_not_see_is_still_doubted(harness: Harness, envelope: Callable[..., dict[str, Any]]) -> None:
+    for sensor in ("rg-a", "rg-b", "rg-c"):
+        await harness.push(envelope(sensor, "rain_gauge", "zone-07", value={"rainfall_mm_h": 0.0}))
+    spoof = (await harness.push(envelope("rg-a", "rain_gauge", "zone-07", value={"rainfall_mm_h": 40.0}, seq=2)))[0]
+    assert spoof["status"] != "trusted"
 
 
 async def test_an_old_camera_verdict_is_renewed_when_asked_after_newer_readings_came(harness: Harness, envelope: Callable[..., dict[str, Any]]) -> None:
@@ -81,3 +90,11 @@ async def test_an_old_camera_verdict_is_renewed_when_asked_after_newer_readings_
     again = (await harness.api("POST", "/v1/verdicts/request", json={"sensor_id": "cam-n2-cctv", "sequence_no": 1})).json()
     assert again["verdict_id"] != first["verdict_id"] and again["status"] == "trusted"
 
+
+
+async def test_a_flood_call_is_corroborated_by_the_water_a_flooded_street_reads(harness: Harness, envelope: Callable[..., dict[str, Any]]) -> None:
+    """The drain shaft of a flooded street reads about 1.05 m: over the City Brain's 1.0 m flood line, under the Guardian's 1.2 m event line."""
+    _elevate(harness)
+    await harness.push(envelope("wl-dip-2-3", "water_level", "zone-07", value={"level_m": 1.05}))
+    call = (await harness.push(_call(envelope, "a", "flood")))[0]
+    assert call["status"] == "trusted", call["reasons"]

@@ -217,6 +217,10 @@ class Crosschecks(_M):
     # A report is a source of its own: a call counts as one independent voice besides the others that agree with it,
     # so ten people calling are ten reports. Their verdict is looked at again on request (see Pipeline._request),
     # because a call judged when it was the only one is not suspect for good.
+    # Same-type neighbours (gauges under one cloud) agree by value, not by which side of the event line each stands on: within
+    # `abs`, or `rel` of the larger, of the reading judged, on the named field. Near the line, gauges that read the same wobble
+    # either side of it, and each would find the others "not in the event" (or all "in it") for as long as the storm hovers there.
+    neighbour_tolerance: dict[str, dict[str, float | str]] = Field(default_factory=dict)
     # A neighbour agrees that an event is on when it is within this share of the event's threshold (numeric `>` and `>=`
     # conditions). Several gauges under one cloud do not cross a line in the same instant: whichever crosses first would
     # otherwise find every neighbour "not in the event" and be doubted for being first. 1.0 (or no entry) is exact.
