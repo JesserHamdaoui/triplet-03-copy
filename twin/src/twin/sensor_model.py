@@ -11,6 +11,9 @@ values for a stuck sensor. The truth stays in the engine; only what is reported 
   air quality   the mean over AIR_WINDOW_S (limit 5 AQI per s), particulates alongside
   camera        the mean over CAMERA_WINDOW_S of congestion, count and speed, not each car at a red light
                 (limit 0.03 congestion per s); the smoke flag is what it sees now
+  flow meter    (with the water level) follows the drain's flow at FLOW_SLEW_M3S_S, or FLOW_SLEW_UP of its own reading a second on the way up
+                and FLOW_SLEW_DOWN on the way down, when that is more: a drain that starts to run is a step of about 0.2 m3/s from dry, which
+                the Guardian's z-score over a floor of 0.05 flags as a spoof and isolates the meter (worst score now 2.3)
   water level   the water in the drain shaft at the low point: the shaft fills first, SHAFT_M by the time
                 ROAD_FILL_M stands on the road, then the road's water adds to it. So a flooded street reads
                 about 1.1 m, above the City Brain's flood line of 1.0 m and below the Guardian's notable 1.2 m, and
@@ -26,6 +29,7 @@ from typing import Any
 
 RAIN_WINDOW_S, AIR_WINDOW_S, CAMERA_WINDOW_S = 90.0, 60.0, 60.0
 RAIN_SLEW_MM_H_S, RAIN_SLEW_RATIO, RAIN_SLEW_MAX_MM_H_S = 0.03, 0.025, 1.5
+FLOW_SLEW_M3S_S, FLOW_SLEW_UP, FLOW_SLEW_DOWN = 0.004, 0.016, 0.004   # a flow meter follows the drain as the rain gauge follows the rain
 SHAFT_M, ROAD_FILL_M = 0.8, 0.2
 LEVEL_RATE_M_S = 0.008
 RAIN_NOISE, AQI_NOISE, LEVEL_NOISE, FLOW_NOISE = 0.2, 1, 0.002, 0.004
@@ -45,6 +49,7 @@ class SensorModel:
         self._rng = random.Random(seed or 0)
         self._windows: dict[tuple[str, str], deque[float]] = {}
         self._levels: dict[str, float] = {}   # sensor id -> what its damped gauge stands at
+        self._flow_out: dict[str, float] = {}   # sensor id -> what its flow meter reads, before the wobble
         self._rain_out: dict[str, float] = {}   # sensor id -> what its gauge reads, before the wobble
 
     def _mean(self, sensor_id: str, field: str, value: float, window_s: float) -> float:
@@ -87,4 +92,11 @@ class SensorModel:
         level = self._levels.get(sensor_id, target)
         level = self._levels[sensor_id] = max(level - step, min(level + step, target))
         return {**v, "level_m": round(self._wobble(level, LEVEL_NOISE), 3), "road_depth_m": depth,
-                "flow_rate_m3s": round(self._wobble(v["flow_rate_m3s"], FLOW_NOISE), 3)}
+                "flow_rate_m3s": round(self._wobble(self._flow(sensor_id, v["flow_rate_m3s"]), FLOW_NOISE), 3)}
+
+    def _flow(self, sensor_id: str, target: float) -> float:
+        flow = self._flow_out.get(sensor_id, target)
+        up = target > flow
+        step = max(FLOW_SLEW_M3S_S, (FLOW_SLEW_UP if up else FLOW_SLEW_DOWN) * flow) * self.tick_s
+        flow = self._flow_out[sensor_id] = min(flow + step, target) if up else max(flow - step, target)
+        return flow

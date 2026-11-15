@@ -116,3 +116,11 @@ def test_each_sensor_has_its_own_window_and_the_same_seed_repeats():
     model = SensorModel(tick_s=1.0, seed=3)
     _feed(model, "rainfall", "wet", series)
     assert _feed(model, "rainfall", "dry", [{"mm_per_hr": 0.0}])[0]["mm_per_hr"] == 0.0
+
+
+def test_a_drain_that_starts_to_run_is_not_a_zscore_outlier_for_the_flow_meter():
+    dry, run, dry_again = [{"level_m": 0.0, "flow_rate_m3s": 0.0}] * 600, [{"level_m": 1.0, "flow_rate_m3s": 1.2}] * 900, [{"level_m": 0.0, "flow_rate_m3s": 0.0}] * 900
+    out = _feed(SensorModel(tick_s=1.0, seed=3), "water_level", "wl-a", dry + run + dry_again)
+    series = [v["flow_rate_m3s"] for v in out]
+    assert _guardian_worst_score(series, every=5, floor=0.05) < 3.5     # the limit is 4; the water level reports every 5 s
+    assert _max_rate(series) <= 0.1 and max(series) > 1.0                # and it still reads the flow
