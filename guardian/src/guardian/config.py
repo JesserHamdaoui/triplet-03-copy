@@ -221,6 +221,9 @@ class Crosschecks(_M):
     # conditions). Several gauges under one cloud do not cross a line in the same instant: whichever crosses first would
     # otherwise find every neighbour "not in the event" and be doubted for being first. 1.0 (or no entry) is exact.
     neighbour_margin: dict[str, float] = Field(default_factory=dict)
+    # Event reports (a camera flagging a crash, a call) are not a stream: an old one is still what that sensor said. The Brain cites
+    # them for as long as the incident is open, so an expired verdict on one is renewed even after newer readings came.
+    renew_types: list[str] = Field(default_factory=lambda: ["cctv_anomaly", "emergency_call"])
     own_voice_types: list[str] = Field(default_factory=lambda: ["emergency_call"])
     rejudge_types: list[str] = Field(default_factory=lambda: ["emergency_call"])
     # Hardware that reports an event it sees itself (a camera flagging an accident) is judged on authenticity and

@@ -201,7 +201,7 @@ class Pipeline:
             return self.engine.unknown(sensor_id, "no_verdict", sequence_no, s.zone_id, s.sensor_type, threat)
         v = self._rejudge(s, v, threat)
         is_latest = s.latest_verdict is not None and v.verdict_id == s.latest_verdict.verdict_id
-        if v.expires_at <= self.clock.now() and is_latest:
+        if v.expires_at <= self.clock.now() and (is_latest or s.sensor_type in self.cfg.crosschecks.renew_types):
             tight = self.cfg.thresholds.scoring.tightened
             weak = v.trust_score < tight.trusted_min_score or v.corroborating_sources < tight.min_corroborating_sources
             if threat.rank >= ThreatLevel.elevated.rank and v.status == Status.trusted and weak:

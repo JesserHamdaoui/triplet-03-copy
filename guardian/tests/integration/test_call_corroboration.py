@@ -70,3 +70,14 @@ async def test_the_first_rain_gauge_over_the_line_is_not_doubted_for_being_first
         await harness.push(envelope(sensor, "rain_gauge", zone, value={"rainfall_mm_h": 3.8 + i * 0.01}))
     first = (await harness.push(envelope("rg-a", "rain_gauge", zone, value={"rainfall_mm_h": 5.2}, seq=2)))[0]
     assert first["status"] == "trusted" and "no_neighbour_rainfall_corroboration" not in first["reasons"]
+
+
+async def test_an_old_camera_verdict_is_renewed_when_asked_after_newer_readings_came(harness: Harness, envelope: Callable[..., dict[str, Any]]) -> None:
+    value = {"anomaly_type": "collision", "confidence": 0.9}
+    first = (await harness.push(envelope("cam-n2-cctv", "cctv_anomaly", "zone-07", value=value, seq=1)))[0]
+    await harness.push(envelope("cam-n2-cctv", "cctv_anomaly", "zone-07", value=value, seq=2))
+    await harness.push(envelope("cam-n2-cctv", "cctv_anomaly", "zone-07", value=value, seq=3))
+    harness.clock.advance(31)                                       # the first verdict has run out, and it is no longer the latest reading
+    again = (await harness.api("POST", "/v1/verdicts/request", json={"sensor_id": "cam-n2-cctv", "sequence_no": 1})).json()
+    assert again["verdict_id"] != first["verdict_id"] and again["status"] == "trusted"
+
