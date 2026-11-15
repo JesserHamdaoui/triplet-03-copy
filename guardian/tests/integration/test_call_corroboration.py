@@ -66,7 +66,7 @@ async def test_a_camera_that_sees_an_accident_is_a_second_report_for_one_caller(
 async def test_gauges_that_read_alike_agree_whichever_side_of_the_event_line_they_are(harness: Harness, envelope: Callable[..., dict[str, Any]]) -> None:
     """Under one cloud the gauges read alike. Near 5 mm/h they wobble either side of the line, and none may doubt the others for it."""
     _elevate(harness)                                   # a zone under raised threat judges every reading, not only those over the line
-    for seq, level in enumerate((2.8, 3.1, 3.0, 3.2, 2.9, 3.1), start=1):
+    for seq, level in enumerate((4.8, 5.1, 5.0, 5.2, 4.9, 5.1), start=1):
         harness.clock.advance(10)                       # a gauge reports every ten seconds
         for sensor, wobble in (("rg-a", 0.0), ("rg-b", 0.2), ("rg-c", -0.2), ("rg-d", 0.1)):
             verdict = (await harness.push(envelope(sensor, "rain_gauge", "zone-07", value={"rainfall_mm_h": level + wobble}, seq=seq, ts=harness.clock.now())))[0]
