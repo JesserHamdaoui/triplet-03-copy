@@ -100,14 +100,21 @@ Each comes from a failure found in a three-layer run (logs of 2026-11-15), where
 - The gate asks the Guardian again for the evidence of a call that is not in force: suspicious when it was made, or past its expiry (`ActuationGate.refresh`, called before the gate checks). A verdict that is untrusted is not asked about again. What comes back replaces the reading's verdict in the graph (`replace_verdict`), so a report judged alone counts once it is corroborated.
 - A flood sends the nearest fire unit and the nearest police unit (rules `UTL-004` and `UTL-005` in `rules/disaster_units.yaml`, the `dispatch_unit:fire` and `dispatch_unit:police` actuators of the disaster department), besides the alert and the pump. It is the setting `tactics.flood_units` in `config/policy.yaml`, `off` there so the frozen Test Book (ADR 0008) decides as it did, and `on` for the live stack through `BRAIN_FLOOD_UNITS` in the root `docker-compose.yml`. Each unit is a medium-impact call, so the gate still needs two independent trusted sources.
 
-### Not changed
+### Second round (2026-11-15, after the first live runs)
 
-- `DeskReport` fails with "advise_zones List should have at most 6 items, not 9" when the city has nine zones. It does not stop a dispatch, but it fails the desk's deliberation each time. It is the Brain team's schema.
+- Guardian: an expired verdict on a camera or call report is renewed on request even when newer readings exist (`renew_types`). A crash seen by a camera and reported by callers 47 s later could never use the camera's verdict.
+- Guardian: same-type neighbours agree by value, not by which side of the event line they are (`neighbour_tolerance`, rain gauges within 2 mm/h or 35%). Gauges that read alike wobbled either side of 5 mm/h and every one was doubted by the others for the whole storm.
+- Guardian: the water in a flooded street's drain shaft (about 1.05 m, over the Brain's 1.0 m flood line and under the Guardian's 1.2 m event line) corroborates a flood call from 80% of the line (`neighbour_margin`). Dry rain gauges are no denial of a flood call (`presence_only`): the water stays after the rain stops.
+- City Brain: a desk report cuts `advise_zones` to six instead of failing (`DeskReport`). Zone-03 touches nine zones, so every incident there failed its deliberation.
+- A reading that joins an open incident already runs the reflex rules and the gate again, so a dispatch blocked for want of evidence is retried when the next trusted report arrives. Nothing to change there.
 
 ## Changes made in the Twin for the same runs (2026-11-15)
 
 - A crosswalk camera over every crosswalk (`engine/crosswalk_watch.py`, sensor `xwalk-<crosswalk>-cctv`, type `cctv_anomaly`). A pedestrian is hit only on a crosswalk and the junction cameras see about half of the street, so a hit often had no second source besides its callers. The camera flags an `accident` two seconds after a person lies within 15 m of the crosswalk, and the call centre joins it to the incident of the callers.
 - A rain gauge follows the rain through a slew limit (`sensor_model.py`): a slow start, then a climb in proportion to its reading, at most 1.5 mm/h per second. A step of about 2 mm/h after a dry spell is a z-score outlier to the Guardian (limit 4 over a floor of 0.5). The worst score over a dry spell and a 120 mm/h downpour is now 2.9.
+- A flood call from a wet street (within reach of its water) is filed under that street's drain zone, where its water level reports, so the callers and the gauge are one incident and two sources (`TwoBlocksCity.call_zone`).
+- Two ambulances and two fire trucks (`fire2` and `amb2` in the second bays), so two incidents at once get a unit each. One police car: a third extra bay starves the full city of parking.
+- Every car in a crash places an automatic call, so the first reports do not wait for a bystander (`INVOLVED_DRIVER_REPORT_PROB`).
 - The call centre forwards four calls per incident a minute, not two. The Guardian still reads more than five calls from one zone in a minute as a flood, so five a zone stays the ceiling.
 
 ## Root files (the whole triplet)
