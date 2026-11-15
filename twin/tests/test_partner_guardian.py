@@ -176,8 +176,10 @@ def test_extended_types_go_to_the_guardian_and_the_brain_once_configured():
     readings = asyncio.run(app.state.emitter.tick())
     assert "cctv_anomaly" in {r["type"] for r in app.state.reading_log.page(0, 1000)["readings"]}
     dialect = GuardianDialect("k", ("cctv_anomaly",))
-    (rendered,) = [e for r in readings if r["type"] == "cctv_anomaly" for e in dialect.render(r)]
-    assert set(rendered["value"]) == {"anomaly_type", "confidence"} and rendered["sensor_id"] == "cam-n2-cctv"
+    rendered = {e["sensor_id"]: e for r in readings if r["type"] == "cctv_anomaly" for e in dialect.render(r)}
+    assert "cam-n2-cctv" in rendered, "the junction camera flags the crashed car"
+    assert any(sid.startswith("xwalk-") for sid in rendered), "and a crosswalk camera flags the person hit, a second witness"
+    assert all(set(e["value"]) == {"anomaly_type", "confidence"} for e in rendered.values())
 
 
 def test_a_type_with_no_mapping_stops_the_start_with_a_clear_error():

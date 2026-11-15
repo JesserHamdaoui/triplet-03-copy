@@ -38,7 +38,7 @@ HMAC over the envelope without `hmac`, same rule and key. `sequence_reset: true`
 |---|---|---|---|
 | `emergency_call` | `caller-<id>`, one per pedestrian and driver (`caller-ped0`, `caller-car2`), listed in `GET /topology` | `call_id` (unique across runs and restarts, ends in the call centre's `call-NNNN`), `category, caller_id, caller_confidence, incident_id, location, reporter_kind` | `emergency_call {call_id, incident_type, caller_id}`; `police` is `crime`, `other` is not sent |
 | `traffic_camera` | `cam-n2`, `cam-n5`; a pole camera in each block, `cam-zone-01`, `cam-zone-02` | `congestion_score, vehicle_count, avg_speed_kmh, smoke_detected` | `traffic_camera` without `smoke_detected` |
-| `cctv_anomaly` | `<camera>-cctv` | `anomaly_type (collision, stopped_vehicle), confidence, anomaly_id, incident_id, location` | `cctv_anomaly {anomaly_type, confidence}`, if extended |
+| `cctv_anomaly` | `<camera>-cctv` per junction camera, `xwalk-<crosswalk>-cctv` per crosswalk camera (a person lying hurt on the crosswalk) | `anomaly_type (collision, stopped_vehicle, accident), confidence, anomaly_id, incident_id, location` | `cctv_anomaly {anomaly_type, confidence}`, if extended |
 | `building_fire` | `fire-<building>` | `smoke_detected, temp_c, co2_ppm, building_id, incident_id, location`, while a building smokes | `building_fire {building_id, smoke_detected, temp_c, co2_ppm}`, if extended |
 | `air_quality` | `aq-<zone>` | `aqi, pm25_ugm3, pm10_ugm3, smoke_detected` | `air_quality {aqi, smoke}` |
 | `rainfall` | `rain-dip-<u>-<v>` | `mm_per_hr, location` | `rain_gauge {rainfall_mm_h}` |

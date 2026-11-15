@@ -225,6 +225,7 @@ class TwoBlocksCity:
             out += [{"sensor_id": cam.id, "type": "traffic_camera", "zone_id": zone},
                     {"sensor_id": f"{cam.id}-cctv", "type": "cctv_anomaly", "zone_id": zone}]
         out += [{"sensor_id": f"cam-{z}", "type": "traffic_camera", "zone_id": z} for z in BLOCK_CAMERA_ZONES]
+        out += [{"sensor_id": xc.id, "type": "cctv_anomaly", "zone_id": self.zone_of(xc.x, xc.y)} for xc in self.sim.crosswalk_cameras]
         for fz in self.sim.flood_zones:
             zone = drain_zone(fz.id)
             out += [{"sensor_id": f"rain-{fz.id}", "type": "rainfall", "zone_id": STREETS_ZONE},
@@ -274,6 +275,7 @@ class TwoBlocksCity:
         stations = {station_actuator_id(st.id) for st in self.sim.stations}   # a quarantined station sends no unit
         units = {f"unit-{u}" for u in self.sim.units}
         return (zones | water | {cam.id for cam in self.sim.cameras} | {f"{cam.id}-cctv" for cam in self.sim.cameras}
+                | {xc.id for xc in self.sim.crosswalk_cameras}
                 | {f"fire-{b}" for b in self.sim.buildings} | stations | units)
 
     # ---- readings ---------------------------------------------------------------------
@@ -301,6 +303,14 @@ class TwoBlocksCity:
             for anomaly in cam.anomalies.values():
                 out.append({"sensor_id": f"{cam.id}-cctv", "type": "cctv_anomaly", "zone_id": self.zone_of(anomaly["x"], anomaly["y"]),
                             "department": "police",
+                            "value": {"anomaly_id": anomaly["anomaly_id"], "anomaly_type": anomaly["anomaly_type"],
+                                      "incident_id": anomaly.get("incident_id"),
+                                      "confidence": anomaly["confidence"], "location": {"x": anomaly["x"], "y": anomaly["y"]},
+                                      "since_sim_s": anomaly["since_t"], "sim_time_s": t, "run_id": self.run_id}})
+        for xc in self.sim.crosswalk_cameras:
+            for anomaly in xc.anomalies.values():
+                out.append({"sensor_id": xc.id, "type": "cctv_anomaly", "zone_id": self.zone_of(anomaly["x"], anomaly["y"]),
+                            "department": "medical",
                             "value": {"anomaly_id": anomaly["anomaly_id"], "anomaly_type": anomaly["anomaly_type"],
                                       "incident_id": anomaly.get("incident_id"),
                                       "confidence": anomaly["confidence"], "location": {"x": anomaly["x"], "y": anomaly["y"]},

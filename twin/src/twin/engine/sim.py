@@ -12,6 +12,7 @@ import networkx as nx
 from twin.engine.accidents import MIN_IMPACT_SPEED_MS, car_hits_pedestrian
 from twin.engine.buildings import Building
 from twin.engine import cameras as cams
+from twin.engine import crosswalk_watch as xwalks
 from twin.engine import witnesses as wit
 from twin.engine.car_collisions import body_corners, overlap_depth
 from twin.engine.emergency_calls import CallCentre
@@ -158,6 +159,7 @@ class Simulation(EmergencyDriving, IncidentResponse, FireResponse, FloodResponse
         self.corridors = wit.Corridors.of(self.graph)
         self.call_centre = CallCentre()
         self.cameras = cams.build_cameras(self.graph, self.traffic_lights)
+        self.crosswalk_cameras = xwalks.build_crosswalk_cameras(self.walk)   # a second witness of a person hit on a crosswalk
         self.timeline: list[dict] = []          # ground-truth events, oldest first (scenario logs)
         self.false_call_rate_per_min = 0.0      # false reports (a call about nothing), city-wide
         self._witnessed: set[tuple[str, str]] = set()   # (accident id, witness id) already decided
@@ -1579,6 +1581,12 @@ class Simulation(EmergencyDriving, IncidentResponse, FireResponse, FloodResponse
                 incident = self.call_centre.alert(t, anomaly["x"], anomaly["y"])
                 anomaly["incident_id"] = incident["id"]
                 self._camera_anomaly(anomaly["camera_id"], anomaly["vehicle_id"])["incident_id"] = incident["id"]
+            self.log_event("camera_anomaly", **anomaly)
+        casualties = [{"id": p.id, "x": p.x, "y": p.y} for p in self.pedestrians.values() if p.status == "injured"]
+        for anomaly in xwalks.update(self.crosswalk_cameras, casualties, t):   # the call centre opens or joins an incident for it
+            incident = self.call_centre.alert(t, anomaly["x"], anomaly["y"])
+            anomaly["incident_id"] = incident["id"]
+            next(c for c in self.crosswalk_cameras if c.id == anomaly["camera_id"]).anomalies[anomaly["person_id"]]["incident_id"] = incident["id"]
             self.log_event("camera_anomaly", **anomaly)
 
     def _camera_anomaly(self, camera_id: str, vehicle_id: str) -> dict:
