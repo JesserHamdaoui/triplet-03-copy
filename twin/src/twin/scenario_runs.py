@@ -14,6 +14,7 @@ import httpx
 from twin.contract import now_iso
 from twin.events import EventLog
 from twin.live import LiveRunner
+from twin.saved_logs import write_events
 from twin.testbook import SCENARIOS, TestBookScenario
 from twin.timeline import collect, is_routine
 
@@ -115,6 +116,10 @@ class ScenarioRunner:
         checks = [{"layer": e.layer, "kind": e.kind, "meaning": e.meaning, "seen": (e.layer, e.kind) in seen} for e in scenario.expected]
         result = "PASS" if ended == "closed" and all(c["seen"] for c in checks) else "FAIL"
         path = self._write_log(scenario, started, ended, result, merged, checks)
+        if path:   # the whole record beside the text: every event with its facts, routine ones flagged (saved_logs.py)
+            meta = {"id": scenario.id, "name": scenario.name, "started_at": started, "ended": ended, "result": result,
+                    "seed": self.live.city.seed, "run": self.live.city.run_id, "title": scenario.name}
+            write_events(Path(self.log_dir) / path, meta, merged["layers"], checks, everything["events"])
         report = {"id": scenario.id, "result": result, "ended": ended, "log": path, "checks": checks, "layers": merged["layers"],
                   "finished_at": now_iso()}
         return report, everything["events"]

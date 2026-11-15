@@ -6,7 +6,7 @@ Push side : the emitter pushes signed readings to the Guardian (see emitter.py).
 Partners  : the City Brain's carriers, GET /readings, GET /topology, GET /capabilities, POST /actuators/{action},
             and the same as MCP tools at /mcp; the Guardian's POST /tools/{action} (see twin/partners/).
 Viewer    : GET /live/status, GET /live/map, GET /live/agents, GET /stream/frames (SSE)
-Operator  : POST /live/control, POST /scenarios/{id}/run, GET /scenarios, GET /scenarios/runs[/{n}],
+Operator  : POST /live/control, POST /scenarios/{id}/run, GET /scenarios, GET /scenarios/runs[/{n}], GET /logs[/{name}] (the saved logs, openable),
             GET /timeline (ground truth included),
             POST /simulators/ignite_fire (set a building on fire)
             POST /simulators/flood_street (block a street's drain and bring a downpour over it)
@@ -31,6 +31,7 @@ from twin.devices import DeviceRegistry
 from twin.emitter import Emitter
 from twin.events import EventLog
 from twin.live import LiveRunner
+from twin.saved_logs import list_logs, read_log
 from twin.partners.brain_calls import BrainDoor
 from twin.partners.brain_http import brain_router
 from twin.partners.brain_mcp import brain_mcp_server, mcp_app
@@ -207,6 +208,21 @@ def create_app(settings: Settings | None = None, city: CitySource | None = None)
         found = runs.run(number)
         if found is None:
             raise HTTPException(404, f"no finished run {number}; the last {len(runs.history)} are kept")
+        return found
+
+    @app.get("/logs")
+    def saved_logs(x_operator_key: str | None = Header(default=None)):
+        """The logs in the log folder, newest first: every scenario run's, and any other `.log` kept there."""
+        require_operator(x_operator_key)
+        return {"logs": list_logs(settings.log_dir)}
+
+    @app.get("/logs/{name}")
+    def saved_log(name: str, x_operator_key: str | None = Header(default=None)):
+        """One log with the events of its run (`facts` is true when each event still has its own facts)."""
+        require_operator(x_operator_key)
+        found = read_log(settings.log_dir, name)
+        if found is None:
+            raise HTTPException(404, f"no log called {name}")
         return found
 
     @app.post("/scenarios/{scenario_id}/run", status_code=202)
