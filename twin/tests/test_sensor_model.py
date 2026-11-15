@@ -12,11 +12,30 @@ def _max_rate(series, tick_s=1.0):
 
 
 def test_a_rain_gauge_rises_no_faster_than_the_guardians_limit_however_sudden_the_downpour():
-    out = _feed(SensorModel(tick_s=1.0, seed=1), "rainfall", "rain-a", [{"mm_per_hr": 0.0}] * 5 + [{"mm_per_hr": 120.0}] * 120)
+    out = _feed(SensorModel(tick_s=1.0, seed=1), "rainfall", "rain-a", [{"mm_per_hr": 0.0}] * 5 + [{"mm_per_hr": 120.0}] * 900)
     series = [v["mm_per_hr"] for v in out]
     assert _max_rate(series) <= 2.0
     assert 115 <= series[-1] <= 125                     # it does get there
     assert series[0] == 0.0                             # and a dry gauge reads exactly dry
+
+
+def _guardian_worst_score(series, every=10, alpha=0.1, floor=0.5, min_history=20):
+    """The largest z-score the Guardian's EWMA check (guardian/detectors/dynamics.py) gives a gauge that reports every `every` s."""
+    import math
+    mean, var, n, worst = 0.0, 0.0, 0, 0.0
+    for x in series[::every]:
+        if n >= min_history:
+            worst = max(worst, abs(x - mean) / max(math.sqrt(var), floor))
+        d = x - mean
+        mean, var, n = mean + alpha * d, (1 - alpha) * (var + alpha * d * d), n + 1
+    return worst
+
+
+def test_a_storm_after_a_dry_spell_is_not_a_zscore_outlier_to_the_guardian():
+    dry, storm = [{"mm_per_hr": 0.0}] * 600, [{"mm_per_hr": 120.0}] * 120 + [{"mm_per_hr": 0.0}] * 300
+    series = [v["mm_per_hr"] for v in _feed(SensorModel(tick_s=1.0, seed=3), "rainfall", "rain-a", dry + storm)]
+    assert _guardian_worst_score(series) < 3.5          # the limit is 4
+    assert _max_rate(series) <= 1.5 and max(series) > 5  # and it still reads the storm
 
 
 def test_air_quality_follows_a_fire_within_the_limit_and_never_reads_exactly_the_same_for_long():

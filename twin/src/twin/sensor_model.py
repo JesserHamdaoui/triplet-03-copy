@@ -3,7 +3,11 @@ over a window, wobbles a little, and sits where it sits. The Guardian judges rea
 its limits (guardian/config/thresholds.yaml) take a value that jumps in one tick for a spoof, and 50 identical
 values for a stuck sensor. The truth stays in the engine; only what is reported changes.
 
-  rain gauge    the mean over RAIN_WINDOW_S, so a downpour shows as a climb (limit 2 mm/h per s)
+  rain gauge    the mean over RAIN_WINDOW_S, then followed by a gauge that swings no faster than RAIN_SLEW_MM_H_S, or
+                RAIN_SLEW_RATIO of its own reading a second when that is more, up to RAIN_SLEW_MAX_MM_H_S. A gauge that has read dry for a while
+                is judged against a baseline with no spread, and the Guardian's z-score limit (4, over a floor of 0.5)
+                flags a step of about 2 mm/h; a storm that arrives as a slow start and then builds in proportion stays
+                under it (worst score 2.9 over a dry spell, 1.3 mm/h per s at the top, against the limit of 2, never above 1.5)
   air quality   the mean over AIR_WINDOW_S (limit 5 AQI per s), particulates alongside
   camera        the mean over CAMERA_WINDOW_S of congestion, count and speed, not each car at a red light
                 (limit 0.03 congestion per s); the smoke flag is what it sees now
@@ -21,6 +25,7 @@ from collections import deque
 from typing import Any
 
 RAIN_WINDOW_S, AIR_WINDOW_S, CAMERA_WINDOW_S = 90.0, 60.0, 60.0
+RAIN_SLEW_MM_H_S, RAIN_SLEW_RATIO, RAIN_SLEW_MAX_MM_H_S = 0.03, 0.025, 1.5
 SHAFT_M, ROAD_FILL_M = 0.8, 0.2
 LEVEL_RATE_M_S = 0.008
 RAIN_NOISE, AQI_NOISE, LEVEL_NOISE, FLOW_NOISE = 0.2, 1, 0.002, 0.004
@@ -40,6 +45,7 @@ class SensorModel:
         self._rng = random.Random(seed or 0)
         self._windows: dict[tuple[str, str], deque[float]] = {}
         self._levels: dict[str, float] = {}   # sensor id -> what its damped gauge stands at
+        self._rain_out: dict[str, float] = {}   # sensor id -> what its gauge reads, before the wobble
 
     def _mean(self, sensor_id: str, field: str, value: float, window_s: float) -> float:
         samples = self._windows.setdefault((sensor_id, field), deque(maxlen=max(1, round(window_s / self.tick_s))))
@@ -58,7 +64,10 @@ class SensorModel:
 
     def _rain(self, sensor_id: str, v: dict[str, Any]) -> dict[str, Any]:
         mean = self._mean(sensor_id, "mm_per_hr", v["mm_per_hr"], RAIN_WINDOW_S)
-        return {**v, "mm_per_hr": round(self._wobble(mean, RAIN_NOISE), 1) if mean >= 0.05 else 0.0}
+        reading = self._rain_out.get(sensor_id, mean)
+        step = min(max(RAIN_SLEW_MM_H_S, RAIN_SLEW_RATIO * reading), RAIN_SLEW_MAX_MM_H_S) * self.tick_s
+        reading = self._rain_out[sensor_id] = min(reading + step, mean) if mean > reading else max(reading - step, mean)
+        return {**v, "mm_per_hr": round(self._wobble(reading, RAIN_NOISE), 1) if reading >= 0.05 else 0.0}
 
     def _air(self, sensor_id: str, v: dict[str, Any]) -> dict[str, Any]:
         mean = self._mean(sensor_id, "aqi", v["aqi"], AIR_WINDOW_S)
