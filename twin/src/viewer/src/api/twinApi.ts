@@ -105,6 +105,33 @@ export interface ScenarioRun extends ScenarioResult {
   layers?: Record<string, LayerState>
 }
 
+/** One saved log file: every scenario run writes one, with the events of its run beside it. */
+export interface SavedLogInfo {
+  name: string
+  kind: 'scenario' | 'other'
+  scenario: string | null
+  stamp: string | null
+  title: string | null
+  result: string | null
+  started_at: string | null
+  ended: string | null
+  bytes: number
+  /** the whole record is kept (each event with its facts); false for an older text-only log */
+  rich: boolean
+}
+
+export interface SavedLog {
+  name: string
+  meta: { id?: string; name?: string; title?: string; started_at?: string; ended?: string; result?: string; seed?: string | number | null; run?: string | number }
+  layers: Record<string, LayerState>
+  checks: ScenarioCheck[]
+  events: TimelineEvent[]
+  facts: boolean
+}
+
+export const getLogs = () => request<{ logs: SavedLogInfo[] }>('/logs')
+export const getLog = (name: string) => request<SavedLog>(`/logs/${encodeURIComponent(name)}`)
+
 export const getRuns = () => request<{ runs: ScenarioResult[] }>('/scenarios/runs')
 export const getRun = (run: number) => request<ScenarioRun>(`/scenarios/runs/${run}`)
 

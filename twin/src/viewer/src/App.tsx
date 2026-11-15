@@ -12,7 +12,7 @@ import { CityScene } from './scene/CityScene'
 import { highlightOf } from './scene/placeLabels'
 import { CivilianDrawer } from './ui/CivilianDrawer'
 import { useAgents } from './ui/useAgents'
-import { TimelinePage } from './timeline/TimelinePage'
+import { StoryPage } from './story/StoryPage'
 
 const pickCars = (f: Recording['frames'][number]) => f.cars
 const pickPeds = (f: Recording['frames'][number]) => f.pedestrians
@@ -161,6 +161,6 @@ function LiveApp() {
 }
 
 export function App() {
-  if (window.location.pathname === '/timeline') return <TimelinePage />
+  if (window.location.pathname === '/timeline') return <StoryPage />
   return new URLSearchParams(window.location.search).has('rec') ? <RecordedApp /> : <LiveApp />
 }
