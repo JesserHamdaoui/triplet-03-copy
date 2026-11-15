@@ -1,0 +1,29 @@
+# Flood unit rules, run only with `tactics.flood_units: on` (config/policy.yaml). Off, a flood is answered with the alert, the pump and the valve call, as in the frozen Test Book.
+rules:
+  - id: UTL-004
+    name: flood.fire.respond
+    scope: condition
+    description: A flood is reported. Send the nearest fire unit to rescue people from the water and the cars in it.
+    when:
+      incident.type: flood
+    do:
+      - action: dispatch_unit
+        params:
+          unit_type: fire
+          zone_id: $incident.zone_id
+          incident_id: $incident.incident_id
+          mode: respond
+
+  - id: UTL-005
+    name: flood.police.respond
+    scope: condition
+    description: A flood is reported. Send the nearest police unit to close the flooded street and keep traffic out of the water.
+    when:
+      incident.type: flood
+    do:
+      - action: dispatch_unit
+        params:
+          unit_type: police
+          zone_id: $incident.zone_id
+          incident_id: $incident.incident_id
+          mode: respond

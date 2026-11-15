@@ -268,6 +268,9 @@ class TacticsPolicy(BaseModel):
     alert_anomaly_types: list[str] = Field(default_factory=lambda: ["robbery", "assault", "shooting"])
     alert_channel: Literal["sms", "siren", "app"] = "app"
     alert_message: str = "Police activity in {zone}. Please avoid the area."
+    # `on`: a flood also sends the nearest fire unit and the nearest police unit (rules UTL-004 and UTL-005, rules/disaster_units.yaml), besides the
+    # alert, the pump and the valve call. `off` keeps the flood answer the frozen Test Book records. `BRAIN_FLOOD_UNITS` overrides it for one run.
+    flood_units: Literal["off", "on"] = "off"
 
 
 class WorkspacePolicy(BaseModel):
@@ -540,6 +543,8 @@ def load(cls: type[T], name: str, path: str | Path | None = None) -> T:
         loaded = cls()
     else:
         loaded = cls.model_validate(yaml.safe_load(file.read_text()) or {})
+    if isinstance(loaded, Policy) and os.environ.get("BRAIN_FLOOD_UNITS") in ("on", "off"):
+        loaded.tactics.flood_units = os.environ["BRAIN_FLOOD_UNITS"]  # type: ignore[assignment]
     return _with_partner_addresses(loaded) if isinstance(loaded, PartnersConfig) else loaded
 
 

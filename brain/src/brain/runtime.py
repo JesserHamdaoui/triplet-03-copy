@@ -203,6 +203,8 @@ class BrainService:
         manifests = self.packs
         manifest = manifests["POLICE"]
         rules = [rule for m in manifests.values() if m.reflex_rules for rule in load_rules(m.reflex_rules, m.code, self._packs_dir)]
+        if self.policy.tactics.flood_units == "on":   # a flood also sends the fire unit and the police (config/policy.yaml, tactics)
+            rules += load_rules("disaster_units.yaml", "DISASTER", self._packs_dir)
         learned = self.policy.learning.use_learned and self.partners.brain.learned_dir
         if learned:
             folder = Path(learned)

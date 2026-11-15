@@ -78,6 +78,7 @@ services:
     environment:
       <<: *partners
       NEO4J_PASSWORD: ${NEO4J_PASSWORD:-citybrain-local-pw}
+      BRAIN_FLOOD_UNITS: "on" # a flood sends the fire unit and the police too (the Test Book keeps its frozen answer with the default, off)
       OTLP_ENDPOINT: ${OTLP_ENDPOINT:-} # the obs profile's Jaeger: one span per timeline event
     ports: ["127.0.0.1:8002:8002"]
     healthcheck:

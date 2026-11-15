@@ -40,6 +40,7 @@ tactics:
   alert_anomaly_types: [robbery, assault, shooting]
   alert_channel: app
   alert_message: "Police activity in {zone}. Please avoid the area."
+  flood_units: "off"      # on: a flood also sends the nearest fire unit and the police (rules UTL-004, UTL-005); off is the frozen Test Book. BRAIN_FLOOD_UNITS overrides per run
 workspace:
   enabled: true
   slots: 2
