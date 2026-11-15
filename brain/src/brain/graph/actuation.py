@@ -126,7 +126,7 @@ async def gate_proposals(
     approvals: list[dict[str, Any]] = []
     new_blocked: list[str] = []
     for dumped in proposals:
-        proposal = ProposedAction.model_validate(dumped)
+        proposal = await act.gate.refresh(ProposedAction.model_validate(dumped))   # a report judged alone may be corroborated by now
         decision = await act.gate.check(proposal)
 
         # A quarantined station is not the end of the road: try the next nearest one.

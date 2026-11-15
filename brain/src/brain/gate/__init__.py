@@ -126,7 +126,9 @@ class ActuationGate:
             return deny("incident", f"incident {proposal.incident_id} is closed ({incident.outcome})", outcome=incident.outcome)
         passed.append("incident")
 
-        # 5. Trust reference
+        # 5. Trust reference. First the verdicts on the evidence are brought up to date: a report judged while it was alone
+        #    is corroborated by the ones that came after it, and a verdict that has run out is asked for again.
+        proposal = await self._refresh(proposal, now)
         if not proposal.trust_ref:
             return deny("trust_ref", "no Guardian verdict referenced", verdict_id=None, verdict_status="missing")
         verdict = self.store.verdict(proposal.trust_ref)
@@ -251,6 +253,60 @@ class ActuationGate:
         """A recalled unit no longer holds its place, so the same dispatch may be issued again."""
         if key:
             self._used.discard(key)
+
+    REFRESH_DEADLINE_S = 1.0
+    REFRESH_MAX = 12
+
+    def _current(self, reading_id: str, now: datetime) -> bool:
+        """Is the reading's verdict trusted and still in force?"""
+        verdict = self.store.verdict_of(reading_id)
+        return (verdict is not None and verdict.status == VerdictStatus.TRUSTED
+                and (verdict.expires_at is None or verdict.expires_at >= now))
+
+    async def refresh(self, proposal: ProposedAction, now: datetime | None = None) -> ProposedAction:
+        """What a proposer does before it offers a call: the evidence's verdicts brought up to date, and a reference chosen when it had none."""
+        return await self._refresh(proposal, now or utcnow(), fill=True)
+
+    async def _refresh(self, proposal: ProposedAction, now: datetime, fill: bool = False) -> ProposedAction:
+        """Ask the Guardian again about the cited readings whose verdict is not in force: judged suspicious while the report was
+        alone, or past its expiry. A verdict that is untrusted or missing stays as it is. What comes back replaces the reading's
+        verdict in the store, and a proposal with no trusted reference takes the first one that is now in force."""
+        asked = 0
+        for reading_id in proposal.evidence_reading_ids:
+            verdict, reading = self.store.verdict_of(reading_id), self.store.reading(reading_id)
+            if reading is None or verdict is None or self._current(reading_id, now) or asked >= self.REFRESH_MAX:
+                continue
+            if verdict.status not in (VerdictStatus.TRUSTED, VerdictStatus.SUSPICIOUS):
+                continue
+            asked += 1
+            try:
+                fresh = await self.guardian.get_verdict(reading.model_dump(mode="json"), self.REFRESH_DEADLINE_S)
+            except GuardianUnavailable:
+                continue
+            if fresh.verdict_id != verdict.verdict_id and fresh.status in (VerdictStatus.TRUSTED, VerdictStatus.SUSPICIOUS):
+                self.store.replace_verdict(reading_id, fresh)
+        if proposal.trust_ref is None:
+            if not fill:
+                return proposal                      # the gate does not choose a reference for a proposer that named none
+            return self._with_reference(proposal, next((r for r in proposal.evidence_reading_ids if self._current(r, now)), None))
+        held = self.store.verdict(proposal.trust_ref)
+        if held is None or self._current_verdict(held, now):
+            return proposal                          # unknown, or already in force: the checks below judge it
+        if held.status not in (VerdictStatus.TRUSTED, VerdictStatus.SUSPICIOUS):
+            return proposal                          # untrusted stays untrusted
+        # the named verdict was set aside, or has run out: the reading's verdict in force now stands in for it
+        reading_id = f"{held.reading_ref.sensor_id}#{held.reading_ref.sequence_no}"
+        return self._with_reference(proposal, reading_id if self._current(reading_id, now) else None)
+
+    def _current_verdict(self, verdict: Any, now: datetime) -> bool:
+        return verdict.status == VerdictStatus.TRUSTED and (verdict.expires_at is None or verdict.expires_at >= now)
+
+    def _with_reference(self, proposal: ProposedAction, reading_id: str | None) -> ProposedAction:
+        verdict = self.store.verdict_of(reading_id) if reading_id else None
+        if verdict is None:
+            return proposal
+        citations = [c for c in proposal.citations if c != proposal.trust_ref] + [verdict.verdict_id]
+        return proposal.model_copy(update={"trust_ref": verdict.verdict_id, "citations": citations})
 
     def _witness(self, reading_id: str) -> str:
         """Who a reading counts as. By sensor, or (`independence: cause`) by type and zone: two cameras in one zone are one witness."""

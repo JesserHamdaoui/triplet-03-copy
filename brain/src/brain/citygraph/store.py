@@ -68,6 +68,8 @@ class MemoryGraphStore:
                 base.add_sighting(self, reading, CitizenActivity.model_validate(reading.value))
         elif kind == "retract":
             base.retract_verdict(self, payload["reading_id"], payload["reason"])
+        elif kind == "reverdict":
+            base.replace_verdict(self, payload["reading_id"], TrustVerdict.model_validate(payload["verdict"]))
         elif kind == "at_scene":
             base.mark_at_scene(self, payload["entity_id"], payload["incident_id"])
         elif kind == "decision":
@@ -261,6 +263,18 @@ class MemoryGraphStore:
                                              "reasons": [*verdict.reasons, f"retracted: {reason}"]})
         self.g.nodes[("verdict", verdict.verdict_id)]["verdict"] = revised
         return revised
+
+    def replace_verdict(self, reading_id: str, verdict: TrustVerdict) -> None:
+        """The Guardian judged this reading again (a call that was alone when it was made, corroborated since): the reading's verdict is now this one."""
+        node: Node = ("reading", reading_id)
+        if node not in self.g:
+            return
+        self._record("reverdict", {"reading_id": reading_id, "verdict": verdict.model_dump(mode="json")})
+        for _, target, key in list(self.g.out_edges(node, keys=True)):
+            if key == "VERIFIED_BY":
+                self.g.remove_edge(node, target, key=key)
+        self.g.add_node(("verdict", verdict.verdict_id), verdict=verdict)
+        self.g.add_edge(node, ("verdict", verdict.verdict_id), key="VERIFIED_BY")
 
     def verdict(self, verdict_id: str) -> TrustVerdict | None:
         attrs = self.g.nodes.get(("verdict", verdict_id))

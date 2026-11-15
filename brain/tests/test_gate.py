@@ -3,7 +3,7 @@ from datetime import timedelta
 import pytest
 
 from brain.config import GatePolicy
-from brain.contracts import ActuatorCall, ActuatorResult, ProposedAction, utcnow
+from brain.contracts import ActuatorCall, ActuatorResult, Incident, ProposedAction, VerdictStatus, utcnow
 from brain.contracts.signing import verify
 from brain.departments import load_manifest
 from brain.gate import ActuationGate, idempotency_key
@@ -20,8 +20,16 @@ class RecordingTwin:
 
 
 class StubGuardian:
-    def __init__(self, quarantined=(), down=False) -> None:
+    def __init__(self, quarantined=(), down=False, fresh=None) -> None:
         self.quarantined, self.down = set(quarantined), down
+        self.fresh = fresh or {}   # sensor id -> the verdict the Guardian gives when asked again
+        self.asked: list[str] = []
+
+    async def get_verdict(self, reading, deadline_s):
+        self.asked.append(reading["sensor_id"])
+        if self.down or reading["sensor_id"] not in self.fresh:
+            raise GuardianUnavailable("no new verdict")
+        return self.fresh[reading["sensor_id"]]
 
     async def is_quarantined(self, device_id: str) -> bool:
         if self.down:
@@ -373,3 +381,74 @@ async def test_with_retry_off_a_dispatch_the_twin_never_answered_stays_spent(set
         await gate.execute(first.approval_id)
     again = await gate.check(proposal)
     assert not again.allowed and again.check == "idempotency"
+
+
+def _reports(world, first_status="suspicious"):
+    """Two callers about the same thing: the first was judged while it was alone, the second after it."""
+    first = world.reading("caller-a", "emergency_call", "zone-07", {"category": "police"}, at_s=10, status=first_status)
+    second = world.reading("caller-b", "emergency_call", "zone-07", {"category": "police"}, at_s=12)
+    incident = Incident(incident_id="inc-0001", type="crime", zone_id="zone-07", occurred_at=utcnow(),
+                        evidence=[first, second], departments=["POLICE"])
+    world.store.add_incident(incident)
+    proposal = ProposedAction(
+        department="POLICE", tier="reflex", incident_id="inc-0001", action="dispatch_unit", actuator_id="x",
+        params={"unit_type": "police", "zone_id": "zone-07", "incident_id": "inc-0001"},
+        justification="test", trust_ref=None, evidence_reading_ids=[first, second],
+    )
+    return first, second, proposal
+
+
+def _trusted(world, reading_id):
+    old = world.store.verdict_of(reading_id)
+    return old.model_copy(update={"verdict_id": f"{old.verdict_id}-again", "status": VerdictStatus.TRUSTED,
+                                  "expires_at": utcnow() + timedelta(seconds=120)})
+
+
+async def test_a_report_judged_alone_counts_once_the_guardian_corroborates_it(world):
+    first, second, proposal = _reports(world)
+    guardian = StubGuardian(fresh={"caller-a": _trusted(world, first)})
+    gate = ActuationGate(world.store, RecordingTwin(), guardian, GatePolicy(), {"POLICE": load_manifest("police")},
+                         {"dispatch_unit"}, signing_secret=None)
+
+    decision = await gate.check(await gate.refresh(proposal))     # as a proposer offers it: no reference chosen yet
+
+    assert decision.allowed, decision.reason                      # two trusted callers, two reports
+    assert guardian.asked == ["caller-a"]                          # only the one that was not in force was asked about
+    assert world.store.verdict_of(first).verdict_id.endswith("-again")
+
+
+async def test_a_report_the_guardian_still_doubts_does_not_count(world):
+    first, _, proposal = _reports(world)
+    gate = ActuationGate(world.store, RecordingTwin(), StubGuardian(down=True), GatePolicy(), {"POLICE": load_manifest("police")},
+                         {"dispatch_unit"}, signing_secret=None)
+
+    decision = await gate.check(await gate.refresh(proposal))
+
+    assert not decision.allowed and decision.check == "evidence"
+    assert world.store.verdict_of(first).status == VerdictStatus.SUSPICIOUS
+
+
+async def test_an_untrusted_report_is_not_asked_about_again(world):
+    first, _, proposal = _reports(world, first_status="untrusted")
+    guardian = StubGuardian(fresh={"caller-a": _trusted(world, first)})
+    gate = ActuationGate(world.store, RecordingTwin(), guardian, GatePolicy(), {"POLICE": load_manifest("police")},
+                         {"dispatch_unit"}, signing_secret=None)
+
+    await gate.check(await gate.refresh(proposal))
+
+    assert guardian.asked == []                                    # untrusted stays untrusted: a Guardian that rules a sensor out is not second-guessed
+
+
+async def test_a_verdict_that_ran_out_is_asked_for_again(setup):
+    world, _, _, proposal = setup
+    crime = proposal.evidence_reading_ids[0]
+    later = utcnow() + timedelta(hours=1)
+    fresh = {r.sensor_id: world.store.verdict_of(r.reading_id).model_copy(update={"verdict_id": f"new-{r.sensor_id}", "expires_at": later + timedelta(minutes=2)})
+             for r in (world.store.reading(i) for i in proposal.evidence_reading_ids)}
+    guardian = StubGuardian(fresh=fresh)
+    gate = make_gate(world, guardian=guardian)
+
+    decision = await gate.check(proposal, now=later)
+
+    assert decision.allowed, decision.reason
+    assert world.store.verdict_of(crime).verdict_id == f"new-{world.store.reading(crime).sensor_id}"
