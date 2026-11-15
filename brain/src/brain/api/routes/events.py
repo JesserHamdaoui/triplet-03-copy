@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 
@@ -19,8 +20,16 @@ if TYPE_CHECKING:
 TWIN_KINDS = {"brain.incident.opened": "incident_reported", "brain.action.requested": "actuator_called"}
 
 
+MAX_DATA_CHARS = 6000   # an event's own facts ride along for the timeline screen; a larger one says what it held instead
+
+
+def _facts(data: dict[str, Any]) -> dict[str, Any]:
+    text = json.dumps(data, default=str)
+    return data if len(text) <= MAX_DATA_CHARS else {"truncated": True, "keys": sorted(data)[:30]}
+
+
 def twin_event(record: dict[str, Any]) -> dict[str, Any]:
-    """One Brain CloudEvent in the Twin's timeline format: {ts, kind, message}."""
+    """One Brain CloudEvent in the Twin's timeline format: {ts, kind, message, data}."""
     kind = str(record.get("type", ""))
     data = record.get("data") if isinstance(record.get("data"), dict) else {}
     said = data.get("reason") or data.get("action") or data.get("type") or ""
@@ -28,7 +37,8 @@ def twin_event(record: dict[str, Any]) -> dict[str, Any]:
     if len(ts) > 24 and ts.endswith("Z"):
         ts = ts[:23] + "Z"  # milliseconds, as the Twin writes them: it compares and sorts ts as strings
     return {"ts": ts, "kind": TWIN_KINDS.get(kind, kind.removeprefix("brain.")),
-            "message": " ".join(str(x) for x in (record.get("subject") or "", said) if x)[:200]}
+            "message": " ".join(str(x) for x in (record.get("subject") or "", said) if x)[:200],
+            "data": _facts(data), **({"traceid": record["traceid"]} if record.get("traceid") else {})}
 
 
 def register(app: FastAPI, hub: Hub, service: Callable[[], BrainService]) -> None:

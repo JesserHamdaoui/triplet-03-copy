@@ -313,3 +313,22 @@ async def test_a_twin_reset_closes_what_the_old_city_left_open(api):
     incident = hub.service.triage.incidents["inc-0001"]
     assert (incident.status, incident.outcome) == ("closed", "twin_reset")
     assert "brain.incident.closed" in [e["type"] for e in (await backlog(client))[-3:]]
+
+
+async def test_the_twin_format_event_list_carries_each_events_own_facts(api):
+    client, hub = api
+    await client.post("/api/scenarios/t14/run", params={"speed": 0})
+    await hub.wait()
+
+    listed = (await client.get("/events", params={"limit": 2000})).json()["events"]
+    opened = next(e for e in listed if e["kind"] == "incident_reported")
+    assert opened["data"]["type"] == "crime" and opened["data"]["evidence"]       # what the screen shows when an event is opened
+    assert all(isinstance(e["data"], dict) and {"ts", "kind", "message"} <= set(e) for e in listed)
+
+
+def test_a_larger_event_says_what_it_held_instead_of_sending_it_all():
+    from brain.api.routes.events import MAX_DATA_CHARS, twin_event
+
+    big = {"type": "brain.x", "time": "2026-11-15T03:00:00.000000Z", "subject": "s", "data": {f"k{i}": "v" * 200 for i in range(60)}}
+    event = twin_event(big)
+    assert event["data"]["truncated"] is True and len(json.dumps(event["data"])) < MAX_DATA_CHARS
