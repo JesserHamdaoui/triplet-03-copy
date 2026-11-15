@@ -14,7 +14,7 @@ import time
 from dataclasses import dataclass
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from brain.departments import Manifest
 from brain.departments.builder import IncidentClosed, TeamDeps
@@ -33,12 +33,21 @@ ANALYST_TOOLS = {
 }
 
 
+MAX_ADVISE_ZONES = 6
+
+
 class DeskReport(BaseModel):
     severity: Literal["low", "medium", "high"]
     summary: str = Field(max_length=500)
     concerns: list[str] = Field(default_factory=list, max_length=4)
-    advise_zones: list[str] = Field(default_factory=list, max_length=6)  # zones near the incident worth telling; from the city context only
+    advise_zones: list[str] = Field(default_factory=list, max_length=MAX_ADVISE_ZONES)  # zones near the incident worth telling; from the city context only
     playbook_ids: list[str] = Field(default_factory=list, max_length=4)
+
+    @field_validator("advise_zones", mode="before")
+    @classmethod
+    def _only_the_first_few(cls, zones: Any) -> Any:
+        """A street touches many zones (nine here, with the drains). A longer list is cut, not refused: the whole deliberation used to fail."""
+        return zones[:MAX_ADVISE_ZONES] if isinstance(zones, list) else zones
 
 
 class DeskDecision(BaseModel):

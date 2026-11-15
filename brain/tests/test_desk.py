@@ -80,3 +80,25 @@ async def _none():
 async def scenario_events(scenario_id, models=MODELS):
     result = await run_scenario(load_scenario(scenario_id), inproc_partners(), models=models, speed=0, timeout_s=30)
     return result, [json.loads(e.model_dump_json(exclude_none=True)) for e in result.sink.events]
+
+
+def test_a_report_with_more_neighbours_than_it_may_name_is_cut_not_refused():
+    zones = [f"zone-0{n}" for n in range(1, 10)]          # a street that touches nine zones, drains included
+
+    cut = report(advise_zones=zones)
+
+    assert cut.advise_zones == zones[:6]
+
+
+async def test_the_scripted_analyst_reports_on_a_zone_with_nine_neighbours():
+    store = MemoryGraphStore()
+    store.load_topology({"zones": [{"id": f"zone-{n:02d}", "name": f"Name {n}"} for n in range(1, 11)],
+                         "adjacency": [["zone-01", f"zone-{n:02d}"] for n in range(2, 11)]})
+    tools = SimpleNamespace(store=store, kb=KB, graph_context=lambda: _done())
+    brief = {"independent_sources": 2, "manifest_severity": 0.9, "incident": {"zone_id": "zone-01", "type": "accident"}, "playbook_hint": []}
+
+    assert len((await ScriptedDesk().analyst(brief, tools)).advise_zones) == 6
+
+
+async def _done():
+    return None
