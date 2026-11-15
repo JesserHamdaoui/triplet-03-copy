@@ -114,3 +114,20 @@ async def test_a_flood_call_over_a_dry_water_level_is_still_doubted(harness: Har
     await harness.push(envelope("wl-dip-2-3", "water_level", "zone-07", value={"level_m": 0.0}))
     call = (await harness.push(_call(envelope, "a", "flood")))[0]
     assert call["status"] != "trusted"
+
+
+async def test_a_units_own_report_is_not_held_back_by_a_zone_under_raised_threat(harness: Harness, envelope: Callable[..., dict[str, Any]]) -> None:
+    _elevate(harness)
+    report = (await harness.push(envelope("unit-amb1", "unit_status", "zone-07", value={"unit_id": "amb1", "incident_id": "inc-1", "state": "returning"})))[0]
+    assert report["status"] == "trusted", report["reasons"]
+
+
+async def test_two_flood_callers_by_a_wet_street_are_not_outvoted_by_dry_gauges_of_other_streets(harness: Harness, envelope: Callable[..., dict[str, Any]]) -> None:
+    _elevate(harness)
+    await harness.push(envelope("wl-here", "water_level", "zone-07", value={"level_m": 0.3}))        # the water has not reached the gauge yet
+    for i in range(3):                                                                              # dry gauges of the streets next to it
+        await harness.push(envelope(f"wl-other-{i}", "water_level", "zone-08", value={"level_m": 0.0}))
+    first = (await harness.push(_call(envelope, "a", "flood")))[0]
+    second = (await harness.push(_call(envelope, "b", "flood")))[0]
+    assert first["status"] != "trusted"                                                             # one voice against its own street's gauge: still doubted
+    assert second["status"] == "trusted", second["reasons"]                                         # two callers against it: two reports

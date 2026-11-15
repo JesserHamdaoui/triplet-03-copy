@@ -80,7 +80,7 @@ class CrosscheckDetector:
                                 and abs((r.ts - ts).total_seconds()) <= self.cc.corroboration_window_s):
                             votes.append((src.key, f"caller:{other}", True))
                 continue
-            for s in self.state.in_zones(zones, src.sensor_type):
+            for s in self.state.in_zones({r.zone_id} if src.same_zone_only else zones, src.sensor_type):
                 if s.sensor_id == r.sensor_id or not self._source_ok(s, r.ts):
                     continue
                 assert s.latest_reading is not None

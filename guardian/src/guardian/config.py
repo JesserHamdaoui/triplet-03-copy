@@ -207,6 +207,7 @@ class CrossSource(_M):
     key: str
     sensor_type: str
     presence_only: bool = False
+    same_zone_only: bool = False     # only sensors of the reading's own zone vote, not those of the zones next to it
 
 
 class Crosschecks(_M):
@@ -232,7 +233,7 @@ class Crosschecks(_M):
     rejudge_types: list[str] = Field(default_factory=lambda: ["emergency_call"])
     # Hardware that reports an event it sees itself (a camera flagging an accident) is judged on authenticity and
     # context only: no neighbour is expected to agree, so a tightened zone does not hold its verdict back for want of one.
-    self_attested_types: list[str] = Field(default_factory=lambda: ["cctv_anomaly"])
+    self_attested_types: list[str] = Field(default_factory=lambda: ["cctv_anomaly", "unit_status"])
 
 
 # ---------- city_model.yaml ----------
